@@ -2,6 +2,11 @@
 
 Look at the [Content documentation](https://content-v2.nuxtjs.org/) to learn more.
 
+
+### Usefule links
+
+[Nuxt content tutorials](https://dev.to/mokkapps/create-a-blog-with-nuxt-content-v2-1i4d)
+
 ## Setup
 
 Make sure to install the dependencies:
