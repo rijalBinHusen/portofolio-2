@@ -1,6 +1,5 @@
 <template>
 <div class="flex flex-wrap flex-row overflow-auto">
-    <h1>Hello world</h1>
     <!-- Card repos -->
     <div v-for="repo in repos" :key="repo" class="flex-shrink px-4 w-screen md:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <!-- service block -->
