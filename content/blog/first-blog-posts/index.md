@@ -1,3 +1,11 @@
+---
+    title: 'My first article!'
+    description: 'This is my first article!'
+    img: 'img/cover (1).JPG'
+    tags: [Nuxt, Content, Learning]
+    date: 2022-09-02
+---
+
 # My first blog post
 Welcome to my first blog post using \[content v2 module\](https://content.nuxtjs.org/)
 Hey there! 👋🏾

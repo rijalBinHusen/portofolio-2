@@ -39,7 +39,6 @@
 <script setup lang='ts'>
 
 const repos = await useFetch("https://api.github.com/users/rijalBinHusen/repos").then((res) => res?.data)
-console.log(repos)
 
 // import Skeleton from "./SkeletonLoading.vue"
     // components: {
