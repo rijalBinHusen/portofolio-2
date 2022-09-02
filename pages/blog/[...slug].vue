@@ -42,7 +42,7 @@
     </section>
 
     <!-- PrevNext Component -->
-    <!-- <PrevNext :prev="prev" :next="next" /> -->
+    <PrevNext :prev="prev" :next="next" />
   </main>
 
 
