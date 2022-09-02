@@ -34,6 +34,14 @@ export default defineNuxtConfig({
 })
 ```
 
+::InfoBox{type="error"}
+Here's a handy bit of information for you!
+
+#details
+This will be rendered inside the `description` slot. _It's important_ to see how this **works**.
+[More information can be found here](#)
+::
+
 ## Nuxt content module
 Empower your NuxtJS application with \[@nuxt/content module\](https://content.nuxtjs.org/): write in a content/ directory and fetch your Markdown, JSON, YAML, XML, and CSV files through a MongoDB-like API, acting as a Git-based Headless CMS.
 
