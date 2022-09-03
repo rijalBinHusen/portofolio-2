@@ -6,7 +6,6 @@
     date: 2022-09-02
 ---
 
-# My first blog post
 Welcome to my first blog post using \[content v2 module\](https://content.nuxtjs.org/)
 Hey there! 👋🏾
 This is my first blog post learning nuxt content.
