@@ -28,7 +28,7 @@ const flattenLinks = (links) => {
     <ul class="toc-links">
       <!-- render each link with depth class -->
       <li v-for="link of flattenLinks(links)" :key="link.id" :class="`toc-link _${link.depth}`">
-        <a :href="`#${link.id}`">
+        <a :href="`#${link.id}`" style="text-decoration:none;">
           {{ link.text }}
         </a>
       </li>
