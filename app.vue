@@ -12,3 +12,7 @@
         /* background: linear-gradient(121deg, rgba(0,213,255,1) 0%, rgba(140,226,255,1) 39%, rgba(51,153,255,1) 100%);  */ 
       }
   </style>
+
+  <script lang="ts" setup>
+  import '@/assets/css/main.css'
+  </script>

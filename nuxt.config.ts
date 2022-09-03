@@ -4,8 +4,19 @@ import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   modules: ['@nuxt/content', '@nuxtjs/tailwindcss'],
   tailwindcss: {
-
     cssPath: '~/assets/css/main.css',
-
-  }
+  },
+  build: {
+    postcss: {
+      postcssOptions: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        }
+      }
+    }
+  },
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ]
 })
