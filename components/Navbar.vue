@@ -10,15 +10,15 @@
          </label>
          <input class="hidden" type="checkbox" id="menu-toggle">
          
-         <div v-if="showMenu" class="md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
+         <div v-if="showMenu || !mobileView" class="md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
             <!-- Navigation link -->
             <nav>
                <ul class="md:flex items-center justify-between text-base text-black pt-4 md:pt-0">
-                  <li @click="showPage" v-for="nav in navs" :key="nav.title">
+                  <li @click="showPage(nav.title)" v-for="nav in navs" :key="nav.title">
                      <NuxtLink 
                         :to="nav.route" 
                         class="inline-block no-underline hover:text-blue-600 font-medium text-lg py-2 px-4 lg:-ml-2"
-                        :class="{'text-gray-500': isActive(nav.route)}"
+                        :class="{'text-gray-500': isActive(nav.title)}"
                      >
                      {{ nav.title }}
                         <font-awesome-icon :icon="nav.icon"/>
@@ -45,7 +45,7 @@
    const navs = [
       { title: 'Home', route: '/', icon: 'home'},
       { title: 'Blog', route: '/blog', icon: 'newspaper'},
-      { title: 'About', route: '/', icon: 'user'},
+      { title: 'About', route: '/hero', icon: 'user'},
       { title: 'Github repo', route: '/projects', icon: 'diagram-project'}
    ]
 
@@ -53,14 +53,17 @@
 
    const route = useRoute()
 
-   const isActive = (nowRoute: String) => {
+   const activePage = ref(null)
+
+   const isActive = (page: String) => {
       // console.log(route)
-      return nowRoute.includes(route.name)
+      return page === activePage.value
    }
 
    const mobileView = ref(false)
 
-   const showPage = () => {
+   const showPage = (page: String) => {
+      activePage.value = page
       if(mobileView.value) {
          showMenu.value = false
       }
