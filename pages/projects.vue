@@ -18,7 +18,7 @@
                     v-for="lang in repo?.topics" :key="lang" 
                     class="ml-1 text-lg" 
                     :icon="brandIconColor(lang).icon"
-                    :style="{color: brandIconColor.color }"
+                    :style="{color: brandIconColor(lang).color }"
                 />
             </p>
         </div>
@@ -77,35 +77,40 @@ const brandIconColor = (lang: String) => {
             color: 'green'
         }
     }
+    else if(lang === 'javascript') {
+        return {
+            icon: 'fa-brands fa-js',
+            color: 'orange'
+        }
+    }
+    else if(lang === 'bootstrap') {
+        return {
+            icon: 'fa-brands fa-bootstrap',
+            color: 'blue'
+        }
+    }
+    else if(lang === 'nodejs') {
+        return {
+            icon: 'fa-brands fa-node-js',
+            color: 'green'
+        }
+    }
+    else if(lang === 'react') {
+        return {
+            icon: 'fa-brands fa-react',
+            color: 'blue'
+        }
+    }
+    else if(lang === 'css') {
+        return {
+            icon: 'fa-brands fa-css3',
+            color: 'pink'
+        }
+    }
     return {
         icon: 'fa-brands fa-html5',
         color: 'blue'
     }
 }
 
-// import Skeleton from "./SkeletonLoading.vue"
-    // components: {
-    //     Skeleton
-    // },
-    // data() {
-    //     return {
-    //         repos: []
-    //     }
-    // },
-    // async mounted() {
-    //     // / get all github repository
-    //     await this.$store.dispatch("getGithub")
-    //     // then get languages that contain in the each repository
-    //     // await this.$store.dispatch("getRepositoryLanguages")
-    //     // after 1,5 second, Get the repository from the state
-    //     setTimeout(() => {
-    //         this.repos = this.$store.getters["gitRepos"]
-    //         // console.log(this.$store.state.gitRepos)
-    //         // console.log(this.$store.state.repoLanguages)
-    //     }, 1500)
-    //     // this.http.get("https://api.github.com/users/rijalBinHusen/events")
-    //     // .then( (response) => this.github = response.data )
-    //     // .catch(function (error) {
-    //     // });
-    // },
 </script>
