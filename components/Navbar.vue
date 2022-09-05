@@ -43,9 +43,8 @@
 
 <script lang="ts" setup>
    const navs = [
-      { title: 'Home', route: '/', icon: 'home'},
+      { title: 'About', route: '/', icon: 'user'},
       { title: 'Blog', route: '/blog', icon: 'newspaper'},
-      { title: 'About', route: '/hero', icon: 'user'},
       { title: 'Github repo', route: '/projects', icon: 'diagram-project'}
    ]
 
