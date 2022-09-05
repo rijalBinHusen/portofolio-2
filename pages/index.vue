@@ -1,7 +1,7 @@
 <template>
   <main>
     <section class="body-section">
-        <div class="break-words container lg:mx-48 lg:mt-36 mt-28 mx-4 w-11/12">
+        <div class="break-words lg:px-9 lg:mt-36 mt-28 mx-4 w-11/12">
           <h1 class="text-5xl mb-3">Hello there! Im</h1>
           <p class="font-bold mb-8 text-3xl">Rijal bin Husen</p>
           <p class="mb-3 text-xl">I love everything about innovation, especially innovations that benefit a lot of people.</p>

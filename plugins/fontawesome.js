@@ -6,6 +6,7 @@ import {
   faNewspaper,
   faUser,
   faDiagramProject,
+  faCalendarDays,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faJs,
@@ -40,7 +41,8 @@ library.add(
   faTelegramPlane,
   faFigma,
   faHtml5,
-  faReact
+  faReact,
+  faCalendarDays
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

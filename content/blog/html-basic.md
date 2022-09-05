@@ -1,7 +1,7 @@
 ---
 title:  "HTML basic"
 description: "Something you may need to copy paste it, or just to read it."
-date: "19-Des-2020"
+date: 2020-12-19
 img: 'img/cover (1).JPG'
 tags: [Nuxt, Content, Learning]
 ---
