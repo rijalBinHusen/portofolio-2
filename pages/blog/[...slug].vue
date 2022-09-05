@@ -1,20 +1,9 @@
 <template>
-  <!-- <div>
-    <ContentDoc
-      :path="$route.params.slug ? `/blog/${$route.params.slug[0]}` : '/blog'"
-      class="prose p-16 max-w-3xl m-auto"
-    >
-      <template #not-found>
-        <h2>Blog slug ({{ $route.params.slug }}) not found</h2>
-      </template>
-    </ContentDoc>
-  </div> -->
-
 <main id="main" class="article-main">
     <header v-if="data.article" class="article-header">
-      <!-- <div class="img-cont h-72 mb-12">
+      <div class="img-cont h-72 mb-12">
         <img :src="`/${data.article.img}`" :alt="data.article.title" class=" rounded-2xl" />
-      </div> -->
+      </div>
       <h1 class="heading">{{ data.article.title }}</h1>
       <p class="supporting">{{ data.article.description }}</p>
       <ul class="article-tags">
@@ -44,8 +33,6 @@
     <!-- PrevNext Component -->
     <PrevNext :prev="prev" :next="next" />
   </main>
-
-
 </template>
 
 <script setup>
@@ -55,14 +42,14 @@ const { data } = await useAsyncData(`content-${path}`, async () => {
   let article = queryContent().where({ _path: path }).findOne();
   // get the surround information,
   // which is an array of documeents that come before and after the current document
-  let surround = queryContent().only(["_path", "title", "description"]).sort({ date: 1 }).findSurround(path);
+  // let surround = queryContent().only(["_path", "title", "description"]).sort({ date: 1 }).findSurround(path);
   return {
     article: await article,
-    surround: await surround,
+    // surround: await surround,
   };
 });
 // destrucure `prev` and `next` value from data
-const [prev, next] = data.value.surround;
+// const [prev, next] = data.value.surround;
 // console.log({ data, prev, next });
 // set the meta
 useHead({

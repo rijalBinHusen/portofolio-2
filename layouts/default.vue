@@ -1,9 +1,6 @@
 <template>  
     <div>    
-        <nav>      
-            <NuxtLink to="/" class="link">Home</NuxtLink>      
-            <NuxtLink to="/blog" class="link">Blog</NuxtLink>    
-        </nav>    
+        <Navbar />
         <main>      
             <slot />    
         </main>  
@@ -13,3 +10,7 @@
 <style>
     .link {  margin-right: 1rem;}
 </style>
+
+<script lang="ts" setup>
+
+</script>
