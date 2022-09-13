@@ -1,5 +1,6 @@
 <template>
 <div class="flex flex-wrap flex-row overflow-auto">
+<!-- <pre> {{ repos }} </pre> -->
     <!-- Card repos -->
     <div v-for="repo in repos" :key="repo" class="flex-shrink px-4 w-screen md:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <!-- service block -->
@@ -25,7 +26,6 @@
         <!-- end service block -->
     </div>
     <!-- End of card repos -->
-
     <!-- Skeleton loading -->
     <!-- <div v-else v-for="num in [ ...Array(12).keys() ]" :key="num" class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <div class="rounded-lg lg:w-80 py-8 px-6 mt-5 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2">
@@ -43,7 +43,7 @@ let repos = ref([])
 
 const getRepository = async () => {
     await useFetch("https://api.github.com/users/rijalBinHusen/repos").then((res) => {
-        repos.value = res?.data.value
+        renewLists(res?.data.value)
         window.localStorage.setItem('repository', JSON.stringify({
             repos: res.data.value,
             expired: new Date().getTime() + 86400000
@@ -52,18 +52,32 @@ const getRepository = async () => {
     })
 }
 
+const renewLists = (newRepos) => {
+    repos.value = newRepos.sort(function (a, b) {
+          // return a?.pushed_at - b?.pushed_at;
+          let x = a.pushed_at;
+          let y = b.pushed_at;
+          if (x < y) {
+            return 1;
+          }
+          if (x > y) {
+            return -1;
+          }
+          return 0;
+        });
+}
+
 onMounted(() => {
     if(!repos.value?.length) {
         // get local storage firstt
         let getLocalRepos = JSON.parse(window.localStorage.getItem('repository'))
         // if local storage expired
-        if(!getLocalRepos || new Date().getTime() > getLocalRepos.expired ) {
+        if(!getLocalRepos?.repos || new Date().getTime() > getLocalRepos.expired ) {
             // we do anything for you
             getRepository()
             return
         }
-        repos.value = getLocalRepos.repos
-
+        renewLists(getLocalRepos.repos)
     }
 
 })

@@ -2,7 +2,7 @@
   <div class="flex flex-wrap flex-row overflow-auto">
     <div 
       class="mt-5 cursor-pointer flex-shrink px-4 w-screen md:w-1/3 lg:px-6 wow fadeInUp" 
-      v-for="{ _path: slug, title, date, img, description } in blogPosts" :key="slug"
+      v-for="{ _path: slug, title, date, img, description } in blogs" :key="slug"
     >
       <NuxtLink class="no-underline" :to="slug">
         <div class="justify-center">
@@ -27,8 +27,12 @@
 </template>
 
 <script setup lang="ts">
-const blogPosts = await queryContent('/blog')
+const blogs = ref([])
+
+onMounted( async () => {
+  blogs.value = await queryContent('/blog')
   .sort({ date: -1 }) // show latest articles first
   .where({ _partial: false }) // exclude the Partial files
   .find();
+  })
 </script>
