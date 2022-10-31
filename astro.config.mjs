@@ -9,5 +9,8 @@ import tailwind from '@astrojs/tailwind'
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [vue(), tailwind()]
+  integrations: [vue(), tailwind({
+    // provide custom path to a tailwind config
+    config: { path: './tailwind.config.cjs' }
+  })]
 });
