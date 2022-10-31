@@ -15,14 +15,14 @@
             <nav>
                <ul class="md:flex items-center justify-between text-base text-black pt-4 md:pt-0">
                   <li @click="showPage(nav.title)" v-for="nav in navs" :key="nav.title">
-                     <NuxtLink 
-                        :to="nav.route" 
+                     <a 
+                        :href="nav.route" 
                         class="inline-block no-underline hover:text-blue-600 font-medium text-lg py-2 px-4 lg:-ml-2"
                         :class="{'text-gray-500': isActive(nav.title)}"
                      >
                      {{ nav.title }}
-                        <font-awesome-icon :icon="nav.icon"/>
-                     </NuxtLink>      
+                        <!-- <font-awesome-icon :icon="nav.icon"/> -->
+                  </a>      
                   </li>
                </ul>
             </nav>
@@ -32,7 +32,7 @@
          <div v-if="!showMenu" class="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
             <div class="auth flex items-center w-full md:w-full">
                <a href="https://github.com/rijalBinHusen">
-                  <font-awesome-icon class="text-xl" :icon="['fab', 'github']" />
+                  <!-- <font-awesome-icon class="text-xl" :icon="['fab', 'github']" /> -->
                </a>
                <!-- <button class="bg-blue-600 text-gray-200  p-2 rounded  hover:bg-blue-500 hover:text-gray-100">Sign up</button> -->
             </div>
@@ -42,15 +42,16 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onBeforeMount } from 'vue';
    const navs = [
       { title: 'About', route: '/', icon: 'user'},
-      { title: 'Blog', route: '/blog', icon: 'newspaper'},
-      { title: 'Github repo', route: '/projects', icon: 'diagram-project'}
+      { title: 'Blog', route: '/blog/', icon: 'newspaper'},
+      { title: 'Github repo', route: '/projects/', icon: 'diagram-project'}
    ]
 
    const showMenu = ref(false)
 
-   const route = useRoute()
+   // const route = useRoute()
 
    const activePage = ref(null)
 
