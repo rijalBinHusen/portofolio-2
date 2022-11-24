@@ -2,10 +2,15 @@
 
 Look at the [Content documentation](https://content-v2.nuxtjs.org/) to learn more.
 
+### 2022-10-31
+I replace nuxt with astro build
+
+I replace font-awesom-icon vue component using [this](https://icon-sets.iconify.design/)
 
 ### Usefule links
 
 [Nuxt content tutorials](https://dev.to/mokkapps/create-a-blog-with-nuxt-content-v2-1i4d)
+
 [Nuxt content tailwind css tailwind typography](https://blog.openreplay.com/power-your-blog-with-nuxt-content)
 
 ## Setup
