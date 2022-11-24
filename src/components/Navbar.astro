@@ -1,11 +1,16 @@
 ---
+   // import {  } from '@astrojs/vue'
    const navs = [
       { title: 'About', route: '/', icon: 'user'},
       { title: 'Blog', route: '/blog/', icon: 'newspaper'},
       { title: 'Github repo', route: '/projects/', icon: 'diagram-project'}
    ]
 
-   // const showMenu = ref(false)
+   
+
+---
+<script>
+   let showMenu = false
 
    // // const route = useRoute()
 
@@ -16,7 +21,7 @@
    //    return page === activePage.value
    // }
 
-   // const mobileView = ref(false)
+   let mobileView = false
 
    // const showPage = (page: String) => {
    //    activePage.value = page
@@ -25,57 +30,49 @@
    //    }
    // }
 
-   // const checkScreen = () => {
-   //      if(window.innerWidth <= 750) {
-   //          mobileView.value = true;
-   //          showMenu.value = false
-   //          return
-   //      }
-   //          mobileView.value = false;
-   //          showMenu.value = true
-   //    }
-
-   // onBeforeMount(() => {
-   //    window.addEventListener('resize', checkScreen)
-   // })
----
+   const checkScreen = () => {
+        if(window.innerWidth <= 750) {
+            mobileView = true;
+            showMenu = false
+            return
+        }
+            mobileView = false;
+            showMenu = true
+      }
+      // Detecting width device when the page first open
+      checkScreen()
+      // Detecting width device when browser resized
+      window.addEventListener('resize', checkScreen)
+   
+</script>
 <nav id="header" class="w-full z-30 top-10 shadow-lg border-b border-gray-300 py-1 rounded-lg">
      <div class="w-full flex items-center justify-between mt-0 px-6 py-2">
-        <!-- <label for="menu-toggle" v-if="!showMenu" @click="showMenu = !showMenu" class="cursor-pointer md:hidden block">
-           <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-              <title>menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-           </svg>
-        </label> -->
         <input class="hidden" type="checkbox" id="menu-toggle">
-        
-        <div v-if="showMenu || !mobileView" class="md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
-           <!-- Navigation link -->
-           <nav>
-              <ul class="md:flex items-center justify-between text-base text-black pt-4 md:pt-0">
-               
-                  {navs.map((nav) => (
-                 <li>
-                    <a 
-                       href={nav.route} 
-                       class="inline-block no-underline hover:text-blue-600 font-medium text-lg py-2 px-4 lg:-ml-2"
-                     //   :class="{'text-gray-500': isActive(nav.title)}"
-                     // <Icon name="mdi:account">
-                    >
-                    { nav.title }
-                 </a>      
-                 </li>
-                 ))}
-              </ul>
-           </nav>
-           <!-- Navigation link -->
-        </div>
+        <div class="md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
+             <!-- Navigation link -->
+            <nav>
+               <ol class="md:flex items-center justify-between text-base text-black pt-4 md:pt-0">
+                     {navs.map((nav) => (
+                     <li>
+                        <a 
+                           href={nav.route} 
+                           class="inline-block no-underline hover:text-blue-600 font-medium text-lg py-2 px-4 lg:-ml-2"
+                        >
+                           {nav.title}
+                        </a>      
+                     </li>
+                  ))}
+               </ol>
+            </nav>
+            <!-- Navigation link -->
+         </div>
         
         <div v-if="!showMenu" class="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
            <div class="auth flex items-center w-full md:w-full">
               <a href="https://github.com/rijalBinHusen">
                  <!-- <font-awesome-icon class="text-xl" :icon="['fab', 'github']" /> -->
                  <!-- <Icon icon="ant-design:github-outlined" /> -->
+                 Github
               </a>
               <!-- <button class="bg-blue-600 text-gray-200  p-2 rounded  hover:bg-blue-500 hover:text-gray-100">Sign up</button> -->
            </div>
