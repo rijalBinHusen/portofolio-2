@@ -10,45 +10,63 @@
 
 ---
 <script>
-   let showMenu = false
+   import { isMobile } from "../utils/isMobile"
 
-   // // const route = useRoute()
+import { toggleElement } from "../utils/toggleElement";
+   // github button at the right of screen when large screen
+   const githubButton = document.getElementById("github-button");
+   // navigation button only show when large screen
+   const navigation = document.getElementById("navigation");
+   // toggle navigation button when in < medium screen
+   const menuToggle = document.getElementById("menu-toggle");
+   // navigation status, isShow or hide
+   let isNavigationShow = true;
+   // is mobile
 
-   // const activePage = ref(null)
+   const showNavigation = (bool: boolean) => {
+      // JIka mobile sembunyikan #github-button dan #navigation tampilkan menu-toggle
+      if(bool) {
+         // show navigation
+         toggleElement(navigation, true)
+         // dont show github button when in mobile mode
+         if(!isMobile()) {
+            toggleElement(githubButton, true)
+         }
+         // hide toggle menu
+         toggleElement(menuToggle, false)
+         menuToggle.removeEventListener('click', toggleNavigation)
+      } else {
+         // hide navigation and github button
+         toggleElement(navigation, false)
+         toggleElement(githubButton, false)
+         toggleElement(menuToggle, true)
+         menuToggle.addEventListener('click', toggleNavigation)
+      }
+      isNavigationShow = !bool
+   }
 
-   // const isActive = (page: String) => {
-   //    // console.log(route)
-   //    return page === activePage.value
-   // }
-
-   let mobileView = false
-
-   // const showPage = (page: String) => {
-   //    activePage.value = page
-   //    if(mobileView.value) {
-   //       showMenu.value = false
-   //    }
-   // }
+   const toggleNavigation = () => {
+      showNavigation(isNavigationShow)
+      setTimeout(() => showNavigation(false), 3000)
+   }
 
    const checkScreen = () => {
-        if(window.innerWidth <= 750) {
-            mobileView = true;
-            showMenu = false
-            return
-        }
-            mobileView = false;
-            showMenu = true
-      }
-      // Detecting width device when the page first open
-      checkScreen()
-      // Detecting width device when browser resized
-      window.addEventListener('resize', checkScreen)
+      isMobile()
+         ? showNavigation(false)
+         : showNavigation(true)
+   }
    
+   // run the mobile device detector
+   checkScreen()
+   window.addEventListener('resize', checkScreen)
+
 </script>
 <nav id="header" class="w-full z-30 top-10 shadow-lg border-b border-gray-300 py-1 rounded-lg">
      <div class="w-full flex items-center justify-between mt-0 px-6 py-2">
-        <input class="hidden" type="checkbox" id="menu-toggle">
-        <div class="md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
+      <!-- Menu toggle -->
+       <Icon id="menu-toggle" name='mdi:menu' width="32" class="inline cursor-pointer" />
+       <!-- Menu toggle -->
+        <div id="navigation" class="md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
              <!-- Navigation link -->
             <nav>
                <ol class="md:flex items-center justify-between text-base text-black pt-4 md:pt-0">
@@ -68,13 +86,12 @@
             <!-- Navigation link -->
          </div>
         
-        <div v-if="!showMenu" class="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
+        <div id="github-button" class="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
            <div class="auth flex items-center w-full md:w-full">
               <a href="https://github.com/rijalBinHusen">
                  My Github
                  <Icon name='fa-brands:github' width="18" class="inline" />
               </a>
-              <!-- <button class="bg-blue-600 text-gray-200  p-2 rounded  hover:bg-blue-500 hover:text-gray-100">Sign up</button> -->
            </div>
         </div>
      </div>
