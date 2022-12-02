@@ -2,7 +2,7 @@
 title:  "HTML basic"
 description: "Something you may need to copy paste it, or just to read it."
 date: 2020-12-19
-img: 'img/cover (1).JPG'
+img: '/cover (1).JPG'
 tags: [Nuxt, Content, Learning]
 ---
 Some time we need to remember about basic, thats why I wrtie this post

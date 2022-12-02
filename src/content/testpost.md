@@ -1,7 +1,7 @@
 ---
     title: 'My first article!'
     description: 'This is my first article!'
-    img: 'img/cover (1).JPG'
+    img: '/cover (1).JPG'
     tags: [Nuxt, Content, Learning]
     date: 2022-09-02
 ---

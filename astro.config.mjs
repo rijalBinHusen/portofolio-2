@@ -12,5 +12,6 @@ export default defineConfig({
   integrations: [vue(), tailwind({
     // provide custom path to a tailwind config
     config: { path: './tailwind.config.cjs' }
-  })]
+  })],
+  publicDir: './public'
 });
