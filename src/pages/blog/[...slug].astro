@@ -9,10 +9,18 @@ export async function getStaticPaths() {
   }))
 }
 
-const { Content } = Astro.props.post
+const { Content, frontmatter } = Astro.props.post
+const { title, img, date } = frontmatter;
 ---
 <Layout>
-  <section class="prose lg:prose-xl">
+  <section class="prose lg:prose-xl mt-2 w-full mx-4">
+    <!-- Thumbnail image -->
+    <div class="img-cont lg:h-72">
+      <img src={img} alt={title} class=" rounded-2xl" />
+    </div>
+    <!-- Thumbnail image -->
+    <h1 class="heading">{title}</h1>
+    {  date }
     <Content />
   </section>
 </Layout>
