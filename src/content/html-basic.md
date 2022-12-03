@@ -5,7 +5,7 @@ date: 2020-12-19
 img: '/cover (1).JPG'
 tags: [Nuxt, Content, Learning]
 ---
-Some time we need to remember about basic, thats why I wrtie this post
+Some time we need to remember about basic, so I write this.
 ## Heading
 	<h1>This is heading 1</h1>
 	<h1>This is heading 4</h1>

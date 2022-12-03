@@ -2,12 +2,11 @@
    import { Icon } from "astro-icon";
    const navs = [
       { title: 'About', route: '/', icon: 'mdi:account'},
-      { title: 'Blog', route: '/blog/', icon: 'fa-brands:blogger'},
-      { title: 'Github repo', route: '/projects/', icon: 'fa-brands:github'}
+      { title: 'Blog', route: '/blog', icon: 'fa-brands:blogger'},
+      { title: 'Github repo', route: '/projects', icon: 'fa-brands:github'}
    ]
-
    
-
+   const currentPath = Astro.url.pathname.split('/')[1];
 ---
 <script>
    import { isMobile } from "../utils/isMobile"
@@ -74,7 +73,16 @@
                      <li>
                         <a 
                            href={nav.route} 
-                           class="inline-block no-underline hover:text-blue-600 font-medium text-lg py-2 px-4 lg:-ml-2"
+                           class={`
+                                    inline-block 
+                                    no-underline 
+                                    hover:text-blue-600 
+                                    font-medium text-lg 
+                                    py-2 px-4 lg:-ml-2
+                                    ${'/'+currentPath === nav.route 
+                                       ? 'bg-red-200 bg-opacity-50 rounded-lg' 
+                                       : ''}
+                                 `}
                         >
                            {nav.title}
                            <Icon name={nav.icon} width="18" class="inline" />
@@ -89,10 +97,12 @@
         <div id="github-button" class="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
            <div class="auth flex items-center w-full md:w-full">
               <a href="https://github.com/rijalBinHusen">
-                 My Github
+                  {Astro.url.pathname}
                  <Icon name='fa-brands:github' width="18" class="inline" />
               </a>
            </div>
         </div>
      </div>
   </nav>
+
+  <style>

@@ -1,19 +1,18 @@
 ---
+import Layout from "../../layouts/default.astro";
 export async function getStaticPaths() {
   const posts = await Astro.glob('../../content/*.md')
 
   return posts.map(post => ({
-    params: { 
-      slug: post.frontmatter.slug 
-    },
-    props: {
-      post
-    },
+    params: { slug: post.file.split('/').pop().split('.').shift() },
+    props: { post },
   }))
 }
 
 const { Content } = Astro.props.post
 ---
-<article>
-  <Content/>
-</article>
+<Layout>
+  <section class="prose lg:prose-xl">
+    <Content />
+  </section>
+</Layout>
