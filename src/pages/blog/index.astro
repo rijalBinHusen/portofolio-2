@@ -16,7 +16,7 @@ const posts = await Astro.glob('../../content/*.md'); // returns an array of pos
       const href = splitTheLastFilePathByDot.shift();
       return (
         <a href={'/blog/'+href}>
-      <article class="article mt-5 cursor-pointer flex-shrink lg:px-4 w-screen lg:w-1/3 lg:px-6 wow fadeInUp" >
+      <article class="article mt-5 cursor-pointer flex-shrink lg:px-4 lg:w-1/3 lg:px-6 wow fadeInUp" >
         <div class="justify-center">
             <div class="py-2 rounded-lg lg:w-96 text-gray-900 bg-white">
               <img src={post.frontmatter.img} alt="blog" class="justify-center mx-4 w-11/12 rounded-lg">

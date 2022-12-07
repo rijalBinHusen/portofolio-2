@@ -13,14 +13,19 @@ const { Content, frontmatter } = Astro.props.post
 const { title, img, date } = frontmatter;
 ---
 <Layout>
-  <section class="prose lg:prose-xl mt-2 w-full mx-4">
+  <section class="prose lg:prose-xl lg:mt-2 w-full mx-4">
+    <h1 class="heading text-center">{title}</h1>
     <!-- Thumbnail image -->
     <div class="img-cont lg:h-72">
       <img src={img} alt={title} class=" rounded-2xl" />
     </div>
     <!-- Thumbnail image -->
-    <h1 class="heading">{title}</h1>
-    {  date }
+    <p class="text-center">
+      <b>
+        Posted date 
+      </b>
+      { date.slice(0, 10) }
+    </p>
     <Content />
   </section>
 </Layout>
