@@ -60,15 +60,15 @@
    window.addEventListener('resize', checkScreen)
 
 </script>
-<nav id="header" class="w-full z-30 top-10 shadow-lg border-b border-gray-300 py-1 rounded-lg">
-     <div class="w-full flex items-center justify-between mt-0 px-6 py-2">
+<nav id="header" class="z-30 top-10 shadow-lg border-b border-gray-300 py-1 rounded-lg">
+     <div class="flex items-center justify-between mt-0 px-6 py-2">
       <!-- Menu toggle -->
        <Icon id="menu-toggle" name='mdi:menu' width="32" class="inline cursor-pointer" />
        <!-- Menu toggle -->
-        <div id="navigation" class="md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
+        <div id="navigation" class="order-1 lg:flex lg:items-center lg:w-auto order-3 lg:order-1" id="menu">
              <!-- Navigation link -->
             <nav>
-               <ol class="md:flex items-center justify-between text-base text-black pt-4 md:pt-0">
+               <ol class="lg:flex items-center justify-between text-base text-black pt-4 lg:pt-0">
                      {navs.map((nav) => (
                      <li>
                         <a 
@@ -94,13 +94,11 @@
             <!-- Navigation link -->
          </div>
         
-        <div id="github-button" class="order-2 md:order-3 flex flex-wrap items-center justify-end mr-0 md:mr-4" id="nav-content">
-           <div class="auth flex items-center w-full md:w-full">
-              <a href="https://github.com/rijalBinHusen">
-               My Github
-                 <Icon name='fa-brands:github' width="18" class="inline" />
-              </a>
-           </div>
+        <div id="github-button" class="order-2 lg:order-3 flex flex-wrap items-center justify-end mr-0 lg:mr-4" id="nav-content">
+            <a href="https://github.com/rijalBinHusen">
+            Github
+               <Icon name='fa-brands:github' width="18" class="inline" />
+            </a>
         </div>
      </div>
   </nav>

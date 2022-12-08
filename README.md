@@ -2,6 +2,7 @@
 I replace nuxt with astro build
 
 I replace font-awesome-icon using [this](https://icon-sets.iconify.design/)
+
 I replace font-awesome-icon component using [this](https://www.npmjs.com/package/astro-icon)
 
 ### Usefule links
