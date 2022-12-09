@@ -4,10 +4,11 @@
     <!-- Card repos -->
     <div v-for="repo in repos" :key="repo" class="flex-shrink px-4 w-screen md:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <!-- service block -->
-        <div class="rounded-lg py-8 px-9 mt-5 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2 w-full">
+        <div class="rounded-lg py-8 px-9 mt-5 bg-red-200 bg-opacity-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2 w-full">
             <h3 class="text-lg leading-normal mb-3 font-semibold text-black">
                 {{ repo?.name }}
-                <font-awesome-icon :icon="['fab', 'github']" /> 
+                <!-- <font-awesome-icon :icon="['fab', 'github']" />  -->
+                <!-- <Icon name='fa-brands:github' width="18" class="inline" /> -->
             </h3>
             <p class="mb-3">Description: <span class="text-gray-500 ">{{ repo?.description || "No description" }}</span></p>
             <p class="text-sm"> Last update: 
@@ -15,12 +16,12 @@
             </p>
             <p ><span class="text-sm">Tech: </span>
                 <!-- <pre> {{ repo?.topics }} </pre> -->
-                <font-awesome-icon 
+                <!-- <font-awesome-icon 
                     v-for="lang in repo?.topics" :key="lang" 
                     class="ml-1 text-lg" 
                     :icon="brandIconColor(lang).icon"
                     :style="{color: brandIconColor(lang).color }"
-                />
+                /> -->
             </p>
         </div>
         <!-- end service block -->
@@ -38,21 +39,27 @@
 </template>
 
 <script setup lang='ts'>
+import { ref, onMounted } from 'vue';
+import { Main } from '../utils/githubResponse';
 
 let repos = ref([])
 
 const getRepository = async () => {
-    await useFetch("https://api.github.com/users/rijalBinHusen/repos").then((res) => {
-        renewLists(res?.data.value)
+    fetch('https://api.github.com/users/rijalBinHusen/repos')
+	.then(response => response.json())
+	.then(data => {
+        renewLists(data)
         window.localStorage.setItem('repository', JSON.stringify({
-            repos: res.data.value,
+            repos: data,
             expired: new Date().getTime() + 86400000
         })
         )
+        console.log(data)
     })
+	.catch(err => console.error(err));
 }
 
-const renewLists = (newRepos) => {
+const renewLists = (newRepos: Main[]) => {
     repos.value = newRepos.sort(function (a, b) {
           // return a?.pushed_at - b?.pushed_at;
           let x = a.pushed_at;
@@ -84,47 +91,47 @@ onMounted(() => {
 
 
 
-const brandIconColor = (lang: String) => {
-    if(lang === 'vue') {
-        return {
-            icon: 'fa-brands fa-vuejs',
-            color: 'green'
-        }
-    }
-    else if(lang === 'javascript') {
-        return {
-            icon: 'fa-brands fa-js',
-            color: 'orange'
-        }
-    }
-    else if(lang === 'bootstrap') {
-        return {
-            icon: 'fa-brands fa-bootstrap',
-            color: 'blue'
-        }
-    }
-    else if(lang === 'nodejs') {
-        return {
-            icon: 'fa-brands fa-node-js',
-            color: 'green'
-        }
-    }
-    else if(lang === 'react') {
-        return {
-            icon: 'fa-brands fa-react',
-            color: 'blue'
-        }
-    }
-    else if(lang === 'css') {
-        return {
-            icon: 'fa-brands fa-css3',
-            color: 'pink'
-        }
-    }
-    return {
-        icon: 'fa-brands fa-html5',
-        color: 'blue'
-    }
-}
+// const brandIconColor = (lang: String) => {
+//     if(lang === 'vue') {
+//         return {
+//             icon: 'fa-brands fa-vuejs',
+//             color: 'green'
+//         }
+//     }
+//     else if(lang === 'javascript') {
+//         return {
+//             icon: 'fa-brands fa-js',
+//             color: 'orange'
+//         }
+//     }
+//     else if(lang === 'bootstrap') {
+//         return {
+//             icon: 'fa-brands fa-bootstrap',
+//             color: 'blue'
+//         }
+//     }
+//     else if(lang === 'nodejs') {
+//         return {
+//             icon: 'fa-brands fa-node-js',
+//             color: 'green'
+//         }
+//     }
+//     else if(lang === 'react') {
+//         return {
+//             icon: 'fa-brands fa-react',
+//             color: 'blue'
+//         }
+//     }
+//     else if(lang === 'css') {
+//         return {
+//             icon: 'fa-brands fa-css3',
+//             color: 'pink'
+//         }
+//     }
+//     return {
+//         icon: 'fa-brands fa-html5',
+//         color: 'blue'
+//     }
+// }
 
 </script>
