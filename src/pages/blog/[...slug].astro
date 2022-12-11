@@ -1,30 +1,29 @@
 ---
 import Layout from "../../layouts/default.astro";
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../../content/*.md')
+  const posts = await Astro.glob("../../content/*.md");
 
-  return posts.map(post => ({
-    params: { slug: post.file.split('/').pop().split('.').shift() },
+  return posts.map((post) => ({
+    params: { slug: post.file.split("/").pop().split(".").shift() },
     props: { post },
-  }))
+  }));
 }
 
-const { Content, frontmatter } = Astro.props.post
+const { Content, frontmatter } = Astro.props.post;
 const { title, img, date } = frontmatter;
 ---
+
 <Layout>
   <section class="prose lg:prose-xl lg:mt-2 w-full mx-4">
     <h1 class="heading text-center">{title}</h1>
     <!-- Thumbnail image -->
-    <div class="img-cont lg:h-72">
-      <img src={img} alt={title} class=" rounded-2xl" />
+    <div class="img-cont">
+      <img src={img} alt={title} class="rounded-2xl" />
     </div>
     <!-- Thumbnail image -->
     <p class="text-center">
-      <b>
-        Posted date 
-      </b>
-      { date.slice(0, 10) }
+      <b> Posted date</b>
+      {date.slice(0, 10)}
     </p>
     <Content />
   </section>
