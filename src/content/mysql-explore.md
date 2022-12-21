@@ -27,7 +27,7 @@ Query OK, 1 row affected (0.001 sec)
 ## Menampikan semua database yang ada diserver
 Untuk memastikan database yang tadi kita buat berhasil, sekaligus melihat semua database yang ada diserver, kita bisa memnggunakan perintah:
 ```sql
-SHOW DATABASE;
+SHOW DATABASES;
 ```
 Tekan enter, server akan menampilkan semua database kurang lebih sebagai berikut:
 ```sql
@@ -103,8 +103,8 @@ Untuk melihat hak akses user tertentu gunakan perintah:
 SHOW GRANTS FOR nama_user;
 ```
 ## Kesimpulan
-You should now be able to create, modify, delete users and grant permissions in a MySQL database.
+<!-- You should now be able to create, modify, delete users and grant permissions in a MySQL database. -->
+Kita harus mampu menguasai perintah untuk membuat, memodifikasi, menghapus users dan memberikan hak akses di mysql database
 
-To improve security and limit accidental damage it is better to use a regular user instead of a root user in a production environment. You can also secure your database by limiting users only to the privileges required for their jobs.
-
-After creating MySQL users and granting the privileges, our suggestion is to check out our article on how to allow remote connections to MySQL database.
+<!-- To improve security and limit accidental damage it is better to use a regular user instead of a root user in a production environment. You can also secure your database by limiting users only to the privileges required for their jobs. -->
+Untuk meningkatkan keamanan dan mengantisipasi insiden kehancuran, adalah lebih baik untuk menggunakan user biasa dari pada menggunakan user root pada saat di lingkungan produksi, kita juga bisa mengamankan database dengan membatasi hak akses user.
