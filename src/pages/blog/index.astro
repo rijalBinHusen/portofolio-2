@@ -1,8 +1,12 @@
 ---
 import Layout from '../../layouts/default.astro'
 const posts = await Astro.glob('../../content/*.md'); // returns an array of posts that live at ./src/pages/post/*.lg
+
+const title = 'Rijal bin husen blogs';
+const description = 'What ever that ibin husen written';
+const permalink = Astro.site.href;
 ---
-<Layout>
+<Layout title={title} description={description} permalink={permalink}>
   <div class="flex flex-wrap flex-row overflow-auto">
     {posts.slice(0, 3).map((post) => {
       // the url to the blog path

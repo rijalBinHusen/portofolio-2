@@ -1,7 +1,12 @@
 ---
 import Layout from '../layouts/default.astro'
+
+const title = 'Rijal bin husen website';
+const description = 'The landing page that you would land';
+const permalink = Astro.site.href;
+
 ---
-<Layout>
+<Layout title={title} description={description} permalink={permalink}>
   <section class="body-section">
     <div class="break-words lg:px-9 lg:mt-36 mt-28 mx-4 w-11/12">
       <h1 class="text-5xl mb-3">Hello there! Im</h1>

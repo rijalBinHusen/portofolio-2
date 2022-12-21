@@ -10,10 +10,11 @@ export async function getStaticPaths() {
 }
 
 const { Content, frontmatter } = Astro.props.post;
-const { title, img, date } = frontmatter;
+const { title, img, date, description } = frontmatter;
+const permalink = Astro.site.href;
 ---
 
-<Layout>
+<Layout description={description} title={title} permalink={permalink}>
   <section class="prose lg:prose-xl lg:mt-2 w-full mx-4">
     <h1 class="heading text-center">{title}</h1>
     <!-- Thumbnail image -->

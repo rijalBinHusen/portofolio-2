@@ -1,9 +1,11 @@
 ---
 import Layout from "../layouts/default.astro";
 import Projects from "./projects.vue";
-// import { Icon } from 'astro-icon'
+const title = 'Rijal bin husen github repositories';
+const description = 'List of repositories from rijal bin husen github';
+const permalink = Astro.site.href;
 ---
-<Layout>
+<Layout title={title} description={description} permalink={permalink}>
     <Projects client:load />
 </Layout>
 
