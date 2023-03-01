@@ -476,14 +476,17 @@ We need to build backend application to store all data that we're going to do in
 
 ## Designing backend application
 As previously, before we do coding for backend applications, it would be better to analyze what data to store and what service that front end application needed.
-Based on design application, we’re just need data structure to store like below 
-Id = unique identity of record
-Todo = value of todo
-isCompleted = the mark of todo is that completed or no
+
+Based on design application, we just need data structure to store as below
+- Id (Unique identity of record).
+- Todo (Value of todo).
+- isCompleted (The mark of todo is that completed or no).
+
+
 Whereas the service of backend we’re just need :
-Service to create new todo
-Service to mark todo as complete or incomplete
-Service to delete todo
+- Service to create new todo
+- Service to mark todo as complete or incomplete
+- Service to delete todo
 
 ## Creating database based on data structure
 I decided to use mysql for this application among many choices database management system, this is the database view that I setup :
@@ -500,24 +503,302 @@ I decided to use mysql for this application among many choices database manageme
 
 ## Coding for backend application
 There are many programming languages for creating backend applications. I considered using PHP, a popular language since 1995, let’s get started.
-### Create a file connection from app to database
-### Create a .htaccess file to make beautiful URL
-### Create a file that contain our model
-### Create a file that receive request from front application
+
+### File connection from app to database
+Create a file *Connect.php*, the file to connecting application to database.
+```php
+<?php
+// The variable to connect to database
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "todos";
+ 
+//Create objek mysqli to make a connection and save it into variable $mysqli 
+$mysqli = new mysqli($host, $user, $pass, $db);
+
+?>
+```
+### .htaccess file to make beautiful URL
+*.htaccess* file that will rule apache server
+```bash
+RewriteEngine On # Turn on the rewriting engine
+RewriteRule ^todo/?$ todo.php [NC,L]
+RewriteRule ^todo/([0-9]+)/?$ todo.php?id=$1 [NC,L]
+```
+### Model application
+The Model is the part of MVC which implements the domain logic. In simple terms, this logic is used to handle the data passed between the database and the user interface (UI).
+
+The Model is known as domain object or domain entity.
+
+Create *Model.php* with the following content :
+```php
+<?php
+require_once "koneksi.php";
+class Todo 
+{
+ 
+   public  function get_todos() {
+      global $mysqli;
+      $query="SELECT * FROM todos";
+      $data=array();
+      $result=$mysqli->query($query);
+      while($row=mysqli_fetch_object($result))
+      {
+         $data[]=$row;
+      }
+      $response=array(
+                     'status' => 1,
+                     'message' =>'Get List todo Successfully.',
+                     'data' => $data
+                  );
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   } 
+   public function get_todo($id=0) {
+      global $mysqli;
+      $query="SELECT * FROM todos";
+      if($id != 0)
+      {
+         $query.=" WHERE id=".$id." LIMIT 1";
+      }
+      $data=array();
+      $result=$mysqli->query($query);
+      while($row=mysqli_fetch_object($result))
+      {
+         $data[]=$row;
+      }
+      $response=array(
+                     'status' => 1,
+                     'message' =>'Get Todo Successfully.',
+                     'data' => $data
+                  );
+      header('Content-Type: application/json');
+      echo json_encode($response);
+        
+   }
+   public function insert_todo(string $todo)
+      {
+         global $mysqli;
+         $result = mysqli_query($mysqli, "INSERT INTO todos SET todo = '$todo', isCompleted = '0'");
+            
+         if($result)
+         {
+            $response=array(
+               'status' => 1,
+               'message' =>'Todo Added Successfully.'
+            );
+         }
+         else
+         {
+            $response=array(
+               'status' => 0,
+               'message' =>'Todo Addition Failed.'
+            );
+         }
+         header('Content-Type: application/json');
+         echo json_encode($response);
+      }
+ 
+   function update_todo($id, string $todo, bool $isCompleted)
+      {
+         global $mysqli;
+         $varToUpdate = "";
+
+         if($todo) {
+            $varToUpdate .= " todo = '$todo',";
+         }
+
+         if($isCompleted) {
+            $varToUpdate .= " isCompleted = '$isCompleted'";
+         }
+          
+         $result = mysqli_query($mysqli, "UPDATE todos SET $varToUpdate WHERE id='$id'");
+         
+         if($result)
+         {
+            $response=array(
+               'status' => 1,
+               'message' =>'Todo Updated Successfully.'
+            );
+         }
+         else
+         {
+            $response=array(
+               'status' => 0,
+               'message' =>'Todo Updation Failed.'
+            );
+         }
+         header('Content-Type: application/json');
+         echo json_encode($response);
+      }
+ 
+   function delete_todo($id) {
+      global $mysqli;
+      $query="DELETE FROM todo WHERE id=".$id;
+      if(mysqli_query($mysqli, $query))
+      {
+         $response=array(
+            'status' => 1,
+            'message' =>'Todo Deleted Successfully.'
+         );
+      }
+      else
+      {
+         $response=array(
+            'status' => 0,
+            'message' =>'Todo Deletion Failed.'
+         );
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
+}
+ 
+ ?>
+```
+### Controller application
+A controller is responsible for controlling the way that a user interacts with an MVC application. A controller contains the flow control logic for an ASP.NET MVC application. A controller determines what response to send back to a user when a user makes a browser request.
+
+Create *Controller.php* file, with the following content
+
+```php
+<?php
+require_once "Model.php";
+$todo = new Todo();
+$request_method=$_SERVER["REQUEST_METHOD"];
+switch ($request_method) {
+   case 'GET':
+         if(!empty($_GET["id"]))
+         {
+            $id=intval($_GET["id"]);
+            $todo->get_todo($id);
+         }
+         else
+         {
+            $todo->get_todos();
+         }
+         break;
+   case 'POST':
+        $id = $_GET['id'];
+        $todo = $_POST['todo'];
+        $isCompleted = $_POST['isCompleted'];
+
+        if(!empty($id))
+            {
+                $todo->update_todo($id, false, $isCompleted);
+            }
+        else
+         {
+            $todo->insert_todo($todo);
+         }     
+         break; 
+   case 'DELETE':
+          $id=intval($_GET["id"]);
+            $todo->delete_todo($id);
+            break;
+   default:
+      // Invalid Request Method
+         header("HTTP/1.0 405 Method Not Allowed");
+         break;
+      break;
+}
+?>
+```
+
 ## Integration between backend application vs front end application
-We are almost done, we will add some function every application doing manipulation data like add todo, mark todo as completed or uncompleted, and delete todo, let's get in to it
-### Add function to save new todo to backend application
-### Add function to save
+We are almost done, we will add some function every application doing manipulation data like add todo, mark todo as completed or uncompleted, and delete todo, let's get into it
+### Add some function to interact with backend application
+Edit *App.jsx* and add some function like below :
+```javascript
+// Toggle comoplete todo
+  const handleToggle = async (id) => {
+    const findTodo = todo.find((rec) => rec?.id === id)
+    // send request to back end
+    const response = await sendDataToBackEnd(id, !findTodo.isCompleted)
+    if(response) {
+      // renew lists todo in local application
+      getAllTodo()
+    }
+  }
+
+  // Delete all todo that completed
+  async function deleteAllTodo() {
+    const todoCompleted = todo.filter((task) => {
+      return task.complete
+    })
+    //looping all completed todo
+    for(let todo of todoCompleted) {
+      await deleteTodo(todo.id)
+    }
+  }
+
+  // delete particular todo
+  async function deleteTodo(id) {
+    let headersList = { "Accept": "*/*" }
+   
+   let response = await fetch(`http://localhost/todo?id=${id}`, { 
+     method: "DELETE",
+     headers: headersList
+   });
+   if(response) {
+    // renew lists of todo
+    getAllTodo()
+   }
+  }
+  // add new todo
+  const addTask = async (userInput) => {
+
+    // send data to back end application
+    const response = await sendDataToBackEnd(false, userInput, false)
+
+    if(response) {
+      // renew lists of todo in local application
+      getAllTodo()
+    }
+
+  }
+  // function to get all todo from backend
+  const getAllTodo = async () => {
+    fetch("http://localhost/todo")
+    .then((response) => response.json())
+    .then((data) => setTodo(data));
+  }
+  
+  // function to send data to backend application
+  const sendDataToBackEnd = async (id, todo, isCompleted) => {
+    let headersList = { "Accept": "*/*" }
+   
+   let response = await fetch(`http://localhost/todo?id=${id}?&todo=${todo}&isCompleted=${isCompleted}`, { 
+     method: "POST",
+     headers: headersList
+   });
+
+   return response.status() === 200
+  }
+  // call function when application load
+  useEffect(() => {
+    getAllTodo()
+  })
+```
+
 ## Conclusion
+Impossible for somebody to build complex applications alone, because it is impossible for someone to be an expert in everything, this meme may can relate ✌️.
+
+![meme](https://preview.redd.it/hjh7wwiurey81.jpg?auto=webp&s=ac5a56e25c0eeea0acf5c6c381aca82027d2ae00)
+
+Ducks can't move fast like dogs, can't swim agile like fish, and can't fly high like birds.
+
 Building an application sometimes it’s fun, but when the application gets more complex you may need to prepare a lot of patience, because your intelligence, your skill, your IQ is not enough to finish the whole application alone.
+
 This Post become simple because I didn't tell you another process that very important likes :
-How to do unit testing for each file (Programmer Job).
-How to do integration testing of the whole application (Programmer Job).
-How to do End To End testing the whole application (QA Job).
-How to test security of the application (QA Job)
-How to create Continuous integration / Continuous deployment (Devops Job).
-How to deploy applications to the cloud or server  (Devops Job).
-And many more that I don't know yet 😀
-Impossible for somebody to build complex applications alone, this meme may can relate ✌️.
+1. How to do unit testing for each file (Programmer Job).
+2. How to do integration testing of the whole application (Programmer Job).
+3. How to do End To End testing the whole application (QA Job).
+4. How to test security of the application (QA Job)
+5. How to create Continuous integration / Continuous deployment (Devops Job).
+6. How to deploy applications to the cloud or server  (Devops Job).
+7. And many more that I don't know yet 😀
 
 
+Thanks For reading my post, hopefully can add to your insight about how to build a whole application from scratch 🙏
