@@ -20,7 +20,7 @@ We got the definition of application above because it is very simple, the more c
 ## Create flow application
 Flow application describing how the application interaction with user from start to the end, you can create flow application just using notes, or using diagram, I prefer to create flow application using diagram like this :
 
-![Flow-app](/public/full-app-1.jpg)
+![Flow-app](/full-app-1.jpg)
 
 1. User enter the page
 2. User create new todo
@@ -30,25 +30,25 @@ Flow application describing how the application interaction with user from start
 ## Create the mindmap
 Mind map explaining what information that we’re gonna show to users when he enter the page, just because our app has one page, the mind map just contain only :
 
-![mindmap](/public/full-app-2.jpg)
+![mindmap](/full-app-2.jpg)
 
 The mind map above also makes it easier for us when we’re making the sketch view.
 
 ## Create the sketch view
 The sketch view just a simple display for our website, without coloring, without typography, only a sketch like so :
 
-![sketch](/public/full-app-3.jpg)
+![sketch](/full-app-3.jpg)
 
 ## Designing front end application
 Before we build a front end application, we have to define the sketch into a completed design. You can use one of many tools like figma, adobe xd, InVison, and so on.
 We did a design using figma, and here are the end results :
 
-![design](/public/full-app-blog-content-design-analyze%20(2).png)
+![design](/full-app-blog-content-design-analyze%20(2).png)
 
 ## Coding for front end application
 Now the time has come, we’re gonna coding for front end application, but before we doing that process, it would be better if we’re analyze the design and got the conclusion what elements will we create, this is how I analyze the design and got conclusion what element I would create :
 
-![analyze-design](/public/full-app-blog-content-design-analyze%20(1).png)
+![analyze-design](/full-app-blog-content-design-analyze%20(1).png)
 
 As seen above, we will create as many as 5 components namely :
 1. Header.
