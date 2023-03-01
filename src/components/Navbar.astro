@@ -10,49 +10,30 @@
 ---
 <script>
    import { isMobile } from "../utils/isMobile"
-
    import { toggleElement } from "../utils/toggleElement";
-   // github button at the right of screen when large screen
-   const githubButton = document.getElementById("github-button");
-   // navigation button only show when large screen
-   const navigation = document.getElementById("navigation");
-   // toggle navigation button when in < medium screen
-   const menuToggle = document.getElementById("menu-toggle");
-   // navigation status, isShow or hide
-   let isNavigationShow = true;
-   // is mobile
 
-   const showNavigation = (bool: boolean) => {
+   // navigations title
+   const navigations = document.querySelectorAll('.navigation-title')
+
+   const showNavigationTitle = (bool: boolean) => {
       // JIka mobile sembunyikan #github-button dan #navigation tampilkan menu-toggle
       if(bool) {
-         // show navigation
-         toggleElement(navigation, true)
-         // dont show github button when in mobile mode
-         if(!isMobile()) {
-            toggleElement(githubButton, true)
-         }
-         // hide toggle menu
-         toggleElement(menuToggle, false)
-         menuToggle.removeEventListener('click', toggleNavigation)
+         // show navigation title
+         navigations.forEach((elm: HTMLElement) => {
+            toggleElement(elm, true)
+         })
       } else {
-         // hide navigation and github button
-         toggleElement(navigation, false)
-         toggleElement(githubButton, false)
-         toggleElement(menuToggle, true)
-         menuToggle.addEventListener('click', toggleNavigation)
+         // hide navigation title
+         navigations.forEach((elm: HTMLElement) => {
+            toggleElement(elm, false)
+         })
       }
-      isNavigationShow = !bool
-   }
-
-   const toggleNavigation = () => {
-      showNavigation(isNavigationShow)
-      setTimeout(() => showNavigation(false), 3000)
    }
 
    const checkScreen = () => {
       isMobile()
-         ? showNavigation(false)
-         : showNavigation(true)
+         ? showNavigationTitle(false)
+         : showNavigationTitle(true)
    }
    
    // run the mobile device detector
@@ -60,15 +41,13 @@
    window.addEventListener('resize', checkScreen)
 
 </script>
-<nav id="header" class="z-30 top-10 shadow-lg border-b border-gray-300 py-1 rounded-lg">
-     <div class="flex items-center justify-between mt-0 px-6 py-2">
-      <!-- Menu toggle -->
-       <Icon id="menu-toggle" name='mdi:menu' width="32" class="inline cursor-pointer" />
+<nav id="header" class="flex justify-center w-full">
+     <div class="mt-0 px-6 py-1 border-gray-300 border-b shadow-lg rounded-lg bg-yellow-200 mx-4">
        <!-- Menu toggle -->
-        <div id="navigation" class="order-1 lg:flex lg:items-center lg:w-auto order-3 lg:order-1" id="menu">
+        <div id="navigation" class="items-center justify-center order-1 flex w-auto order-3 order-1" id="menu">
              <!-- Navigation link -->
             <nav>
-               <ol class="lg:flex items-center justify-between text-base text-black pt-4 lg:pt-0">
+               <ol class="flex items-center justify-between text-base text-black pt-4 pt-0">
                      {navs.map((nav) => (
                      <li>
                         <a 
@@ -80,11 +59,13 @@
                                     font-medium text-lg 
                                     py-2 px-4 lg:-ml-2
                                     ${'/'+currentPath === nav.route 
-                                       ? 'bg-red-200 bg-opacity-50 rounded-lg' 
+                                       ? 'bg-slate-100 rounded-lg' 
                                        : ''}
                                  `}
                         >
-                           {nav.title}
+                           <span class="navigation-title hidden">
+                              {nav.title}
+                           </span>
                            <Icon name={nav.icon} width="18" class="inline" />
                         </a>      
                      </li>
@@ -93,12 +74,17 @@
             </nav>
             <!-- Navigation link -->
          </div>
-        
-        <div id="github-button" class="order-2 lg:order-3 flex flex-wrap items-center justify-end mr-0 lg:mr-4" id="nav-content">
-            <a href="https://github.com/rijalBinHusen">
-            Github
-               <Icon name='fa-brands:github' width="18" class="inline" />
-            </a>
-        </div>
      </div>
   </nav>
+
+  <style>
+   #header {
+      /* max-width: 400px; */
+      bottom: 40px;
+      right: auto;
+      left: auto;
+      position: fixed;
+      overflow: hidden;
+      z-index: 10px;
+   }
+  </style>
