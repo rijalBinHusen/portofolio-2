@@ -1,9 +1,9 @@
 ---
-title:  "Explore mysql query"
-description: "Mempelajari mysql, membuat database baru untuk sebuah aplikasi"
-date: 2022-12-11
-img: '/2JR76d9ekat59gaRqkBZUB8i.jpeg'
-tags: [mysql, sql, database]
+    title:  "Explore mysql query"
+    description: "Mempelajari mysql, membuat database baru untuk sebuah aplikasi"
+    date: 2022-12-11
+    img: '/2JR76d9ekat59gaRqkBZUB8i.jpeg'
+    tags: [mysql, sql, database]
 ---
 
 Sekarang ini saya mengalami kesulitan dalam membuat database baru, di linux saya tidak memiliki sql client, dan saya pun malas sekali untuk intall sql client di situ, ditambah lagi saya lupa user dan password sql server saya, jadi saya ingin menggunakan cli saja sekalian buat konten diblog saya 🙌.
@@ -42,6 +42,15 @@ Tekan enter, server akan menampilkan semua database kurang lebih sebagai berikut
 | rest_server        |
 +--------------------+
 6 rows in set (0.002 sec)
+```
+## Membuat table dan sekaligus kolom di database
+```sql
+CREATE TABLE todo_lists(
+    id int NOT NULL AUTO_INCREMENT,  
+    todo text NOT NULL,  
+    isCompleted BOOLEAN,  
+    PRIMARY KEY (id)
+);
 ```
 
 ## Membuat user baru

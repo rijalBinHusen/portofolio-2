@@ -8,7 +8,7 @@ const permalink = Astro.site.href;
 ---
 <Layout title={title} description={description} permalink={permalink}>
   <div class="flex flex-wrap flex-row overflow-auto">
-    {posts.slice(0, 3).map((post) => {
+    {posts.map((post) => {
       // the url to the blog path
       // split by /
       const splitBySlashFilePath = post.file.split('/')
@@ -23,7 +23,7 @@ const permalink = Astro.site.href;
       <article class="article mt-5 cursor-pointer flex-shrink lg:px-4 lg:w-1/3 lg:px-6 wow fadeInUp" >
         <div class="justify-center">
             <div class="py-2 rounded-lg lg:w-96 text-gray-900 bg-white">
-              <img src={post.frontmatter.img} alt="blog" class="justify-center mx-4 w-11/12 rounded-lg">
+              <img src={post.frontmatter.img} alt="blog" class="justify-center w-11/12 rounded-lg">
               <div class="px-6 py-2 w-full rounded-t-lg">
                   <p class="text-xl font-extrabold mb-2">
                     { post.frontmatter.title}
