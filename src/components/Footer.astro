@@ -1,20 +1,30 @@
+---
+import { Icon } from "astro-icon";
+---
+
 <footer>
   <div class="flex justify-center  inline-block">
     <p style="margin-right: 2px;">
       Powered by 
     </p>
     <a href="https://astro.build" target="_blank" rel="noopener" class="inline-block">
-      Astro<img src="/favicon.ico" alt="icon" class="inline-block" style="width:18px">
+      <img src="/favicon.ico" alt="icon" class="inline-block" style="width:18px">
+      Astro
     </a> 
-    <p style="margin-right: 2px;">
+    <p style="margin-left: 2px; margin-right: 2px;">
       and 
     </p>
     <a href="https://vuejs.org/" target="_blank" rel="noopener" class="inline-block">
-       Vue <img src="/faviconVue.ico" alt="icon" class="inline-block" style="width:18px">
+      <img src="/faviconVue.ico" alt="icon" class="inline-block" style="width:18px">
+       Vue 
     </a>.
   </div>
   <div class="flex justify-center inline-block">
-    <p style="margin-right: 2px;">Code available in </p><a href="https://github.com/rijalBinHusen/portofolio-2" target="_blank" rel="noopener">Github</a>.
+    <p style="margin-left: 2px; margin-right: 2px;">Code available in </p>
+    <a href="https://github.com/rijalBinHusen/portofolio-2" target="_blank" rel="noopener">
+      <Icon name="fa-brands:github" width="18" class="inline" />
+      Github
+    </a>.
   </div>
   <div class="flex justify-center ">
     &copy; {new Date().getFullYear()} Rijal bin Husen.
