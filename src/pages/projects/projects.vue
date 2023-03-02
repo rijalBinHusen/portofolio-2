@@ -1,12 +1,12 @@
 <template>
 <div class="overflow-auto">
-  <div class="flex font-semibold text-3xl justify-center lg:mt-28 my-8">
+  <div class="flex font-semibold text-3xl justify-center md:mt-28 my-8">
     <h1 style="text-decoration: underline;">ALL REPOSITORIES</h1>
   </div>
 <!-- <pre> {{ repos }} </pre> -->
   <div class="flex flex-wrap flex-row ">
     <!-- Card repos -->
-    <div v-for="repo in repos" :key="repo.name" class="w-screen md:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
+    <div v-for="repo in repos" :key="repo.name" class="w-screen md:w-1/3 md:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <!-- service block -->
         <div class="rounded-lg py-8 px-9 mt-5 bg-red-100 bg-opacity-50 shadow-lg border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2 w-full">
             <h3 class="text-lg leading-normal mb-3 font-semibold text-black">
@@ -16,7 +16,7 @@
             </h3>
             <p class="mb-3">Description: <span class="text-gray-500 ">{{ repo?.description || "No description" }}</span></p>
             <p class="text-sm"> Last update: 
-                <span class="text-gray-500">{{ new Date(repo?.pushed_at).toLocaleString() }} </span>
+                <span class="text-gray-500">{{ new Date(repo?.pushed_at).toLocaleDateString() }} </span>
             </p>
             <p ><span class="text-sm">Tech: </span>
                 <!-- <pre> {{ repo?.topics }} </pre> -->

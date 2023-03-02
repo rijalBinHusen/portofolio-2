@@ -3,9 +3,11 @@ export interface Props {
   title: string;
   description: string;
   permalink: string;
+  image?: string
 }
-const { title, description, permalink } = Astro.props;
-const socialUrl = Astro.site.href + "cover (1).JPG";
+const { title, description, permalink, image } = Astro.props;
+const imageURL: string = image ? image : "cover (1).JPG";
+const socialUrl: string = Astro.site.href + imageURL
 ---
 
 <!-- Global Metadata -->
