@@ -5,7 +5,6 @@ type Post = {
   }
   
   export default function getPostData(post: Post) {
-    console.log(post)
     return {
       slug: post.file.split('/').pop().split('.').shift(),
     }

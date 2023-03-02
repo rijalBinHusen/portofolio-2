@@ -1,5 +1,5 @@
 ---
-    title:  "The way I build a whole application"
+    title:  "The way I build the whole application"
     description: "Build application from scratch"
     date: 2023-03-01
     img: '/What-Is-A-Full-Stack-Developer-and-Everything-You-Need-to-Know-to-Start.jpg'
@@ -792,13 +792,14 @@ Ducks can't move fast like dogs, can't swim agile like fish, and can't fly high 
 Building an application sometimes it’s fun, but when the application gets more complex you may need to prepare a lot of patience, because your intelligence, your skill, your IQ is not enough to finish the whole application alone.
 
 This Post become simple because I didn't tell you another process that very important likes :
-1. How to do unit testing for each file (Programmer Job).
-2. How to do integration testing of the whole application (Programmer Job).
-3. How to do End To End testing the whole application (QA Job).
-4. How to test security of the application (QA Job)
-5. How to create Continuous integration / Continuous deployment (Devops Job).
-6. How to deploy applications to the cloud or server  (Devops Job).
-7. And many more that I don't know yet 😀
+1. How to setting up a new project before we build the application (Progammer Job).
+2. How to do unit testing for each file (Programmer Job).
+3. How to do integration testing of the whole application (Programmer Job).
+4. How to do End To End testing the whole application (QA Job).
+5. How to test security of the application (QA Job)
+6. How to create Continuous integration / Continuous deployment (Devops Job).
+7. How to deploy applications to the cloud or server  (Devops Job).
+8. And many more that I don't know yet 😀
 
 
 Thanks For reading my post, hopefully can add to your insight about how to build a whole application from scratch 🙏
