@@ -15,12 +15,12 @@ const permalink = Astro.site.href;
 ---
 
 <Layout description={description} title={title} permalink={permalink}>
-  <section class="prose lg:mt-2 w-full mx-4">
-    <h1 class="heading text-center">{title}</h1>
+  <section class="prose lg:mt-2 w-full lg:mx-auto">
     <!-- Thumbnail image -->
     <div class="img-cont">
       <img src={img} alt={title} class="rounded-2xl" />
     </div>
+    <h2 class="heading text-center">{title}</h2>
     <!-- Thumbnail image -->
     <p class="text-center">
       <b> Posted date</b>
