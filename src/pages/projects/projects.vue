@@ -117,6 +117,14 @@ const brandIconColor = (lang: String) => {
 
     else if(lang === 'css') {
         return 'vaadin:css'
+    } 
+    
+    else if(lang === 'astrojs') {
+        return 'vscode-icons:file-type-astro'
+    }
+
+    else if(lang === 'mysql') {
+        return 'carbon:sql'
     }
 
     return 'logos:'+lang
