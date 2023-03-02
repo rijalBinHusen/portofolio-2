@@ -1,10 +1,14 @@
 <template>
-<div class="flex flex-wrap flex-row overflow-auto">
+<div class="overflow-auto">
+  <div class="flex font-semibold text-3xl justify-center lg:mt-28 my-8">
+    <h1 style="text-decoration: underline;">ALL REPOSITORIES</h1>
+  </div>
 <!-- <pre> {{ repos }} </pre> -->
+  <div class="flex flex-wrap flex-row ">
     <!-- Card repos -->
-    <div v-for="repo in repos" :key="repo" class="flex-shrink px-4 w-screen md:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
+    <div v-for="repo in repos" :key="repo" class="w-screen md:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <!-- service block -->
-        <div class="rounded-lg py-8 px-9 mt-5 bg-red-200 bg-opacity-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2 w-full">
+        <div class="rounded-lg py-8 px-9 mt-5 bg-red-100 bg-opacity-50 shadow-lg border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2 w-full">
             <h3 class="text-lg leading-normal mb-3 font-semibold text-black">
                 {{ repo?.name }}
                 <!-- <font-awesome-icon :icon="['fab', 'github']" />  -->
@@ -25,6 +29,7 @@
             </p>
         </div>
         <!-- end service block -->
+      </div>
     </div>
     <!-- End of card repos -->
     <!-- Skeleton loading -->
