@@ -1,5 +1,5 @@
 ---
-    title:  "Explore mysql query"
+    title:  "Explore mysql command"
     description: "Mempelajari mysql, membuat database baru untuk sebuah aplikasi"
     date: 2022-12-11
     img: '/2JR76d9ekat59gaRqkBZUB8i.jpeg'
