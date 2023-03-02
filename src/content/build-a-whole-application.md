@@ -6,11 +6,12 @@
     tags: [frontend, backend, full stack, application]
 ---
 
-Everyone has their own way when building an application from scratch, and sometimes we're not convenient with their way because each person has their own cozy method.
-So do I, this is what I did to get started building an application from scratch.
+Everyone has their own way when building an application from scratch, and sometimes we're not convenient with their way because each person has their own cozy method, so do I.
 
-## Defining what application that we build
-For now example we would build Todolist application, whose the purpose is follows :
+In this post I would tell you what I did for building an application from scratch, for now example we would build a Todolist application.
+
+## Defining what application we will build
+Whose the purpose is follows :
 - Users create todo records.
 - Users can mark the todo as finished or undo it as unfinished.
 - Users can delete todo records.
