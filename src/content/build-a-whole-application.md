@@ -11,15 +11,19 @@ Everyone has their own way when building an application from scratch, and someti
 In this post I would tell you what I did for building an application from scratch, for now example we would build a Todolist application.
 
 ## Defining what application we will build
-Whose the purpose is follows :
+Before we work on the application any further, we should define what application we're gonna build, like what feature of the application needed, so that the next step can be easier.
+
+Because the application is very simple, the features are as follows :
 - Users create todo records.
 - Users can mark the todo as finished or undo it as unfinished.
 - Users can delete todo records.
   
-We got the definition of application above because it is very simple, the more complicated the application the more points we have to define.
+We got the definition of application above, the more complicated the application, the more points we have to define.
 
-## Create flow application
-Flow application describing how the application interaction with user from start to the end, you can create flow application just using notes, or using diagram, I prefer to create flow application using diagram like this :
+## Create the flow of application
+Flow application describing how the application interaction with user from start to the end, you can create flow application just using notes, or using diagram.
+
+Based on [Define](#defining-what-application-we-will-build) of the application, we can write down the flow application using diagram like this :
 
 ![Flow-app](/full-app-1.jpg)
 
