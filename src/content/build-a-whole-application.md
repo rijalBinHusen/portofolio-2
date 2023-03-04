@@ -20,20 +20,25 @@ Because the application is very simple, the features are as follows :
   
 We got the definition of application above, the more complicated the application, the more points we have to define.
 
-## Create the flow of application
+## Flow of application
 Flow application describing how the application interaction with user from start to the end, you can create flow application just using notes, or using diagram.
 
 Based on [Define](#defining-what-application-we-will-build) of the application, we can write down the flow application using diagram like this :
 
 ![Flow-app](/full-app-1.jpg)
 
+as you can see above, we the defined all features of application needed, becoming a workflow the application :
+
 1. User enter the page
 2. User create new todo
 3. User mark as finished todo
-4. User delete todo
+4. User mark as unfinished todo
+5. User delete todo
 
-## Create the mindmap
-Mind map explaining what information that we’re gonna show to users when he enter the page, just because our app has one page, the mind map just contain only :
+## Mindmap
+Mind map explaining what information, what element, and what user interface (UI) that we’re gonna show to users when he enter the page.
+
+Based on [flowmap](#flow-of-application) application, we can see that all we need is only one page, in my vision the mind map of application just contain only :
 
 ![mindmap](/full-app-2.jpg)
 
