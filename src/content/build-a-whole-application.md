@@ -34,6 +34,7 @@ as you can see above, we the defined all features of application needed, becomin
 3. User mark as finished todo
 4. User mark as unfinished todo
 5. User delete todo
+6. User delete all todo completed
 
 ## Mindmap
 Mind map explaining what information, what element, and what user interface (UI) that we’re gonna show to users when he enter the page.
@@ -42,14 +43,27 @@ Based on [flowmap](#flow-of-application) application, we can see that all we nee
 
 ![mindmap](/full-app-2.jpg)
 
-The mind map above also makes it easier for us when we’re making the sketch view.
+When user enter our application, we present a page with elements :
 
-## Create the sketch view
-The sketch view just a simple display for our website, without coloring, without typography, only a sketch like so :
+1. At the top of the page we're gonna show header of our Application
+2. Under header element we will put form element that user will type and enter new to do in it.
+3. When the todo lists contain todo, we will show button that can delete all todo finished.
+4. Below the form element we will show all todo lists the user input.
+5. Inside todo element we will put 2 button, the button to mark todo as finished and the button to delete todo
+6. And at the bottom of the page we will show footer.
+   
+The mind map above also makes us easier when making the sketch view, the initial design as the basis of full design.
+
+## Sketch
+The sketch view just a simple display, the initial design for our application, without coloring, without typography.
+
+Based on the [mindmap](#mindmap) we can draw sketch like so :
 
 ![sketch](/full-app-3.jpg)
 
-## Designing front end application
+We add button *delete all completed* so user can delete all completed todo insted of delete it one by one.
+
+## Design
 Before we build a front end application, we have to define the sketch into a completed design. You can use one of many tools like figma, adobe xd, InVison, and so on.
 We did a design using figma, and here are the end results :
 
