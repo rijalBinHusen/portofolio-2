@@ -55,16 +55,18 @@ When user enter our application, we present a page with elements :
 The mind map above also makes us easier when making the sketch view, the initial design as the basis of full design.
 
 ## Sketch
-The sketch view just a simple display, the initial design for our application, without coloring, without typography.
+The sketch view just a simple display, the initial design for our application, without coloring, without typography and based on it, we can do full design of application.
 
 Based on the [mindmap](#mindmap) we can draw sketch like so :
 
 ![sketch](/full-app-3.jpg)
 
-We add button *delete all completed* so user can delete all completed todo insted of delete it one by one.
+We add button *delete all completed* so user can easily delete all completed todo insted of delete it one by one.
 
 ## Design
-Before we build a front end application, we have to define the sketch into a completed design. You can use one of many tools like figma, adobe xd, InVison, and so on.
+After we draw the *sketch* design, we have view of the full design of application, we have to define the *sketch* into a completed design, the completed design make it easier for us when we build a frontend application. 
+
+You can use one of many tools like **Figma**, **Adobe XD**, **InVison**, and so on to work on designs.
 We did a design using figma, and here are the end results :
 
 ![design](/full-app-blog-content-design-analyze%20(2).png)
