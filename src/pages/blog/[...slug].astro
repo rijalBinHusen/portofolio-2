@@ -29,3 +29,44 @@ const permalink = Astro.site.href;
     <Content />
   </section>
 </Layout>
+
+<script>
+import { toggleElement } from "../../utils/toggleElement"
+
+const toggleCode = (preElm: HTMLPreElement) => {
+  // console.log(preElm)
+    // check isCode has hidden class
+    const codeElm = preElm.firstChild as HTMLElement
+    const isCodeHidden = codeElm.classList.value.includes('hidden')
+    const spanElm = preElm.childNodes[1] as HTMLElement
+
+    if(isCodeHidden) {
+      toggleElement(codeElm, true)
+      toggleElement(spanElm, false);
+    } 
+    else {
+      toggleElement(codeElm, false)
+      toggleElement(spanElm, true);
+    }
+  }
+
+  const selectAllPreElement = document.querySelectorAll('pre')
+  selectAllPreElement.forEach((preElm) => {
+    // add class hidden to first child element
+    const codeElement = preElm.firstChild as HTMLElement
+    toggleElement(codeElement, false)
+    // append new element to pre
+    const spanElm = document.createElement('span')
+    spanElm.id = 'spoiler'
+    spanElm.classList.add('cursor-pointer')
+    spanElm.appendChild(document.createTextNode('Show code!'))
+    preElm.appendChild(spanElm)
+
+    preElm.addEventListener('click', () => { 
+      toggleCode(preElm) 
+    })
+    codeElement.addEventListener('click', () => { 
+      toggleCode(preElm) 
+    })
+  })
+</script>
