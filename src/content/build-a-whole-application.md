@@ -73,8 +73,10 @@ We did a design using figma, and here are the end results :
 
 I do not explain in detail how to design it, likes how to create rounded line, button and etc, because it hard to explain.
 
-## Coding Frontend application
-Now the time has come, we’re gonna coding for front end application, but before we doing that process, it would be better if we’re analyze the design and got the conclusion what elements will we create, this is how I analyze the design and got conclusion what element I would create :
+## Preparation to do Frontend application
+Now the time has come, we’re gonna coding frontend application, but before we doing that process, it would be better if we’re analyze the design and got the conclusion what elements will we create.
+
+This is how I analyze the design and got conclusion what element that I would create :
 
 ![analyze-design](/full-app-blog-content-design-analyze%20(1).png)
 
@@ -84,8 +86,10 @@ As seen above, we will create as many as 5 components namely :
 3. Form.
 4. Todo.
 5. Todolists.
+
+## Coding Frontend application
    
-There are many types of framework and programming language to create a front end application, I considered choosing the hype framework called React that uses javascript language for building this app.
+There are many types of framework and programming language to create a frontend application, I considered choosing the hype framework called React that uses javascript language for building this app.
 
 ### Let's start by creating the header component
 Create *Header.jsx* file with following content :
