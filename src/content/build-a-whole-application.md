@@ -2,7 +2,7 @@
     title:  "The way I build the whole application"
     description: "Build application from scratch"
     date: 2023-03-01
-    img: '/What-Is-A-Full-Stack-Developer-and-Everything-You-Need-to-Know-to-Start.jpg'
+    img: '/build-a-whole-application/What-Is-A-Full-Stack-Developer-and-Everything-You-Need-to-Know-to-Start.jpg'
     tags: [frontend, backend, full stack, application]
 ---
 
@@ -25,9 +25,9 @@ Flow application describing how the application interaction with user from start
 
 Based on [Define](#defining-what-application-we-will-build) of the application, we can write down the flow application using diagram like this :
 
-![Flow-app](/full-app-1.jpg)
+![Flow-app](/build-a-whole-application/full-app-1.jpg)
 
-as you can see above, we the defined all features of application needed, becoming a workflow the application :
+as you can see above, we define all the required application features into workflows the application :
 
 1. User enter the page
 2. User create new todo
@@ -41,7 +41,7 @@ Mind map explaining what information, what element, and what user interface (UI)
 
 Based on [flowmap](#flow-of-application) application, we can see that all we need is only one page, in my vision the mind map of application just contain only :
 
-![mindmap](/full-app-2.jpg)
+![mindmap](/build-a-whole-application/full-app-2.jpg)
 
 When user enter our application, we present a page with elements :
 
@@ -59,7 +59,7 @@ The sketch view just a simple display, the initial design for our application, w
 
 Based on the [mindmap](#mindmap) we can draw sketch like so :
 
-![sketch](/full-app-3.jpg)
+![sketch](/build-a-whole-application/full-app-3.jpg)
 
 We add button *delete all completed* so user can easily delete all completed todo insted of delete it one by one.
 
@@ -69,16 +69,16 @@ After we draw the *sketch* design, we have view of the full design of applicatio
 You can use one of many tools like **Figma**, **Adobe XD**, **InVison**, and so on to work on designs.
 We did a design using figma, and here are the end results :
 
-![design](/full-app-blog-content-design-analyze%20(2).png)
+![design](/build-a-whole-application/full-app-blog-content-design-analyze%20(2).png)
 
-I do not explain in detail how to design it, likes how to create rounded line, button and etc, because it hard to explain.
+I do not explain in detail how to design it, likes how to create rounded line, button and etc, because it will takes a very long session.
 
 ## Preparation to do Frontend application
 Now the time has come, we’re gonna coding frontend application, but before we doing that process, it would be better if we’re analyze the design and got the conclusion what elements will we create.
 
 This is how I analyze the design and got conclusion what element that I would create :
 
-![analyze-design](/full-app-blog-content-design-analyze%20(1).png)
+![analyze-design](/build-a-whole-application/full-app-blog-content-design-analyze%20(1).png)
 
 As seen above, we will create as many as 5 components namely :
 1. Header.
@@ -91,7 +91,44 @@ As seen above, we will create as many as 5 components namely :
    
 There are many types of framework and programming language to create a frontend application, I considered choosing the hype framework called React that uses javascript language for building this app.
 
+I don't tell you how to setup a new project frontend application, what code editor I use, and etc that we can't tell you detail here.
+
+To make this post not too long, I just tell you how I build the each component application.
+
+The structure of frontend application would look like so :
+
+```
+├── src
+│   ├── components
+│   │   ├── elements
+│   │   │   ├── Button
+│   │   │   │   ├── index.css
+│   │   │   │   ├── index.jsx
+│   │   │   ├── Form
+│   │   │   │   ├── index.css
+│   │   │   │   ├── index.jsx
+│   │   │   ├── Header.jsx
+│   │   ├── parts
+│   ├── App.css
+│   ├── App.jsx
+│   ├── favicon.svg
+│   ├── index.css
+│   ├── logo.svg
+│   ├── main.jsx
+├── node_modules
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+└── vite.config.js
+```
+
 ### Let's start by creating the header component
+
+The header component will contain simple code that will return element **h1** with text *React todolist* as head of application.
+
+![header-app](/build-a-whole-application/header.png)
+
 Create *Header.jsx* file with following content :
 
 ```jsx
@@ -109,6 +146,10 @@ export default Header;
 ```
 
 ### Create the button component
+The button element, we will use in many places, like form, todo list and others.
+
+![button-app](/build-a-whole-application/button.png)
+
 Create a Folder name Button, and create *index.css* file, the style for *Button component*, this is the content of the file.
 
 ```css
@@ -246,7 +287,11 @@ Button.prototype = {
 }
 ```
 
-### Create component form to enter new todo
+### Create component form to type new todo
+The form where user can type new todo, and we're gonna put some function in this element, like when user submit the form, we will put the new todo in to todolist and we will clear the form, so user can type new todo *again*.
+
+![form-app](/build-a-whole-application/form.png)
+
 Create folder name *Form*, then create *index.css* file, with the following content
 ```css
 .todo-form {
@@ -304,6 +349,10 @@ export default function TodoForm(props) {
 
 ```
 ### Create todo component
+Todo component will contain button to delete todo and button to toggle todo as Completed or Incompleted, and the text of todo.
+
+![todo-app](/build-a-whole-application/todo.png)
+
 Create *Todo.jsx* file with the following content
 ```jsx
 import React from 'react'
@@ -355,6 +404,10 @@ export default function Todo(props) {
 ```
 
 ### Create lists of todo component
+The todo list component will looping data of todo list and will create todo component for each todo data.
+
+![todolist-app](/build-a-whole-application/todolist.png)
+
 ```jsx
 import React from 'react'
 import Todo from "./Todo"
@@ -400,6 +453,10 @@ Todo.propTypes = {
 ```
 
 ### Combining all component
+We will combine all component that we create, so it becoming the whole front application and work like we expected.
+
+![design](/build-a-whole-application/full-app-blog-content-design-analyze%20(2).png)
+
 Create a file *App.css* style for default web with the following content
 ```jsx
 .App {
