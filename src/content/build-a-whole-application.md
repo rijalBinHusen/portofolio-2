@@ -578,7 +578,8 @@ Whereas the service of backend we’re just need :
 - Service to delete todo
 
 ## Creating database based on data structure
-I decided to use mysql for this application among many choices database management system, this is the database view that I setup :
+Because we already know how data [structure](#designing-backend-application) needed, We can create database first before we do code for backend application
+I decided to use mysql database for this application among many choices database management system, this is the database view that I setup :
 
 ```sql
 +-------------+------------+------+-----+---------+----------------+
@@ -591,10 +592,22 @@ I decided to use mysql for this application among many choices database manageme
 ```
 
 ## Coding for backend application
-There are many programming languages for creating backend applications. I considered using PHP, a popular language since 1995, let’s get started.
+There are many programming languages for creating backend applications. I considered using PHP, a popular language since 1995, the folder structure would look like :
+
+
+```
+├── .htaccess
+├── Connect.php
+├── index.php
+└── Model.php
+```
+
+
+let’s get started.
 
 ### File connection from app to database
 Create a file *Connect.php*, the file to connecting application to database.
+
 ```php
 <?php
 // The variable to connect to database
@@ -608,13 +621,15 @@ $mysqli = new mysqli($host, $user, $pass, $db);
 
 ?>
 ```
-### .htaccess file to make beautiful URL
+
+### .htaccess file to redirect all request to index.php
 *.htaccess* file that will rule apache server
 ```bash
 RewriteEngine On # Turn on the rewriting engine
-RewriteRule ^todo/?$ todo.php [NC,L]
-RewriteRule ^todo/([0-9]+)/?$ todo.php?id=$1 [NC,L]
+RewriteRule ^index/?$ index.php [NC,L]
+RewriteRule ^index/([0-9]+)/?$ index.php?id=$1 [NC,L]
 ```
+
 ### Model application
 The Model is the part of MVC which implements the domain logic. In simple terms, this logic is used to handle the data passed between the database and the user interface (UI).
 
@@ -623,7 +638,7 @@ The Model is known as domain object or domain entity.
 Create *Model.php* with the following content :
 ```php
 <?php
-require_once "koneksi.php";
+require_once "Connect.php";
 class Todo 
 {
  
@@ -746,10 +761,10 @@ class Todo
  
  ?>
 ```
-### Controller application
+### Index application and also the controller
 A controller is responsible for controlling the way that a user interacts with an MVC application. A controller contains the flow control logic for an ASP.NET MVC application. A controller determines what response to send back to a user when a user makes a browser request.
 
-Create *Controller.php* file, with the following content
+Create *index.php* file, with the following content
 
 ```php
 <?php
@@ -797,6 +812,7 @@ switch ($request_method) {
 
 ## Integration between backend application vs front end application
 We are almost done, we will add some function every application doing manipulation data like add todo, mark todo as completed or uncompleted, and delete todo, let's get into it
+
 ### Add some function to interact with backend application
 Edit *App.jsx* and add some function like below :
 ```javascript
@@ -881,13 +897,13 @@ Ducks can't move fast like dogs, can't swim agile like fish, and can't fly high 
 Building an application sometimes it’s fun, but when the application gets more complex you may need to prepare a lot of patience, because your intelligence, your skill, your IQ is not enough to finish the whole application alone.
 
 This Post become simple because I didn't tell you another process that very important likes :
-1. How to setting up a new project before we build the application (Progammer Job).
-2. How to do unit testing for each file (Programmer Job).
-3. How to do integration testing of the whole application (Programmer Job).
-4. How to do End To End testing the whole application (QA Job).
-5. How to test security of the application (QA Job)
-6. How to create Continuous integration / Continuous deployment (Devops Job).
-7. How to deploy applications to the cloud or server  (Devops Job).
+1. How to setting up a new project before we build the application.
+2. How to do unit testing for each file.
+3. How to do integration testing of the whole application.
+4. How to do End To End testing the whole application.
+5. How to test security of the application.
+6. How to create Continuous integration / Continuous deployment.
+7. How to deploy applications to the cloud or server.
 8. And many more that I don't know yet 😀
 
 
