@@ -2,64 +2,133 @@
     title:  "The way I build the whole application"
     description: "Build application from scratch"
     date: 2023-03-01
-    img: '/What-Is-A-Full-Stack-Developer-and-Everything-You-Need-to-Know-to-Start.jpg'
+    img: '/build-a-whole-application/What-Is-A-Full-Stack-Developer-and-Everything-You-Need-to-Know-to-Start.jpg'
     tags: [frontend, backend, full stack, application]
 ---
 
-Everyone has their own way when building an application from scratch, and sometimes we're not convenient with their way because each person has their own cozy method.
-So do I, this is what I did to get started building an application from scratch.
+Everyone has their own way when building an application from scratch, and sometimes we're not convenient with their way because each person has their own cozy method, so do I.
 
-## Defining what application that we build
-For now example we would build Todolist application, whose the purpose is follows :
+In this post I would tell you what I did for building an application from scratch, for now example we would build a Todolist application.
+
+## Defining what application we will build
+Before we work on the application any further, we should define what application we're gonna build, like what feature of the application needed, so that the next step can be easier.
+
+Because the application is very simple, the features are as follows :
 - Users create todo records.
 - Users can mark the todo as finished or undo it as unfinished.
 - Users can delete todo records.
   
-We got the definition of application above because it is very simple, the more complicated the application the more points we have to define.
+We got the definition of application above, the more complicated the application, the more points we have to define.
 
-## Create flow application
-Flow application describing how the application interaction with user from start to the end, you can create flow application just using notes, or using diagram, I prefer to create flow application using diagram like this :
+## Flow of application
+Flow application describing how the application interaction with user from start to the end, you can create flow application just using notes, or using diagram.
 
-![Flow-app](/full-app-1.jpg)
+Based on [Define](#defining-what-application-we-will-build) of the application, we can write down the flow application using diagram like this :
+
+![Flow-app](/build-a-whole-application/full-app-1.jpg)
+
+as you can see above, we define all the required application features into workflows the application :
 
 1. User enter the page
 2. User create new todo
 3. User mark as finished todo
-4. User delete todo
+4. User mark as unfinished todo
+5. User delete todo
+6. User delete all todo completed
 
-## Create the mindmap
-Mind map explaining what information that we’re gonna show to users when he enter the page, just because our app has one page, the mind map just contain only :
+## Mindmap
+Mind map explaining what information, what element, and what user interface (UI) that we’re gonna show to users when he enter the page.
 
-![mindmap](/full-app-2.jpg)
+Based on [flowmap](#flow-of-application) application, we can see that all we need is only one page, in my vision the mind map of application just contain only :
 
-The mind map above also makes it easier for us when we’re making the sketch view.
+![mindmap](/build-a-whole-application/full-app-2.jpg)
 
-## Create the sketch view
-The sketch view just a simple display for our website, without coloring, without typography, only a sketch like so :
+When user enter our application, we present a page with elements :
 
-![sketch](/full-app-3.jpg)
+1. At the top of the page we're gonna show header of our Application
+2. Under header element we will put form element that user will type and enter new to do in it.
+3. When the todo lists contain todo, we will show button that can delete all todo finished.
+4. Below the form element we will show all todo lists the user input.
+5. Inside todo element we will put 2 button, the button to mark todo as finished and the button to delete todo
+6. And at the bottom of the page we will show footer.
+   
+The mind map above also makes us easier when making the sketch view, the initial design as the basis of full design.
 
-## Designing front end application
-Before we build a front end application, we have to define the sketch into a completed design. You can use one of many tools like figma, adobe xd, InVison, and so on.
+## Sketch
+The sketch view just a simple display, the initial design for our application, without coloring, without typography and based on it, we can do full design of application.
+
+Based on the [mindmap](#mindmap) we can draw sketch like so :
+
+![sketch](/build-a-whole-application/full-app-3.jpg)
+
+We add button *delete all completed* so user can easily delete all completed todo insted of delete it one by one.
+
+## Design
+After we draw the *sketch* design, we have view of the full design of application, we have to define the *sketch* into a completed design, the completed design make it easier for us when we build a frontend application. 
+
+You can use one of many tools like **Figma**, **Adobe XD**, **InVison**, and so on to work on designs.
 We did a design using figma, and here are the end results :
 
-![design](/full-app-blog-content-design-analyze%20(2).png)
+![design](/build-a-whole-application/full-app-blog-content-design-analyze%20(2).png)
 
-## Coding for front end application
-Now the time has come, we’re gonna coding for front end application, but before we doing that process, it would be better if we’re analyze the design and got the conclusion what elements will we create, this is how I analyze the design and got conclusion what element I would create :
+I do not explain in detail how to design it, likes how to create rounded line, button and etc, because it will takes a very long session.
 
-![analyze-design](/full-app-blog-content-design-analyze%20(1).png)
+## Preparation to do Frontend application
+Now the time has come, we’re gonna coding frontend application, but before we doing that process, it would be better if we’re analyze the design and got the conclusion what elements will we create.
+
+This is how I analyze the design and got conclusion what element that I would create :
+
+![analyze-design](/build-a-whole-application/full-app-blog-content-design-analyze%20(1).png)
 
 As seen above, we will create as many as 5 components namely :
 1. Header.
 2. Button.
-3. Form to enter new todo.
+3. Form.
 4. Todo.
 5. Todolists.
+
+## Coding Frontend application
    
-There are many types of framework and programming language to create a front end application, I considered choosing the hype framework called React that uses javascript language for building this app.
+There are many types of framework and programming language to create a frontend application, I considered choosing the hype framework called React that uses javascript language for building this app.
+
+I don't tell you how to setup a new project frontend application, what code editor I use, and etc that we can't tell you detail here.
+
+To make this post not too long, I just tell you how I build the each component application.
+
+The structure of frontend application would look like so :
+
+```
+├── src
+│   ├── components
+│   │   ├── elements
+│   │   │   ├── Button
+│   │   │   │   ├── index.css
+│   │   │   │   ├── index.jsx
+│   │   │   ├── Form
+│   │   │   │   ├── index.css
+│   │   │   │   ├── index.jsx
+│   │   │   ├── Header.jsx
+│   │   ├── parts
+│   ├── App.css
+│   ├── App.jsx
+│   ├── favicon.svg
+│   ├── index.css
+│   ├── logo.svg
+│   ├── main.jsx
+├── node_modules
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+└── vite.config.js
+```
 
 ### Let's start by creating the header component
+
+The header component will contain simple code that will return element **h1** with text *React todolist* as head of application.
+
+![header-app](/build-a-whole-application/header.png)
+
 Create *Header.jsx* file with following content :
 
 ```jsx
@@ -77,6 +146,10 @@ export default Header;
 ```
 
 ### Create the button component
+The button element, we will use in many places, like form, todo list and others.
+
+![button-app](/build-a-whole-application/button.png)
+
 Create a Folder name Button, and create *index.css* file, the style for *Button component*, this is the content of the file.
 
 ```css
@@ -214,7 +287,11 @@ Button.prototype = {
 }
 ```
 
-### Create component form to enter new todo
+### Create component form to type new todo
+The form where user can type new todo, and we're gonna put some function in this element, like when user submit the form, we will put the new todo in to todolist and we will clear the form, so user can type new todo *again*.
+
+![form-app](/build-a-whole-application/form.png)
+
 Create folder name *Form*, then create *index.css* file, with the following content
 ```css
 .todo-form {
@@ -272,6 +349,10 @@ export default function TodoForm(props) {
 
 ```
 ### Create todo component
+Todo component will contain button to delete todo and button to toggle todo as Completed or Incompleted, and the text of todo.
+
+![todo-app](/build-a-whole-application/todo.png)
+
 Create *Todo.jsx* file with the following content
 ```jsx
 import React from 'react'
@@ -323,6 +404,10 @@ export default function Todo(props) {
 ```
 
 ### Create lists of todo component
+The todo list component will looping data of todo list and will create todo component for each todo data.
+
+![todolist-app](/build-a-whole-application/todolist.png)
+
 ```jsx
 import React from 'react'
 import Todo from "./Todo"
@@ -368,6 +453,10 @@ Todo.propTypes = {
 ```
 
 ### Combining all component
+We will combine all component that we create, so it becoming the whole front application and work like we expected.
+
+![design](/build-a-whole-application/full-app-blog-content-design-analyze%20(2).png)
+
 Create a file *App.css* style for default web with the following content
 ```jsx
 .App {
@@ -489,7 +578,8 @@ Whereas the service of backend we’re just need :
 - Service to delete todo
 
 ## Creating database based on data structure
-I decided to use mysql for this application among many choices database management system, this is the database view that I setup :
+Because we already know how data [structure](#designing-backend-application) needed, We can create database first before we do code for backend application
+I decided to use mysql database for this application among many choices database management system, this is the database view that I setup :
 
 ```sql
 +-------------+------------+------+-----+---------+----------------+
@@ -502,10 +592,22 @@ I decided to use mysql for this application among many choices database manageme
 ```
 
 ## Coding for backend application
-There are many programming languages for creating backend applications. I considered using PHP, a popular language since 1995, let’s get started.
+There are many programming languages for creating backend applications. I considered using PHP, a popular language since 1995, the folder structure would look like :
+
+
+```
+├── .htaccess
+├── Connect.php
+├── index.php
+└── Model.php
+```
+
+
+let’s get started.
 
 ### File connection from app to database
 Create a file *Connect.php*, the file to connecting application to database.
+
 ```php
 <?php
 // The variable to connect to database
@@ -519,13 +621,15 @@ $mysqli = new mysqli($host, $user, $pass, $db);
 
 ?>
 ```
-### .htaccess file to make beautiful URL
+
+### .htaccess file to redirect all request to index.php
 *.htaccess* file that will rule apache server
 ```bash
 RewriteEngine On # Turn on the rewriting engine
-RewriteRule ^todo/?$ todo.php [NC,L]
-RewriteRule ^todo/([0-9]+)/?$ todo.php?id=$1 [NC,L]
+RewriteRule ^index/?$ index.php [NC,L]
+RewriteRule ^index/([0-9]+)/?$ index.php?id=$1 [NC,L]
 ```
+
 ### Model application
 The Model is the part of MVC which implements the domain logic. In simple terms, this logic is used to handle the data passed between the database and the user interface (UI).
 
@@ -534,7 +638,7 @@ The Model is known as domain object or domain entity.
 Create *Model.php* with the following content :
 ```php
 <?php
-require_once "koneksi.php";
+require_once "Connect.php";
 class Todo 
 {
  
@@ -657,10 +761,10 @@ class Todo
  
  ?>
 ```
-### Controller application
+### Index application and also the controller
 A controller is responsible for controlling the way that a user interacts with an MVC application. A controller contains the flow control logic for an ASP.NET MVC application. A controller determines what response to send back to a user when a user makes a browser request.
 
-Create *Controller.php* file, with the following content
+Create *index.php* file, with the following content
 
 ```php
 <?php
@@ -708,6 +812,7 @@ switch ($request_method) {
 
 ## Integration between backend application vs front end application
 We are almost done, we will add some function every application doing manipulation data like add todo, mark todo as completed or uncompleted, and delete todo, let's get into it
+
 ### Add some function to interact with backend application
 Edit *App.jsx* and add some function like below :
 ```javascript
@@ -792,13 +897,13 @@ Ducks can't move fast like dogs, can't swim agile like fish, and can't fly high 
 Building an application sometimes it’s fun, but when the application gets more complex you may need to prepare a lot of patience, because your intelligence, your skill, your IQ is not enough to finish the whole application alone.
 
 This Post become simple because I didn't tell you another process that very important likes :
-1. How to setting up a new project before we build the application (Progammer Job).
-2. How to do unit testing for each file (Programmer Job).
-3. How to do integration testing of the whole application (Programmer Job).
-4. How to do End To End testing the whole application (QA Job).
-5. How to test security of the application (QA Job)
-6. How to create Continuous integration / Continuous deployment (Devops Job).
-7. How to deploy applications to the cloud or server  (Devops Job).
+1. How to setting up a new project before we build the application.
+2. How to do unit testing for each file.
+3. How to do integration testing of the whole application.
+4. How to do End To End testing the whole application.
+5. How to test security of the application.
+6. How to create Continuous integration / Continuous deployment.
+7. How to deploy applications to the cloud or server.
 8. And many more that I don't know yet 😀
 
 
