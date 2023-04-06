@@ -7,8 +7,12 @@ const permalink = Astro.site.href;
 
 ---
 <Layout title={title} description={description} permalink={permalink}>
-  <section class="flex flex-wrap justify-center body-section">
-    <div class="break-words md:px-9 md:mt-36 mt-28 text-center max-w-sm md:max-w-full md:w-6/12">
+  <section class="flex flex-wrap justify-center md:px-9 md:mt-36 mt-6 body-section">
+    <div class="hero-image">
+      <img src="/undraw_Designer_re_5v95.png" alt="ilustration">
+      <p>Image ilustration by <a href="https://undraw.co/">undraw.co</a></p>
+    </div>
+    <div class="break-words max-w-sm md:max-w-full md:w-6/12">
       <h1 class="text-5xl mb-3">Hello there! Im</h1>
       <p class="font-bold mb-8 text-3xl">Rijal bin Husen</p>
       <p class="mb-3 text-xl">I love everything about innovation, <br>especially innovations that benefit a lot of people.</p>
@@ -20,3 +24,36 @@ const permalink = Astro.site.href;
     </div>
   </section>
 </Layout>
+
+<style>
+.hero-image {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-image img {
+  max-width: 350px; 
+  border-radius: 50%;
+}
+
+.hero-image p {
+  position: relative;
+  font-weight: 400;
+  text-align: center;
+  font-style: italic;
+}
+
+.hero-image p a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: pink;
+  text-decoration-style: wavy;
+}
+
+
+@media screen and (max-width: 768px) {
+	.hero-image {
+    margin-bottom: 3rem;
+  }
+ }
+</style>
