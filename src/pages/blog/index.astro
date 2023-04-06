@@ -1,14 +1,14 @@
 ---
-import Layout from '../../layouts/default.astro'
+import Layout from "../../layouts/default.astro";
 interface Frontmatter {
   title: string;
   description: string;
   img: string;
   date: string;
 }
-const posts = await Astro.glob<Frontmatter>('../../content/*.md'); // returns an array of posts that live at ./src/pages/post/*.lg
+const posts = await Astro.glob<Frontmatter>("../../content/*.md"); // returns an array of posts that live at ./src/pages/post/*.lg
 
-const sortPosts = posts.sort(function(a, b) {
+const sortPosts = posts.sort(function (a, b) {
   var dateA = a.frontmatter.date.toUpperCase(); // ignore upper and lowercase
   var dateB = b.frontmatter.date.toUpperCase(); // ignore upper and lowercase
   if (dateA < dateB) {
@@ -22,45 +22,51 @@ const sortPosts = posts.sort(function(a, b) {
   return 0;
 });
 
-const title = 'Rijal bin husen blogs';
-const description = 'What ever that ibin husen written';
+const title = "Rijal bin husen blogs";
+const description = "What ever that ibin husen written";
 const permalink = Astro.site.href;
 ---
+
 <Layout title={title} description={description} permalink={permalink}>
-  <div class="flex font-semibold text-3xl justify-center md:mt-28 my-8 md:mx-auto">
+  <div
+    class="flex font-semibold text-3xl justify-center md:mt-28 my-8 md:mx-auto"
+  >
     <h1 style="text-decoration: underline;">ALL POSTS</h1>
   </div>
   <div class="flex flex-wrap flex-row overflow-auto justify-center">
-    {sortPosts.map((post) => {
-      // the url to the blog path
-      // split by /
-      const splitBySlashFilePath = post.file.split('/')
-      // pick the last string from the splitter
-      const pickTheLastFilePath = splitBySlashFilePath.pop()
-      // split by .
-      const splitTheLastFilePathByDot = pickTheLastFilePath.split('.')
-      // pick the first one
-      const href = splitTheLastFilePathByDot.shift();
-      return (
-        <a href={'/blog/'+href}>
-      <article class="article mt-5 w-full cursor-pointer md:px-4 md:w-1/3 md:px-6 wow fadeInUp" >
-        <div class="">
-            <div class="py-2 rounded-lg w-full md:w-96 text-gray-900">
-              <img src={post.frontmatter.img} alt="blog" style="max-width:350px; margin-left: auto; margin-right: auto;" class="w-11/12 rounded-lg border border-gray-300">
-              <div style="max-width:350px; " class="px-6 py-2 w-full rounded-t-lg">
+    {
+      sortPosts.map((post) => {
+        // the url to the blog path
+        // split by /
+        const splitBySlashFilePath = post.file.split("/");
+        // pick the last string from the splitter
+        const pickTheLastFilePath = splitBySlashFilePath.pop();
+        // split by .
+        const splitTheLastFilePathByDot = pickTheLastFilePath.split(".");
+        // pick the first one
+        const href = splitTheLastFilePathByDot.shift();
+        return (
+          <a href={"/blog/" + href}>
+            <article class="article mt-5 w-full cursor-pointer md:w-1/3 md:px-6 wow fadeInUp">
+              <div class="py-2 rounded-lg w-full md:w-96 text-gray-900">
+                <img
+                  src={post.frontmatter.img}
+                  alt="blog"
+                  class="w-11/12 mx-auto rounded-lg border border-gray-300"
+                />
+                <div class="px-6 py-2 w-full rounded-t-lg">
                   <p class="text-xl font-extrabold mb-2">
-                    { post.frontmatter.title}
+                    {post.frontmatter.title}
                   </p>
                   <p class="border-b pb-2 border-gray-400">
-                    { post.frontmatter.description }
+                    {post.frontmatter.description}
                   </p>
+                </div>
               </div>
-            </div>
-          </div>
-      </article>
-      </a>
-      )
-    })
+            </article>
+          </a>
+        );
+      })
     }
   </div>
 </Layout>
