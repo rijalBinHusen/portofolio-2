@@ -5,12 +5,11 @@
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/PHPUnit_Logo.svg/1200px-PHPUnit_Logo.svg.png'
     tags: [backend, unit testing, application]
 ---
-## Introduction
 **Unit testing** is one of the most important while You create an application, by creating unit testing you don't need to affraid while you make a huge change in your code, because the unit test will give error message about your code, and you can fix your code before it deployed in to server production.
 
 If you don't do unit test to application, the application may failed in production while you don't know the problem, to fix the problem will take a great cost, the application will get complain from the user, even worse the user won't use your application *again*.
 
-To unit test a REST API server, you can use a testing framework that allows you to send HTTP requests and verify the responses. Here's a general process you can follow to unit test your REST API server:
+To unit test a REST API server, you can use a testing framework that allows you to send HTTP requests and verify the responses.
 
 Because I use PHP version 5.5.37, I will use **phpunit** to do unit testing, a programmer-oriented testing framework for PHP.
 
@@ -204,4 +203,10 @@ Or you can run all your test function inside a folder using :
 
 ## Conclusion
 
-Implementing unit testing in your project can have many benefits, such as catching bugs early in the development process, improving code quality, and reducing the overall time and cost of development. To implement unit testing effectively, it's important to choose a testing framework that meets your project's needs and to write test cases that cover all aspects of your code. Additionally, using tools like code coverage analysis and continuous integration can further improve the quality and reliability of your tests. By making unit testing a part of your development process, you can ensure that your code is of high quality and meets your project's requirements.
+Implementing unit testing in your project can have many benefits, such as catching bugs early in the development process, improving code quality, and reducing the overall time and cost of development. 
+
+To implement unit testing effectively, it's important to choose a testing framework that meets your project's needs and to write test cases that cover all aspects of your code. 
+
+Additionally, using tools like code coverage analysis and continuous integration can further improve the quality and reliability of your tests. 
+
+By making unit testing a part of your development process, you can ensure that your code is of high quality and meets your project's requirements.
