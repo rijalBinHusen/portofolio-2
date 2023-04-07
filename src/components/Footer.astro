@@ -1,44 +1,80 @@
 ---
 import { Icon } from "astro-icon";
+import "../styles/global.css";
 ---
 
 <footer>
-  <div class="flex justify-center  inline-block">
-    <p style="margin-right: 2px;">
-      Powered by 
+  <div>
+    <p>
+      Powered by
+      <a
+        href="https://astro.build"
+        target="_blank"
+        rel="noopener"
+        class="inline-block"
+      >
+        <img
+          src="/favicon.ico"
+          alt="icon"
+          class="inline-block"
+          style="width:28px"
+        />
+        Astro
+      </a>
+      and
+      <a
+        href="https://vuejs.org/"
+        target="_blank"
+        rel="noopener"
+        class="inline-block"
+      >
+        <img
+          src="/faviconVue.ico"
+          alt="icon"
+          class="inline-block"
+          style="width:28px"
+        />
+        Vue
+      </a>.
     </p>
-    <a href="https://astro.build" target="_blank" rel="noopener" class="inline-block">
-      <img src="/favicon.ico" alt="icon" class="inline-block" style="width:18px">
-      Astro
-    </a> 
-    <p style="margin-left: 2px; margin-right: 2px;">
-      and 
+
+    <p>
+      Code available on
+      <a
+        href="https://github.com/rijalBinHusen/portofolio-2"
+        target="_blank"
+        rel="noopener"
+      >
+        <Icon name="fa-brands:github" width="28" class="inline" />
+        Github
+      </a>.
     </p>
-    <a href="https://vuejs.org/" target="_blank" rel="noopener" class="inline-block">
-      <img src="/faviconVue.ico" alt="icon" class="inline-block" style="width:18px">
-       Vue 
-    </a>.
-  </div>
-  <div class="flex justify-center inline-block">
-    <p style="margin-left: 2px; margin-right: 2px;">Code available on </p>
-    <a href="https://github.com/rijalBinHusen/portofolio-2" target="_blank" rel="noopener">
-      <Icon name="fa-brands:github" width="18" class="inline" />
-      Github
-    </a>.
-  </div>
-  <div class="flex justify-center ">
+
+    <p>
+      Deployed at
+      <a href="https://www.netlify.com/" target="_blank" rel="noopener">
+        <Icon name="vscode-icons:file-type-netlify" width="28" class="inline" />
+        Netlify
+      </a>.
+    </p>
+
     &copy; {new Date().getFullYear()} Rijal bin Husen.
   </div>
-</footer>
 
-<style>
-  footer {
-    color: gray;
-    font-size: .8em;
-    margin: 1em auto;
-    max-width: 1400px;
-    padding-top: 5vmax;
-    text-align: center;
-    margin-bottom: 20vh;
-  }
-</style>
+  <style>
+    footer {
+      color: gray;
+      font-size: 1.2rem;
+      margin: 1rem auto;
+      max-width: 1400px;
+      padding-top: 5vmax;
+      text-align: center;
+      margin-top: 10vh;
+      margin-bottom: 20vh;
+      border-top: solid;
+      border-style: dotted;
+      border-color: pink;
+      border-top-width: 0.6rem;
+    }
+  </style>
+</footer>
