@@ -4,11 +4,11 @@
     <h1 style="text-decoration: underline;">ALL REPOSITORIES</h1>
   </div>
 <!-- <pre> {{ repos }} </pre> -->
-  <div class="flex flex-wrap flex-row ">
+  <div class="flex flex-wrap flex-row mb-8">
     <!-- Card repos -->
     <div v-for="repo in repos" :key="repo.name" class="w-screen md:w-1/3 md:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <!-- service block -->
-        <div class="rounded-lg py-8 px-9 mt-5 bg-red-100 bg-opacity-50 shadow-lg border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2 w-full">
+        <div class="rounded-lg py-6 px-9 mt-5 bg-red-100 bg-opacity-50 shadow-lg border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2 w-full">
             <h3 class="text-lg leading-normal mb-3 font-semibold text-black">
                 {{ repo?.name }}
                 <!-- <font-awesome-icon :icon="['fab', 'github']" />  -->
