@@ -13,7 +13,9 @@ const permalink = Astro.site.href;
   >
     <div class="hero-image">
       <img src="/undraw_Designer_re_5v95.png" alt="ilustration" />
-      <p>Image ilustration by <a href="https://undraw.co/">undraw.co</a></p>
+      <p class="caption">
+        Image ilustration by <a href="https://undraw.co/">undraw.co</a>
+      </p>
     </div>
     <div class="break-words max-w-full md:w-5/12">
       <h1 class="text-5xl mb-3">Hello there! Im</h1>
@@ -45,7 +47,6 @@ const permalink = Astro.site.href;
     position: relative;
     font-weight: 400;
     text-align: center;
-    font-style: italic;
   }
 
   @media screen and (max-width: 768px) {

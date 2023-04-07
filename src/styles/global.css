@@ -1,7 +1,12 @@
 p a {
+    font-style: italic;
     font-weight: 600;
     text-decoration: underline;
     text-decoration-color: pink;
     text-decoration-style: wavy;
     text-decoration-thickness: 0.1rem;
+}
+
+.caption {
+    color: gray;
 }

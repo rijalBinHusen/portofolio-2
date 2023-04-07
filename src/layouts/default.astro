@@ -1,34 +1,33 @@
 ---
-import HeaderSeo from '../components/Header_seo.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import HeaderSeo from "../components/Header_seo.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 
 export interface Props {
-  title: string;
-  description: string;
-  permalink: string;
-  image?: string
+    title: string;
+    description: string;
+    permalink: string;
+    image?: string;
 }
 const { title, description, permalink, image } = Astro.props;
 ---
-<html lang="en">
-<head>
-<HeaderSeo title={title} description={description} permalink={permalink} image={image} />
-</head>
-<body>
-<div>    
-    <Navbar />
-    <main class="justify-center mx-4 max-w-7xl xl:mx-auto" >
-        <slot />  
-    </main>
-    <Footer />
-</div>
-</body>
-</html>
 
-<style>
-    .link {  margin-right: 1rem;}
-    .container {
-        min-height: 70vh;
-    }
-</style>
+<html lang="en">
+    <head>
+        <HeaderSeo
+            title={title}
+            description={description}
+            permalink={permalink}
+            image={image}
+        />
+    </head>
+    <body>
+        <div>
+            <Navbar />
+            <main class="justify-center mx-4 max-w-7xl xl:mx-auto">
+                <slot />
+            </main>
+            <Footer />
+        </div>
+    </body>
+</html>
