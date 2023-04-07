@@ -4,7 +4,7 @@
     <h1 style="text-decoration: underline;">ALL REPOSITORIES</h1>
   </div>
 <!-- <pre> {{ repos }} </pre> -->
-  <div class="flex flex-wrap flex-row mb-8">
+  <div class="flex flex-wrap flex-row mb-2">
     <!-- Card repos -->
     <div v-for="repo in repos" :key="repo.name" class="w-screen md:w-1/3 md:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
         <!-- service block -->
