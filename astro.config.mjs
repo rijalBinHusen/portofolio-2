@@ -9,7 +9,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://rijalbinhusen.netlify.app",
+  site: "https://ibinhusen.my.id",
   integrations: [
     vue(),
     tailwind({

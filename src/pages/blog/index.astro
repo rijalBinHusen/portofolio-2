@@ -1,26 +1,36 @@
 ---
 import Layout from "../../layouts/default.astro";
+import { MarkdownInstance } from "astro";
 interface Frontmatter {
   title: string;
   description: string;
   img: string;
   date: string;
+  file: string;
 }
-const posts = await Astro.glob<Frontmatter>("../../content/*.md"); // returns an array of posts that live at ./src/pages/post/*.lg
 
-const sortPosts = posts.sort(function (a, b) {
-  var dateA = a.frontmatter.date.toUpperCase(); // ignore upper and lowercase
-  var dateB = b.frontmatter.date.toUpperCase(); // ignore upper and lowercase
-  if (dateA < dateB) {
-    return 1;
-  }
-  if (dateA > dateB) {
-    return -1;
-  }
+export const sortPosts = async (): Promise<MarkdownInstance<Frontmatter>[]> => {
+  const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob<Frontmatter>(
+    "../../content/*.md"
+  ); // returns an array of posts that live at ./src/pages/post/*.lg
 
-  // names must be equal
-  return 0;
-});
+  posts.sort(function (a, b) {
+    var dateA = a.frontmatter.date.toUpperCase(); // ignore upper and lowercase
+    var dateB = b.frontmatter.date.toUpperCase(); // ignore upper and lowercase
+    if (dateA < dateB) {
+      return 1;
+    }
+    if (dateA > dateB) {
+      return -1;
+    }
+
+    return 0;
+  });
+
+  return posts;
+};
+
+const completedPosts = await sortPosts();
 
 const title = "Rijal bin husen blogs";
 const description = "What ever that ibin husen written";
@@ -35,7 +45,7 @@ const permalink = Astro.site.href;
   </div>
   <div class="flex flex-wrap flex-row overflow-auto justify-center">
     {
-      sortPosts.map((post) => {
+      completedPosts.map((post) => {
         // the url to the blog path
         // split by /
         const splitBySlashFilePath = post.file.split("/");
