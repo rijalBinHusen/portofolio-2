@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/default.astro";
-import "../styles/global.css";
 import { sortPosts } from "./blog/index.astro";
 
 const title = "Rijal bin husen website";
@@ -11,7 +10,7 @@ const allPosts = await sortPosts();
 
 <Layout title={title} description={description} permalink={permalink}>
   <section
-    class="flex flex-wrap gap-2 h-4/6 items-center flex-row justify-center md:px-9 mt-6 md:mt-20 body-section"
+    class="flex flex-wrap gap-2 h-4/6 items-center flex-row justify-center md:px-9 mt-6 md:mt-28 body-section"
   >
     <div class="hero-image">
       <img src="/undraw_Designer_re_5v95.png" alt="ilustration" />

@@ -17,10 +17,11 @@ p a {
 
 .heading::after {
     content: '';
-    border-bottom: 5px solid pink;
-    width: 80%;
+    border-bottom: 0.4rem solid salmon;
+    width: 70%;
     display: block;
     align-items: center;
     margin-right: auto;
     margin-left: auto;
+    border-radius: 7rem;
 }
