@@ -1,7 +1,8 @@
 ---
 import Layout from "../../layouts/default.astro";
+import { sortPosts } from "./index.astro";
 export async function getStaticPaths() {
-  const posts = await Astro.glob("../../content/*.md");
+  const posts = await sortPosts();
 
   return posts.map((post) => ({
     params: { slug: post.file.split("/").pop().split(".").shift() },
@@ -14,7 +15,12 @@ const { title, img, date, description } = frontmatter;
 const permalink = Astro.site.href;
 ---
 
-<Layout description={description} title={title} permalink={permalink} image={img}>
+<Layout
+  description={description}
+  title={title}
+  permalink={permalink}
+  image={img}
+>
   <section class="prose md:mt-28 w-full md:mx-auto">
     <!-- Thumbnail image -->
     <div class="img-cont">
@@ -31,42 +37,41 @@ const permalink = Astro.site.href;
 </Layout>
 
 <script>
-import { toggleElement } from "../../utils/toggleElement"
+  import { toggleElement } from "../../utils/toggleElement";
 
-const toggleCode = (preElm: HTMLPreElement) => {
-  // console.log(preElm)
+  const toggleCode = (preElm: HTMLPreElement) => {
+    // console.log(preElm)
     // check isCode has hidden class
-    const codeElm = preElm.firstChild as HTMLElement
-    const isCodeHidden = codeElm.classList.value.includes('hidden')
-    const spanElm = preElm.childNodes[1] as HTMLElement
+    const codeElm = preElm.firstChild as HTMLElement;
+    const isCodeHidden = codeElm.classList.value.includes("hidden");
+    const spanElm = preElm.childNodes[1] as HTMLElement;
 
-    if(isCodeHidden) {
-      toggleElement(codeElm, true)
+    if (isCodeHidden) {
+      toggleElement(codeElm, true);
       toggleElement(spanElm, false);
-    } 
-    else {
-      toggleElement(codeElm, false)
+    } else {
+      toggleElement(codeElm, false);
       toggleElement(spanElm, true);
     }
-  }
+  };
 
-  const selectAllPreElement = document.querySelectorAll('pre')
+  const selectAllPreElement = document.querySelectorAll("pre");
   selectAllPreElement.forEach((preElm) => {
     // add class hidden to first child element
-    const codeElement = preElm.firstChild as HTMLElement
-    toggleElement(codeElement, false)
+    const codeElement = preElm.firstChild as HTMLElement;
+    toggleElement(codeElement, false);
     // append new element to pre
-    const spanElm = document.createElement('span')
-    spanElm.id = 'spoiler'
-    spanElm.classList.add('cursor-pointer')
-    spanElm.appendChild(document.createTextNode('Show code!'))
-    preElm.appendChild(spanElm)
+    const spanElm = document.createElement("span");
+    spanElm.id = "spoiler";
+    spanElm.classList.add("cursor-pointer");
+    spanElm.appendChild(document.createTextNode("Show code!"));
+    preElm.appendChild(spanElm);
 
-    preElm.addEventListener('click', () => { 
-      toggleCode(preElm) 
-    })
-    codeElement.addEventListener('click', () => { 
-      toggleCode(preElm) 
-    })
-  })
+    preElm.addEventListener("click", () => {
+      toggleCode(preElm);
+    });
+    codeElement.addEventListener("click", () => {
+      toggleCode(preElm);
+    });
+  });
 </script>

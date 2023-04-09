@@ -10,3 +10,17 @@ p a {
 .caption {
     color: gray;
 }
+
+.heading {
+    text-transform: uppercase;
+}
+
+.heading::after {
+    content: '';
+    border-bottom: 5px solid pink;
+    width: 80%;
+    display: block;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+}
