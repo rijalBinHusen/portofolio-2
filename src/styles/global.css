@@ -25,3 +25,11 @@ p a {
     margin-left: auto;
     border-radius: 7rem;
 }
+
+.line {
+    border-bottom: 0.4rem double pink;
+    display: block;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+}
