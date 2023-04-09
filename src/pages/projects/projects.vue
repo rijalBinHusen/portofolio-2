@@ -1,7 +1,7 @@
 <template>
 <div class="overflow-auto">
   <div class="flex font-semibold text-3xl justify-center md:mt-28 my-8">
-    <h1 style="text-decoration: underline;">ALL REPOSITORIES</h1>
+    <h1 class="heading">ALL REPOSITORIES</h1>
   </div>
 <!-- <pre> {{ repos }} </pre> -->
   <div class="flex flex-wrap flex-row mb-2">
