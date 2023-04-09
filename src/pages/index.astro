@@ -2,6 +2,7 @@
 import Layout from "../layouts/default.astro";
 import { sortPosts } from "./blog/index.astro";
 import BlogCard from "./blog/blogCard.astro";
+import ButtonVue from "../components/Button.vue";
 
 const title = "Rijal bin husen website";
 const description = "The landing page that you would land";
@@ -39,7 +40,7 @@ const allPosts = await sortPosts();
     <div class="flex font-semibold text-3xl justify-center md:mx-auto">
       <h1 class="heading">Recent posts</h1>
     </div>
-    <div class="flex flex-wrap flex-row overflow-auto justify-center">
+    <div class="flex flex-wrap flex-row my-5 overflow-auto justify-center">
       {
         allPosts.slice(0, 2).map((post) => {
           // the url to the blog path
@@ -61,6 +62,9 @@ const allPosts = await sortPosts();
           );
         })
       }
+    </div>
+    <div class="flex font-semibold text-3xl justify-center md:mx-auto">
+      <ButtonVue text="More posts" href="/blog" />
     </div>
   </section>
 </Layout>
