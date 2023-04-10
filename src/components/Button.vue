@@ -37,6 +37,6 @@ const btnClass = "inline-block rounded bg-red-300 px-6 pb-2 pt-2.5 font-medium u
         text-transform: uppercase;
         font-size: medium;
         border: gainsboro solid 1px;
-        box-shadow: 0px 5px 5px gainsboro;
+        box-shadow: 5px 5px pink;
     }
 </style>
