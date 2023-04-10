@@ -36,11 +36,11 @@ const allPosts = await sortPosts();
   </section>
 
   <!-- recent pots -->
-  <section class="body-section mt-20">
+  <section class="body-section mt-10">
     <div class="flex font-semibold text-3xl justify-center md:mx-auto">
       <h1 class="heading">Recent posts</h1>
     </div>
-    <div class="flex flex-wrap flex-row my-5 overflow-auto justify-center">
+    <div class="flex flex-wrap flex-row my-3 overflow-auto justify-center">
       {
         allPosts.slice(0, 2).map((post) => {
           // the url to the blog path
