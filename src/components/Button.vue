@@ -30,12 +30,13 @@ const btnClass = "inline-block rounded bg-red-300 px-6 pb-2 pt-2.5 font-medium u
 
 <style scoped>
     .btn {
+        color: rgb(49, 44, 44);
         display: inline-block;
         padding: 0.2rem 2rem 0.2rem 2rem;
         font-weight: bold;
         text-transform: uppercase;
         font-size: medium;
-        border: salmon solid 1px;
-        box-shadow: 0px 5px 5px pink;
+        border: gainsboro solid 1px;
+        box-shadow: 0px 5px 5px gainsboro;
     }
 </style>
