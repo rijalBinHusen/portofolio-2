@@ -8,7 +8,7 @@ const permalink = Astro.site.href;
 ---
 <Layout title={title} description={description} permalink={permalink}>
   <div class="flex flex-wrap flex-row overflow-auto">
-    {posts.slice(0, 3).map((post) => {
+    {posts.map((post) => {
       // the url to the blog path
       // split by /
       const splitBySlashFilePath = post.file.split('/')
