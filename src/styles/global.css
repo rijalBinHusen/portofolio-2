@@ -27,7 +27,7 @@ p a {
     border-radius: 7rem;
 }
 
-.line {
+.long-line {
     border-bottom: 0.4rem double pink;
     display: block;
     align-items: center;
