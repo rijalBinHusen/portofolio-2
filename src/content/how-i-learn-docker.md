@@ -1,14 +1,23 @@
 ---
 title:  "Learn Docker"
 description: "Building php environment with docker"
-date: 2022-12-11
+date: 2023-04-27
 img: 'https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png'
 tags: [Docker]
 ---
 
-I'm having trouble to develop app with different php version, I think it's time to start development using docker, so the application is isolated from my operating system and i don't need to install too many php version in my machine
+Docker is a platform that allows developers to create, deploy, and run applications in a containerized environment. Containers are a lightweight, standalone package that contain everything needed to run an application, including the code, dependencies, and libraries. With Docker, developers can easily package and ship their applications, and can run them on any machine that supports Docker. This allows for faster and more efficient development, testing, and deployment processes. Docker also provides tools for managing and scaling containers, making it a popular choice for building and deploying modern applications.
 
-This is the way I setup a docker container inside my ubuntu machine.
+I'm having trouble to develop app with different php version, I think it's time to start development using docker, so the application is isolated from my operating system and i don't need to install too many php version in my machine.
+
+The folder structure to do this project like so :
+```bash
+my-app/
+├── app/
+│   ├── Dockerfile
+│   └── index.php
+└── docker-compose.yml
+```
 
 ## Setting Up Dockerfile
 
