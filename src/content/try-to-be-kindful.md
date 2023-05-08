@@ -1,8 +1,8 @@
 ---
-title:  "Being kindful person"
+title:  "Try to be kindful"
 description: "Avoid bad experience with people"
 date: 2023-05-07
-img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9sHI8e0BUEIonUJqvD3CjQkvqWfBU5G2aaw&usqp=CAU'
+img: '/kindness.jpg'
 tags: [life, god, kindful]
 ---
 In a world where negativity and stress are all too common, it's easy to forget the importance of kindness and compassion. But what if we made a conscious effort to be more kindful every day? What if we approached every interaction with empathy and understanding, and made an effort to spread positivity wherever we go? Being kindful isn't just about doing good deeds, it's a mindset that can change the way we see the world and interact with others.
