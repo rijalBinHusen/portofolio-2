@@ -6,7 +6,7 @@ export const getRepositories = async () => {
     
     // if local storage expired
     if(!localRepositories?.repos || new Date().getTime() > localRepositories.expired ) {
-        fetch('https://api.github.com/users/rijalBinHusen/repos')
+        await fetch('https://api.github.com/users/rijalBinHusen/repos')
         .then(response => response.json())
         .then(data => {
             let gotRepositories = {
