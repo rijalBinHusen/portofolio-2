@@ -3,6 +3,8 @@ import Layout from "../layouts/default.astro";
 import { sortPosts } from "./blog/index.astro";
 import BlogCard from "./blog/blogCard.astro";
 import ButtonVue from "../components/Button.vue";
+import "./projects/projects.vue"
+import Projects from "./projects/projects.vue";
 
 const title = "Rijal bin husen website";
 const description = "The landing page that you would land";
@@ -65,6 +67,14 @@ const allPosts = await sortPosts();
     </div>
     <div class="flex font-semibold text-3xl justify-center md:mx-auto">
       <ButtonVue text="More posts" href="/blog" />
+    </div>
+  </section>
+
+  <!-- recent projects -->
+  <section class="body-section mt-12">
+    <Projects client:load isOnlyProjects={true} />
+    <div class="flex font-semibold text-3xl mt-4 justify-center md:mx-auto">
+      <ButtonVue text="More repositories" href="/projects" />
     </div>
   </section>
 </Layout>
