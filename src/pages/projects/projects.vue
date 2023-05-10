@@ -38,7 +38,7 @@ onMounted( async () => {
         console.log(props.isOnlyProjects)
         if(props.isOnlyProjects) {
             repos.value = repositories.filter((repo) => {
-                if(count < 2 && repo.html_url) {
+                if(count < 2 && repo.homepage) {
                     count++
                     return repo
                 }
