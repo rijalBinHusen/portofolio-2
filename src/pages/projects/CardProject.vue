@@ -44,14 +44,14 @@
 
 <script lang="ts" setup>
 
-import { defineProps } from "vue"
+import { defineProps, PropType } from "vue"
 import { Icon } from "@iconify/vue"
 
 const props = defineProps({
     repoName: String,
     description: String,
-    pushedAt: String,
-    topics: Array,
+    pushedAt: Date,
+    topics: Array as PropType<string[]>,
     homepage: String,
     htmlUrl: String,
 })

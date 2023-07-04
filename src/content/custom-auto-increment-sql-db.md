@@ -14,8 +14,59 @@ In this blog post, we will show you how to implement auto increment with custom 
 Here are some of the benefits of using custom values for your auto increment column:
 
 - Uniqueness: Custom values are guaranteed to be unique, which can be helpful for keeping track of records in your database.
-  - Efficiency: Using custom values can help to improve the efficiency of your database queries.
-  - Flexibility: Custom values give you more flexibility in how you manage your database records.
+- Efficiency: Using custom values can help to improve the efficiency of your database queries.
+- Flexibility: Custom values give you more flexibility in how you manage your database records.
+
+Initially I did custom incement key to FrontEnd application ...., yes I build offline application using only FrontEnd and I stored all data of it appliaction in [indexeddb](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API).
+
+Saya menggunakan bantuan library [localforage](https://github.com/localForage/localForage) untuk terhubung ke API indexeddb dan memanipulasi data didalamnya, semua menipulasi data di indexeddb menggunakan satu file kode sebagai tulang punggung, dan setiap ada penambahan data baru akan diberikan uniquee increment id, kode untuk menghasilkan increment id adalah sebagai berikut :
+
+```JavaScript
+export function generateIdCutomDate(yourDate, yourLastId) {
+
+    let id = yourLastId.substr(0, yourLastId.length -8);
+    // masukkan increment
+    // ambil 4 string e.g 0000 akan menjadi 0001
+    let increment = Number(yourLastId.slice(-4)) + 1 + "";
+    // 2022
+    let fullYear = new Date(yourDate).getFullYear() + "";
+    let yearNow = fullYear.slice(2);
+    // 5
+    let weekNow = getWeekNumber(yourDate);
+    // 22
+    let year = yourLastId.slice(id.length, id.length + 2); //21
+    // 05
+    let week = yourLastId.slice(id.length + 2, id.length + 4); //08
+    //if the week same
+    if (weekNow == week && year == yearNow) {
+      id = id + yearNow + week;
+    }
+    //if the week not same
+    else {
+      // if the week 9 change to 09
+      weekNow = weekNow < 10 ? "0" + weekNow : weekNow;
+      id = id + yearNow + weekNow;
+      increment = "0";
+    }
+    //0000
+    let result = id + "0000".slice(increment.length) + increment;
+    
+    // kembalikan
+    return result;
+}
+  
+  function getWeekNumber() {
+    // get today
+    let currentdate = new Date();
+    // get the 1 january day
+    var oneJan = new Date(currentdate.getFullYear(), 0, 1);
+    // get the number of today (currentdate - oneJan) would be epoch number and divide 1 day epoch number
+    var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
+    // get the number of day + 1 + number of days and divide 1 week ( 170 / 7)
+    return Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7);
+  }
+  
+```
 
 https://www.mysqltutorial.org/create-the-first-trigger-in-mysql.aspx
 https://www.w3schools.com/sql/func_mysql_week.asp

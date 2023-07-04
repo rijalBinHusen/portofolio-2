@@ -35,7 +35,7 @@ onMounted( async () => {
     if(!repos.value?.length) {
         const repositories = await getRepositories()
         let count = 0;
-        console.log(props.isOnlyProjects)
+        
         if(props.isOnlyProjects) {
             repos.value = repositories.filter((repo) => {
                 if(count < 2 && repo.homepage) {
