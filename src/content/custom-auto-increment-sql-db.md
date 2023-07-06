@@ -22,38 +22,36 @@ Initially I did custom incement key to FrontEnd application ...., yes I build of
 Saya menggunakan bantuan library [localforage](https://github.com/localForage/localForage) untuk terhubung ke API indexeddb dan memanipulasi data didalamnya, semua menipulasi data di indexeddb menggunakan satu file kode sebagai tulang punggung, dan setiap ada penambahan data baru akan diberikan uniquee increment id, kode untuk menghasilkan increment id adalah sebagai berikut :
 
 ```JavaScript
-export function generateId(yourLastId) {
-
-    let id = yourLastId.substr(0, yourLastId.length -8);
+export function generateId(lastId) {
+    // ambil last id dari summary  // kalau tidak ada bikin baru
+    let id = lastId.slice(0, -8);
     // masukkan increment
     // ambil 4 string e.g 0000 akan menjadi 0001
-    let increment = Number(yourLastId.slice(-4)) + 1 + "";
+    let increment = Number(lastId.slice(-4)) + 1 + "";
     // 2022
     let fullYear = new Date().getFullYear() + "";
-    let yearNow = fullYear.slice(2);
     // 5
     let weekNow = getWeekNumber();
     // 22
-    let year = yourLastId.slice(id.length, id.length + 2); //21
+    let year = lastId.slice(id.length, id.length+2); //21
     // 05
-    let week = yourLastId.slice(id.length + 2, id.length + 4); //08
+    let week = lastId.slice(id.length + 2, id.length+4); //08
     //if the week same
-    if (weekNow == week && year == yearNow) {
-      id = id + yearNow + week;
+    if (weekNow === Number(week) && Number(year) === Number(fullYear.slice(-2))) {
+      id += year + week;
     }
     //if the week not same
     else {
       // if the week 9 change to 09
       weekNow = weekNow < 9 ? "0" + weekNow : weekNow;
-      id = id + yearNow + weekNow;
+      id += fullYear.slice(-2) + weekNow;
       increment = "0";
     }
     //0000
     let result = id + "0000".slice(increment.length) + increment;
-    
-    // kembalikan
+  
     return result;
-}
+  }
   
   function getWeekNumber() {
     // get today
@@ -68,21 +66,36 @@ export function generateId(yourLastId) {
   
 ```
 
-Seperti yang terlihat diatas, ketika kita menjalankan *generateId(SUPER_23060000)* maka kita akan mendapatkan hasil SUPER_23060001 kurang lebih berjalan seperti ini:
-  - *generateId(SUPER_23060000)* => SUPER_23060001
-  - *generateId(SUPER_23060001)* => SUPER_23060002
-  - *generateId(SUPER_23060002)* => SUPER_23060003
-  - *generateId(SUPER_23060003)* => SUPER_23060004
-  - *generateId(SUPER_23060004)* => SUPER_23060005
+Seperti yang terlihat diatas, ketika kita menjalankan *generateId(SU_23060000)* maka kita akan mendapatkan hasil SU_23060001 kurang lebih berjalan seperti ini:
+  - *generateId(SU_23060000)* => SU_23060001
+  - *generateId(SU_23060001)* => SU_23060002
+  - *generateId(SU_23060002)* => SU_23060003
+  - *generateId(SU_23060003)* => SU_23060004
+  - *generateId(SU_23060004)* => SU_23060005
   - dan seterusnya
 
-detail dari hasil diatas adalah sebagai berikut :
+Detail dari hasil generate id diatas adalah sebagai berikut :
   - SUPER_ = nama dari table atau nama kategory atau apapun yang kamu inginkan
   - 23 = tahun
   - 06 = week
   - 0001 = uniquee id
 
-dikarenakan saya tidak melakukan unit testing pada kode tersebut, saya merasa semua baik baik saja, tetapi setelah aplikasi saya berjalan beberapa bulan, dan *getWeekNumber* function mengembelikan angka 9, aplikasi saya tidak berjalan sebagaimana mestinya yang diakibatkan kesalahan pada kode *weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*, iya kamu benar, seharunya saya menggunakan *< 10* disitu, saya ganti kode tersebut dan tidak lupa untuk melakukan unit testing dengan cara generateId selama 12 Bulan penuh aplikasi saya berjalan normal seperti biasa.
+dikarenakan saya tidak melakukan unit testing pada kode tersebut, saya merasa semua baik baik saja, tetapi setelah aplikasi saya berjalan beberapa bulan, dan *getWeekNumber* function mengembelikan angka 9, aplikasi saya tidak berjalan sebagaimana mestinya, sebagai berikut:
+  - *generateId(SU_23000000)* => SU_2390000
+  - *generateId(SU_2390000)* => SU2390000
+  - *generateId(SU2390000)* => S2390000
+  - *generateId(2390000)* => 2390000
+  - *generateId(2390000)* => 2390000
+  - and all next id would be 2390000
+
+Semua item yang dibuat pada hari tersebut memiliki id 2390000 dan tentu saja setiap item baru yang diberikan id 2390000 akan menimpa record yang sebelumnya, sehingga seolah olah record hanya dibuat 1 kali saja meskipun kita memasukkan data sebanyak banyaknya.
+
+*weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*,
+
+
+
+
+iya kamu benar, seharunya saya menggunakan *< 10* disitu, saya ganti kode tersebut dan tidak lupa untuk melakukan unit testing dengan cara generateId selama 12 Bulan penuh aplikasi saya berjalan normal seperti biasa.
 
 Dikarenakan javascript adalah bahasa pemrograman yang single thread dan non blocking, semua proses pada aplikasi akan dilakukan secara berurutan, kemudian saya mencoba untuk membuat BackEnd untuk aplikasi saya diatas dan tentu saja akan muncul masalah berikutnya :).
 
