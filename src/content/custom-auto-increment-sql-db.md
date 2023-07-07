@@ -21,7 +21,7 @@ Initially I did custom incement key to FrontEnd application ...., yes I build of
 
 Saya menggunakan bantuan library [localforage](https://github.com/localForage/localForage) untuk terhubung ke API indexeddb dan memanipulasi data didalamnya, semua menipulasi data di indexeddb menggunakan satu file kode sebagai tulang punggung, dan setiap ada penambahan data baru akan diberikan uniquee increment id, kode untuk menghasilkan increment id adalah sebagai berikut :
 
-```JavaScript
+```Javascript
 export function generateId(lastId) {
     // ambil last id dari summary  // kalau tidak ada bikin baru
     let id = lastId.slice(0, -8);
@@ -90,14 +90,193 @@ dikarenakan saya tidak melakukan unit testing pada kode tersebut, saya merasa se
 
 Semua item yang dibuat pada hari tersebut memiliki id 2390000 dan tentu saja setiap item baru yang diberikan id 2390000 akan menimpa record yang sebelumnya, sehingga seolah olah record hanya dibuat 1 kali saja meskipun kita memasukkan data sebanyak banyaknya.
 
-*weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*,
+setelah diperiksa lebih teliti, kesalahan dapat ditemukan pada kode *weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*, iya kamu benar, seharunya saya menggunakan *< 10* disitu, saya fix kode tersebut dan tidak lupa untuk membuat unit testing dengan cara menjalankan generateId selama 12 Bulan penuh, berikut hasil kode yang telah saya perbaiki:
+
+**generateId.js**
+
+```Javascript
+
+function getWeekNumber(yourDate) {
+    // get today
+    let currentdate = new Date(yourDate);
+    // get the 1 january day
+    var oneJan = new Date(currentdate.getFullYear(), 0, 1);
+    // get the number of today (currentdate - oneJan) would be epoch number and divide 1 day epoch number
+    var numberOfDays = Math.floor((currentdate.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000));
+    // get the number of day + 1 + number of days and divide 1 week ( 170 / 7)
+    return Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7);
+  }
+
+// this function will be used for any request in appliaction 
+export function generateId(yourLastId) {
+  const dateNow = new Date();
+  const nextId = generateIdCutomDate(dateNow, yourLastId)
+  return nextId;
+}
+
+// this function will be used for unit testing;
+export function generateIdCutomDate(yourDate, yourLastId) {
+
+    let id = yourLastId.substr(0, yourLastId.length -8);
+    // add increment
+    // get 4 string e.g 0000 would be 0001
+    let increment = Number(yourLastId.slice(-4)) + 1 + "";
+    // 2022
+    let fullYear = new Date(yourDate).getFullYear() + "";
+    let yearNow = fullYear.slice(2);
+    // 5
+    let weekNow = getWeekNumber(yourDate) + '';
+    // 22
+    let year = yourLastId.slice(id.length, id.length + 2); //21
+    // 05
+    let week = yourLastId.slice(id.length + 2, id.length + 4); //08
+    //if the week same
+    if (weekNow == week && year == yearNow) {
+      id = id + yearNow + week;
+    }
+    //if the week not same
+    else {
+      // if the week 9 change to 09
+      weekNow = Number(weekNow) < 10 ? "0" + weekNow : weekNow;
+      id = id + yearNow + weekNow;
+      increment = "0";
+    }
+    //0000
+    let result = id + "0000".slice(increment.length) + increment;
+    
+    return result;
+}
+```
+
+**generateId.spec.js** *The unit testing code*
+```Javascript
+import { generateIdCutomDate } from "../utils/generatorId";
+
+import { describe, it, expect } from 'vitest'
+
+describe("Next id must be oke", () => {
+
+    
+    it('Must be oke', async () => {
+        const year = 2023;
+        const startDate = new Date(`${year}-01-02`);
+        const endDate = new Date(`${year}-12-25`);
+
+        let currentdate = startDate;
+        let week = 1;
+        let idName = "SUPER_"
+        let yearId = year.toString().slice(2);
+
+        while(currentdate <= endDate) {
+            let nextId = generateIdCutomDate(currentdate, idName +"22110000");
+
+            let weekId = week < 10 ? "0" + week : week;
+            let expectId = idName + yearId + weekId + "0000"
+            expect(expectId).equal(nextId);
+
+            let currentId = nextId;
+
+            for(let i =1; i < 10; i++) {
+                let nextId2 = generateIdCutomDate(currentdate, currentId);
+                let nextExpectId2 = idName + yearId + weekId + "000" + i;
+                expect(nextExpectId2).equal(nextId2);
+                currentId = nextId2;
+            }
+
+            currentdate.setDate(currentdate.getDate() + 7);
+            week++
+        }
 
 
+    })
 
+}, 100000)
+```
 
-iya kamu benar, seharunya saya menggunakan *< 10* disitu, saya ganti kode tersebut dan tidak lupa untuk melakukan unit testing dengan cara generateId selama 12 Bulan penuh aplikasi saya berjalan normal seperti biasa.
+dan kemudian aplikasi saya berjalan normal seperti biasa kembali dan saya pun bisa tidur dengan tenang.
 
-Dikarenakan javascript adalah bahasa pemrograman yang single thread dan non blocking, semua proses pada aplikasi akan dilakukan secara berurutan, kemudian saya mencoba untuk membuat BackEnd untuk aplikasi saya diatas dan tentu saja akan muncul masalah berikutnya :).
+Dikarenakan javascript adalah bahasa pemrograman yang single thread dan non blocking, maka semua proses pada aplikasi akan dilakukan secara berurutan, kemudian saya mencoba untuk membuat BackEnd untuk aplikasi diatas dan tentu saja akan muncul masalah berikutnya :).
+
+Backend yang akan kita buat adalah menggunakan bahasa pemrograman php, karena kita sudah memiliki kode yang sudah teruji dalam bahasa javascript, sehingga kita hanya perlu mengubahnya menjadi bahasa php:
+
+**generator_id.php**
+```php
+function generateId($lastId) {
+    $date = date("Y-m-d");
+    return generateIdWithCustomDate($lastId, $date);
+}
+
+function generateIdWithCustomDate($lastId, $yourDate)
+{
+    $yourDate2 =  date_create($yourDate);
+    // get uniquee id, the 8 last string, SUPERVISOR_22030001 become SUPERVISOR_
+    $baseId = substr($lastId, 0, -8);
+    // get uniquee number, the last 4 string, war22050000 become 0000
+    $getNumber = substr($lastId, -4);
+    // increment uniquee number by 1
+    $increment = strval(floatval($getNumber) + 1);
+    // full year
+    $fullYearNow = $yourDate2->format("Y") . "";
+    $yearNow = substr($fullYearNow, 2, 2);
+    // week now
+    $weekNow = $yourDate2->format("W");
+    // year of last id
+    $yearLastId = substr($lastId, strlen($baseId), 2); //22
+    // week of last id
+    $weekLastId = substr($lastId, (strlen($baseId) + 2), 2); //08
+    
+    if ($weekNow == $weekLastId && $yearNow == $yearLastId) {
+        return $baseId . $yearLastId . $weekNow . substr("0000", strlen($increment)) . $increment;
+    }
+    
+    return $baseId . $yearNow . $weekNow . "0000";
+}
+```
+
+**generator_id_Test.php** *The unit testing code*
+```php
+use PHPUnit\Framework\TestCase;
+// Class yang mau di TEST.
+require_once( __DIR__. '/../utils/generator_id.php');
+// require_once "Wordcount.php";
+
+// Class untuk run Testing.
+class SimpleTest extends PHPUnit_Framework_TestCase
+{
+    public function testGeneratorId()
+    {
+        $year = 2023; // replace with the year you want to generate
+        $start_date = new DateTime("$year-01-02");
+        $end_date = new DateTime("$year-03-31");
+
+        $current_date = $start_date;
+        $week = 1;
+        while ($current_date <= $end_date) {
+            // echo $current_date->format("Y-m-d") . "<br>";
+            $TestSentence = generateIdWithCustomDate("SUPER_22110000", $current_date->format("Y-m-d"));
+            // $WordCount = $Wc->countWords($TestSentence);
+            
+            $weekId = $week < 10 ? "0". $week : $week;
+            $expect = "SUPER_23". $weekId ."0000";
+            // expect record
+            $this->assertEquals($expect, $TestSentence);
+
+            for($x = 1; $x < 10; $x++) {
+                $currentId = "SUPER_23" . $weekId . "000" . ($x - 1);
+                $nextId = generateIdWithCustomDate($currentId, $current_date->format("Y-m-d"));
+                $nextIdExpect = "SUPER_23" . $weekId . "000" . $x;
+                $this->assertEquals($nextIdExpect, $nextId);
+            }
+
+            $current_date->modify("+7 day");
+            $week = $week + 1;
+        }
+            
+    }
+}
+```
+
+Unit testing success, dan juga unit testing untuk create data pun juga sukses, tetapi terjadi kesalahan ketika melakukan permintaan keserver secara bersamaan, server mengembalikan pesan error *Duplicate entry 'WAREHOUSE_23060012' for key 'id'*
 
 https://www.mysqltutorial.org/create-the-first-trigger-in-mysql.aspx
 https://www.w3schools.com/sql/func_mysql_week.asp
