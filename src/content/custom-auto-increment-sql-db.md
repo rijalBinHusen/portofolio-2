@@ -278,6 +278,178 @@ class SimpleTest extends PHPUnit_Framework_TestCase
 
 Unit testing success, dan juga unit testing untuk create data pun juga sukses, tetapi terjadi kesalahan ketika melakukan permintaan keserver secara bersamaan, server mengembalikan pesan error *Duplicate entry 'WAREHOUSE_23060012' for key 'id'*
 
+Pada lapisan model untuk memasukkan data kedatabase adalah sebagai berikut :
+
+**Warehouse_model.php**
+```php
+// the file that contain script to manipulate database
+require_once(__DIR__ . '/../../../utils/database.php');
+// the file that contain summary of table of database, in this script we store lastId and total record that created
+require_once(__DIR__ . '/../../../utils/summary_db.php');
+
+class My_report_warehouse_model
+{
+    protected $database;
+    var $table = "my_report_warehouse";
+    var $columns = "id, warehouse_name, warehouse_group, warehouse_supervisors";
+    var $is_success = true;
+    private $summary = null;
+
+    function __construct()
+    {
+      // initiate new query builder using static method
+        $this->database = Query_builder::getInstance();
+        // initiate new summary db using static method
+        $this->summary = SummaryDatabase::getInstance($this->table);
+    }
+
+    // the code to retrieve all data in table
+    public function get_warehouses()
+    {
+        $result  = $this->database->select_from($this->table)->fetchAll(PDO::FETCH_ASSOC);
+        
+        if($this->database->is_error !== null) {
+            $this->is_success = $this->database->is_error;
+        }
+        else {
+            return $result;
+        }
+    }
+
+    public function append_warehouse($warehouse_name, $warehouse_group, $warehouse_supervisors)
+    {
+        // script that run generator id
+        $nextId = $this->summary->getNextId();
+        // write to database
+        $this->write_warehouse($nextId, $warehouse_name, $warehouse_group, $warehouse_supervisors);
+
+        if($this->database->is_error !== null) {
+
+            $this->is_success = $this->database->is_error;
+
+        } else {
+
+            return $nextId;
+
+        }
+
+    }
+
+    public function get_warehouse_by_id($id)
+    {
+
+        $result = $this->database->select_where($this->table, 'id', $id)->fetchAll(PDO::FETCH_ASSOC);
+        
+        if($this->database->is_error !== null) {
+            $this->is_success = $this->database->is_error;
+            return array();
+        } else {
+            return $result;
+        }
+
+    }
+
+    public function update_warehouse_by_id(array $data, $where, $id)
+    {
+
+        $result = $this->database->update($this->table, $data, $where, $id);
+
+        if($this->database->is_error !== null) {
+            $this->is_success = $this->database->is_error;
+        } else {
+            return $result;
+        }
+
+    }
+
+    public function write_warehouse($id, $warehouse_name, $warehouse_group, $warehouse_supervisors)
+    {
+        $data = array(
+            "id" => $id,
+            'warehouse_name' => $warehouse_name,
+            'warehouse_group' => $warehouse_group,
+            'warehouse_supervisors' => $warehouse_supervisors
+        );
+
+        $this->database->insert($this->table, $data);
+
+        if($this->database->is_error !== null) {
+            $this->is_success = $this->database->is_error;
+        } else {
+            $this->summary->updateLastId($id);
+            return $id;
+        }
+
+    }
+
+    public function last_id()
+    {
+        return $this->summary->getLastId();
+    }
+}
+```
+
+```php
+
+require_once(__DIR__ . '/../httpCall.php');
+require_once(__DIR__ . '/../../vendor/fakerphp/faker/src/autoload.php');
+
+class MyReportWarehousesTest extends PHPUnit_Framework_TestCase
+{
+    private $url = "http://localhost/rest-php/myreport/";
+    private $url_host_id = null;
+
+    public function testPostEndpoint()
+    {
+        $faker = Faker\Factory::create();
+        $http = new HttpCall($this->url . "warehouse");
+        // Define the request body
+        $data = array(
+            'warehouse_name' => $faker->firstName('female'),
+            'warehouse_group' => $faker->firstName('female'),
+            'warehouse_supervisors' => $faker->firstName('female')
+        );
+
+        // implement the request body
+        $http->setData($data);
+        $http->addJWTToken();
+        $response = $http->getResponse("POST");
+
+        $convertToAssocArray = json_decode($response, true);
+        // Verify that the response same as expected
+        $this->assertArrayHasKey('success', $convertToAssocArray);
+        $this->assertArrayHasKey('id', $convertToAssocArray, $response);
+        $this->assertEquals($convertToAssocArray['success'], true);
+        $this->url_host_id = $this->url . 'warehouse/' . $convertToAssocArray['id'];
+    }
+}
+```
+
+Ketika kita 1 proses menjalankan unit testing, maka hanya ada 1 request yang diterima oleh server untuk membuat record baru, aplikasi akan berjalan seperti berikut :
+
+| Process | Result Request 1 |
+| --- | ----------- |
+| Get last id from db |  WAREHOUSE_23060012 |
+| Get next id |  WAREHOUSE_23060013 |
+| Write record to database(success\error) | Show message(succecss) |
+| Update last id | Last id = WAREHOUSE_23060013 |
+
+Berapa kalipun kita menjalankan unit testing, maka tidak akan ada pesan error karena hanya ada 1 permintaan yang diterima server.
+
+Saya tidak pernah tahu bagaimana melakukan stress test pada rest server, tetapi saya ingin sekali melakukanya pada aplikasi saya, saya pun mencoba menjalankan 4 proses unit testing secara bersama sama, dan tentu saja terjadi error, berikut alur proses ketika ada server menerima 4 request dalam waktu yang sama :
+
+| Process | Result Request 1 | Result Request 2 | Result Request 3 | Result Request 4 |
+| --- | ----------- | ----------- | ----------- | ----------- |
+| Get last id from db |  WAREHOUSE_23060012 |  WAREHOUSE_23060012 |  WAREHOUSE_23060012 |  WAREHOUSE_23060012 |
+| Get next id |  WAREHOUSE_23060013 |  WAREHOUSE_23060013 |  WAREHOUSE_23060013 |  WAREHOUSE_23060013 |
+| Write record to database(success\error) | Show message(succecss) | Show message(Error Duplicate key) | Show message(Error Duplicate key) | Show message(Error Duplicate key) |
+| Update last id | Last id = WAREHOUSE_23060013 | Process not executed | Process not executed | Process not executed |
+
+Seperti yang terlihat diatas, kegagalan server terjadi dikarenakan database mendeteksi duplikasi pada primary key, tidak javascript, php menjankan proses secara bersamaan sehingga generatorId memberikan hasil yang sama.
+
+
+
+
 https://www.mysqltutorial.org/create-the-first-trigger-in-mysql.aspx
 https://www.w3schools.com/sql/func_mysql_week.asp
 https://stackoverflow.com/questions/17893988/how-to-make-mysql-table-primary-key-auto-increment-with-some-prefix
