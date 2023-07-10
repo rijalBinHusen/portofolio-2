@@ -447,8 +447,110 @@ Saya tidak pernah tahu bagaimana melakukan stress test pada rest server, tetapi 
 
 Seperti yang terlihat diatas, kegagalan server terjadi dikarenakan database mendeteksi duplikasi pada primary key, tidak javascript, php menjankan proses secara bersamaan sehingga generatorId memberikan hasil yang sama.
 
+Setelah saya mencari solusi untuk masalah diatas, saya menemukan bahwa kita bisa menanamkan trigger untuk tujuan tertentu pada database mysql, untuk kasus ini, kita akan menjalakan trigger sebelum aplikasi memasukkan data ke table warehouse.
 
+Pertama, kita perlu membuat table baru dengan auto increment sebagai prefix untuk custom increment id table warehouse:
 
+```sql
+CREATE TABLE warehouse_prefix
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+```
+
+Setelah table diatas dibuat, kita perlu membuat trigger baru agar sebelum mysql memasukkan data baru, mysql akan terlebih dahulu memasukkan data ke table warehouse_prefix, kemudian data yang telah dimasukkan tadi akan digunakan sebagai custom increment pada table warehouse:
+
+```sql
+DELIMITER $$
+
+CREATE TRIGGER tg_warehouse_insert
+
+BEFORE INSERT ON warehouse
+
+FOR EACH ROW
+
+BEGIN
+
+INSERT INTO warehouse_prefix VALUES (NULL);
+
+SET NEW.id = CONCAT('WRH', LPAD(LAST_INSERT_ID(), 3, '0'));
+
+END$$
+
+DELIMITER ;
+
+```
+Dari kode diatas, kita membuat trigger baru dengan nama *tg_warehouse_insert* yang akan dijalankan *sebelum insert record baru* pada table *warehouse* , hal yang akan dijalankan *setiap menambahkan record baru* adalah menambahkan record baru pada table warehouse_prefix, jika *LAST_INSERT_ID* pada table warehouse adalah 1, maka pada id pada table warehouse akan dimasukkan yaitu "WRH0001".
+
+Akan tetapi, terdapat masalah selanjutnya yaitu ketika record sudah mencapai 1001, maka id yang akan dimasukkan di table warehouse adalah WRH0001, yang mana akan menyebabkan **#1062 - Duplicate entry 'WRH0001' for key 'PRIMARY'**.
+
+untuk mengatasi hal tersebut, kita perlu mengosongkan table warehouse_prefix setiap periode tertentu sesuai kebutuhan kita, sehingga, jika 
+
+reset prefix warehouse every week
+
+```sql
+DELIMITER $$
+CREATE TRIGGER truncate_table_on_monday
+BEFORE INSERT ON warehouse_prefix
+FOR EACH ROW
+BEGIN
+  IF DAYOFWEEK(CURRENT_DATE()) = 1 THEN
+    TRUNCATE TABLE warehouse_prefix;
+  END IF;
+END;
+$$
+DELIMITER ;
+
+```
+
+reset prefix warehouse every month
+
+```sql
+DELIMITER $$
+CREATE TRIGGER truncate_table_on_first_month
+BEFORE INSERT ON warehouse_prefix
+FOR EACH ROW
+BEGIN
+  IF DAYOFMONTH(CURRENT_DATE()) = 1 THEN
+    TRUNCATE TABLE warehouse_prefix;
+  END IF;
+END;
+$$
+DELIMITER ;
+
+```
+
+reset prefix warehouse every year
+
+```sql
+DELIMITER $$
+CREATE TRIGGER truncate_table_on_first_day_of_year
+BEFORE INSERT ON warehouse_prefix
+FOR EACH ROW
+BEGIN
+  IF DAYOFYEAR(CURRENT_DATE()) = 1 THEN
+    TRUNCATE TABLE warehouse_prefix;
+  END IF;
+END;
+$$
+DELIMITER ;
+
+```
+
+```sql
+DELIMITER $$
+CREATE TRIGGER retrieve_user_info
+AFTER INSERT ON orders
+FOR EACH ROW
+BEGIN
+  SELECT name, email
+  FROM users
+  WHERE id = NEW.user_id;
+END;
+$$
+DELIMITER ;
+
+```
 
 https://www.mysqltutorial.org/create-the-first-trigger-in-mysql.aspx
 https://www.w3schools.com/sql/func_mysql_week.asp
