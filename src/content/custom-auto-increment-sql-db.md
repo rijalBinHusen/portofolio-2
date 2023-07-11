@@ -458,7 +458,7 @@ CREATE TABLE warehouse_prefix
 );
 ```
 
-Setelah table diatas dibuat, kita perlu membuat trigger baru agar sebelum mysql memasukkan data baru, mysql akan terlebih dahulu memasukkan data ke table warehouse_prefix, kemudian data yang telah dimasukkan tadi akan digunakan sebagai custom increment pada table warehouse:
+Setelah table diatas dibuat, kita perlu membuat trigger baru agar sebelum mysql memasukkan data baru ke table warehouse, mysql akan terlebih dahulu memasukkan data ke table warehouse_prefix, kemudian data yang telah dimasukkan tadi akan digunakan sebagai custom increment pada table warehouse:
 
 ```sql
 DELIMITER $$
@@ -473,7 +473,7 @@ BEGIN
 
 INSERT INTO warehouse_prefix VALUES (NULL);
 
-SET NEW.id = CONCAT('WRH', LPAD(LAST_INSERT_ID(), 3, '0'));
+SET NEW.id = CONCAT('WRH', LPAD(LAST_INSERT_ID(), 4, '0'));
 
 END$$
 
@@ -484,26 +484,30 @@ Dari kode diatas, kita membuat trigger baru dengan nama *tg_warehouse_insert* ya
 
 Akan tetapi, terdapat masalah selanjutnya yaitu ketika record sudah mencapai 1001, maka id yang akan dimasukkan di table warehouse adalah WRH0001, yang mana akan menyebabkan **#1062 - Duplicate entry 'WRH0001' for key 'PRIMARY'**.
 
-untuk mengatasi hal tersebut, kita perlu mengosongkan table warehouse_prefix setiap periode tertentu sesuai kebutuhan kita, sehingga, jika 
-
-reset prefix warehouse every week
+untuk mengatasi hal tersebut, kita perlu menambahkan prefix baru, misalkan **tahun** dan atau **bulan**, sehingga custom primary key kita  menjadi **WRH23070001** dimana **23** adalah tahun dan **07** adalah bulan, kita perlu memodifikasi perintah trigger kita menjadi:
 
 ```sql
 DELIMITER $$
-CREATE TRIGGER truncate_table_on_monday
-BEFORE INSERT ON warehouse_prefix
+
+CREATE TRIGGER tg_warehouse_insert
+
+BEFORE INSERT ON warehouse
+
 FOR EACH ROW
+
 BEGIN
-  IF DAYOFWEEK(CURRENT_DATE()) = 1 THEN
-    TRUNCATE TABLE warehouse_prefix;
-  END IF;
-END;
-$$
+
+INSERT INTO warehouse_prefix VALUES (NULL);
+
+SET NEW.id = CONCAT('WRH', RIGHT(YEAR(CURRENT_DATE), 2), LPAD(MONTH(CURRENT_DATE), 2, '0'), LPAD(LAST_INSERT_ID(), 4, '0'));
+
+END$$
+
 DELIMITER ;
 
 ```
 
-reset prefix warehouse every month
+Agar tidak terjadi error duplicate key, maka kita perlu mengosongkan table warehouse_prefix setiap bulanya dengan membuat trigger baru untuk reset prefix warehouse every month:
 
 ```sql
 DELIMITER $$
@@ -520,6 +524,20 @@ DELIMITER ;
 
 ```
 
+```sql
+DELIMITER $$
+CREATE TRIGGER trig_empty_table1_seq
+BEFORE INSERT ON table1_seq
+FOR EACH ROW
+BEGIN
+    IF DAYOFMONTH(CURDATE()) = 1 THEN
+        DELETE FROM table1_seq;
+    END IF;
+END$$
+DELIMITER ;
+
+```
+<!-- 
 reset prefix warehouse every year
 
 ```sql
@@ -550,7 +568,7 @@ END;
 $$
 DELIMITER ;
 
-```
+``` -->
 
 https://www.mysqltutorial.org/create-the-first-trigger-in-mysql.aspx
 https://www.w3schools.com/sql/func_mysql_week.asp
