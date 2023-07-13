@@ -19,14 +19,13 @@ Here are some of the benefits of using custom values for your auto increment col
 
 Initially I did custom incement key to FrontEnd application ...., yes I build offline application using only FrontEnd application and I stored all data of it appliaction in [indexeddb](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API), and also of course I have made a mistake.
 
-Saya menggunakan bantuan library [localforage](https://github.com/localForage/localForage) untuk terhubung ke API indexeddb dan memanipulasi data didalamnya, semua menipulasi data di indexeddb menggunakan satu file kode sebagai tulang punggung, dan setiap ada penambahan data baru akan diberikan uniquee increment id, kode untuk menghasilkan increment id adalah sebagai berikut :
+I use library [localforage](https://github.com/localForage/localForage) to connect to indexeddb and manipulate data in it, all of manipulation data in indexeddb only using one file as the backbone, and for every adding new data will be given custom increment id which must be unique, the code that generates custom increment id is below :
 
 ```Javascript
 export function generateId(lastId) {
-    // ambil last id dari summary  // kalau tidak ada bikin baru
+    // get only identity e.g SU_22050000 become only SUP
     let id = lastId.slice(0, -8);
-    // masukkan increment
-    // ambil 4 string e.g 0000 akan menjadi 0001
+    
     let increment = Number(lastId.slice(-4)) + 1 + "";
     // 2022
     let fullYear = new Date().getFullYear() + "";
@@ -66,19 +65,19 @@ export function generateId(lastId) {
   
 ```
 
-Seperti yang terlihat diatas, ketika kita menjalankan *generateId(SU_23060000)* maka kita akan mendapatkan hasil SU_23060001 kurang lebih berjalan seperti ini:
+As seen above, when we execute the function *generateId(SU_23060000)* we will get result SU_23060001, approxiately will run like this:
   - *generateId(SU_23060000)* => SU_23060001
   - *generateId(SU_23060001)* => SU_23060002
   - *generateId(SU_23060002)* => SU_23060003
   - *generateId(SU_23060003)* => SU_23060004
   - *generateId(SU_23060004)* => SU_23060005
-  - dan seterusnya
+  - etc
 
-Detail dari hasil generate id diatas adalah sebagai berikut :
-  - SUPER_ = nama dari table atau nama kategory atau apapun yang kamu inginkan
-  - 23 = tahun
+The details of the results above are as follows:
+  - SU_ = name of table or name of category or whatever you want.
+  - 23 = year
   - 06 = week
-  - 0001 = uniquee id
+  - 0001 = uniquee increment
 
 dikarenakan saya tidak melakukan unit testing pada kode tersebut, saya merasa semua baik baik saja, tetapi setelah aplikasi saya berjalan beberapa bulan, dan *getWeekNumber* function mengembelikan angka 9, aplikasi saya tidak berjalan sebagaimana mestinya, sebagai berikut:
   - *generateId(SU_23000000)* => SU_2390000
@@ -512,7 +511,7 @@ Agar tidak terjadi error duplicate key, maka kita perlu mengosongkan table wareh
 ```sql
 DELIMITER $$
 CREATE TRIGGER truncate_table_on_first_month
-BEFORE INSERT ON warehouse_prefix
+AFTER INSERT ON warehouse_prefix
 FOR EACH ROW
 BEGIN
   IF DAYOFMONTH(CURRENT_DATE()) = 1 THEN
@@ -524,7 +523,33 @@ DELIMITER ;
 
 ```
 
-```sql
+Akan lebih baik jika kita mengosongkan table menggunakan kode kita, karena trigger untuk mengosongkan table warehouse_prefix diatas akan dilakukan setiap tanggal 1 setiap bulan, jika kita tidak melakukan insert table pada tanggal 1, maka custom increment id akan dilanjutkan tanpa mengosongkan warehouse prefix.
+
+Here are some of the pros and cons of using a custom primary key with a prefix in MySQL instead of auto increment or UUID:
+
+**Pros:**
+
+* **More descriptive:** A custom primary key with a prefix can be more descriptive than an auto-incrementing number or a UUID. This can make it easier to identify and track records in the database.
+* **More flexible:** A custom primary key with a prefix can be more flexible than an auto-incrementing number or a UUID. For example, you can use a prefix to represent the type of record, the date the record was created.
+
+**Cons:**
+
+* **More complex:** Creating and managing a custom primary key with a prefix can be more complex than using an auto-incrementing number or a UUID.
+* **Less portable:** A custom primary key with a prefix may be less portable than an auto-incrementing number or a UUID. This is because a prefix is specific to a particular database schema.
+* **Less secure:** A custom primary key with a prefix can be less secure than a UUID. This is because a prefix can be more easy to guess than a random number or a UUID.
+
+**Conclusion:**
+
+Whether or not to use a custom primary key with a prefix in MySQL depends on your specific needs. If you need a primary key that is more descriptive, flexible, then a custom primary key with a prefix may be a good option. However, if you need a primary key that is simple to create and manage, then an auto-incrementing number or a UUID may be a better choice.
+
+Here are some additional considerations when deciding whether or not to use a custom primary key with a prefix:
+
+* **The size of your database:** If you have a large database, then a custom primary key with a prefix may take up more space than an auto-incrementing number or a UUID.
+* **The frequency of data changes:** If you have a database that is frequently updated, then a custom primary key with a prefix may be more difficult to manage than an auto-incrementing number or a UUID.
+* **The compatibility of your database with other systems:** If you need to share your database with other systems, then you will need to make sure that the other systems can understand the custom primary key with a prefix.
+
+
+<!-- ```sql
 DELIMITER $$
 CREATE TRIGGER trig_empty_table1_seq
 BEFORE INSERT ON table1_seq
@@ -536,7 +561,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-```
+``` -->
 <!-- 
 reset prefix warehouse every year
 
@@ -569,6 +594,8 @@ $$
 DELIMITER ;
 
 ``` -->
+
+### link
 
 https://www.mysqltutorial.org/create-the-first-trigger-in-mysql.aspx
 https://www.w3schools.com/sql/func_mysql_week.asp
