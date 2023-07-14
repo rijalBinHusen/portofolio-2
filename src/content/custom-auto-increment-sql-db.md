@@ -79,17 +79,17 @@ The details of the results above are as follows:
   - 06 = week
   - 0001 = uniquee increment
 
-dikarenakan saya tidak melakukan unit testing pada kode tersebut, saya merasa semua baik baik saja, tetapi setelah aplikasi saya berjalan beberapa bulan, dan *getWeekNumber* function mengembelikan angka 9, aplikasi saya tidak berjalan sebagaimana mestinya, sebagai berikut:
-  - *generateId(SU_23000000)* => SU_2390000
+I used the code above without any unit testing, I thought everything will be okey, but when the application running around a few month, and the *getWeekNumber* function yields the number 9, the application is broken, because the generateId function goes like the following:
+  - *generateId(SU_23080901)* => SU_2390000
   - *generateId(SU_2390000)* => SU2390000
   - *generateId(SU2390000)* => S2390000
   - *generateId(2390000)* => 2390000
   - *generateId(2390000)* => 2390000
   - and all next id would be 2390000
 
-Semua item yang dibuat pada hari tersebut memiliki id 2390000 dan tentu saja setiap item baru yang diberikan id 2390000 akan menimpa record yang sebelumnya, sehingga seolah olah record hanya dibuat 1 kali saja meskipun kita memasukkan data sebanyak banyaknya.
+All items made on that day given id 2390000 and of course the new record will be overwrite the old record that has the same id, so that as if the application only create 1 item although the application create items so much.
 
-setelah diperiksa lebih teliti, kesalahan dapat ditemukan pada kode *weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*, iya kamu benar, seharunya saya menggunakan *< 10* disitu, saya fix kode tersebut dan tidak lupa untuk membuat unit testing dengan cara menjalankan generateId selama 12 Bulan penuh, berikut hasil kode yang telah saya perbaiki:
+After being checked, the error was caused on line of code *weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*, yes you are right, I should have used *< 10* on that, I fixed that code and create unit testing by running *generateId(SU_23060000)* with a custom time in full 12 month, here is the code i have fixed:
 
 **generateId.js**
 
@@ -156,7 +156,7 @@ import { describe, it, expect } from 'vitest'
 describe("Next id must be oke", () => {
 
     
-    it('Must be oke', async () => {
+    it('Must be oke bro, understand?', async () => {
         const year = 2023;
         const startDate = new Date(`${year}-01-02`);
         const endDate = new Date(`${year}-12-25`);
@@ -192,7 +192,7 @@ describe("Next id must be oke", () => {
 }, 100000)
 ```
 
-dan kemudian aplikasi saya berjalan normal seperti biasa kembali dan saya pun bisa tidur dengan tenang.
+And then the application running normally, and I can sleep *peacefully*.
 
 Dikarenakan javascript adalah bahasa pemrograman yang single thread dan non blocking, maka semua proses pada aplikasi akan dilakukan secara berurutan, kemudian saya mencoba untuk membuat BackEnd untuk aplikasi diatas dan tentu saja akan muncul masalah berikutnya :).
 
