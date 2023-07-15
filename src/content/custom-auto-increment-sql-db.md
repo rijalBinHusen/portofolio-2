@@ -194,9 +194,9 @@ describe("Next id must be oke", () => {
 
 And then the application running normally, and I can sleep *peacefully*.
 
-Dikarenakan javascript adalah bahasa pemrograman yang single thread dan non blocking, maka semua proses pada aplikasi akan dilakukan secara berurutan, kemudian saya mencoba untuk membuat BackEnd untuk aplikasi diatas dan tentu saja akan muncul masalah berikutnya :).
+Because javascript is a single thread and non-blocking programing language and the user of application only me, so I can manage the process of the application goes alternately, and then a few months later I try to build the BackEnd of the application, and of course we will face another problem :).
 
-Backend yang akan kita buat adalah menggunakan bahasa pemrograman php, karena kita sudah memiliki kode yang sudah teruji dalam bahasa javascript, sehingga kita hanya perlu mengubahnya menjadi bahasa php:
+The backend that we will build uses the php language, because we already have the tested code in javacript language, so we just need to translate it to php languange:
 
 **generator_id.php**
 ```php
@@ -208,7 +208,7 @@ function generateId($lastId) {
 function generateIdWithCustomDate($lastId, $yourDate)
 {
     $yourDate2 =  date_create($yourDate);
-    // get uniquee id, the 8 last string, SUPERVISOR_22030001 become SUPERVISOR_
+    // get uniquee id, delete the 8 last string, SUPERVISOR_22030001 become SUPERVISOR_
     $baseId = substr($lastId, 0, -8);
     // get uniquee number, the last 4 string, war22050000 become 0000
     $getNumber = substr($lastId, -4);
@@ -235,11 +235,11 @@ function generateIdWithCustomDate($lastId, $yourDate)
 **generator_id_Test.php** *The unit testing code*
 ```php
 use PHPUnit\Framework\TestCase;
-// Class yang mau di TEST.
+// Class to TEST.
 require_once( __DIR__. '/../utils/generator_id.php');
 // require_once "Wordcount.php";
 
-// Class untuk run Testing.
+// Class to run Testing.
 class SimpleTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneratorId()
@@ -253,7 +253,6 @@ class SimpleTest extends PHPUnit_Framework_TestCase
         while ($current_date <= $end_date) {
             // echo $current_date->format("Y-m-d") . "<br>";
             $TestSentence = generateIdWithCustomDate("SUPER_22110000", $current_date->format("Y-m-d"));
-            // $WordCount = $Wc->countWords($TestSentence);
             
             $weekId = $week < 10 ? "0". $week : $week;
             $expect = "SUPER_23". $weekId ."0000";
@@ -275,7 +274,7 @@ class SimpleTest extends PHPUnit_Framework_TestCase
 }
 ```
 
-Unit testing success, dan juga unit testing untuk create data pun juga sukses, tetapi terjadi kesalahan ketika melakukan permintaan keserver secara bersamaan, server mengembalikan pesan error *Duplicate entry 'WAREHOUSE_23060012' for key 'id'*
+The unit test for generateId function was successful, and the unit test for create a record too, but somethingn went wrong when to make requests to the server at the same time, the server returns an error message *Duplicate entry 'WAREHOUSE_23060012' for key 'id'*
 
 Pada lapisan model untuk memasukkan data kedatabase adalah sebagai berikut :
 
@@ -388,6 +387,7 @@ class My_report_warehouse_model
 }
 ```
 
+**Warehouse_test.php**
 ```php
 
 require_once(__DIR__ . '/../httpCall.php');
