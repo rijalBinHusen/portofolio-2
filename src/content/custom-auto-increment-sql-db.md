@@ -274,9 +274,9 @@ class SimpleTest extends PHPUnit_Framework_TestCase
 }
 ```
 
-The unit test for generateId function was successful, and the unit test for create a record too, but somethingn went wrong when to make requests to the server at the same time, the server returns an error message *Duplicate entry 'WAREHOUSE_23060012' for key 'id'*
+The unit test for generateId function was successful, and the unit test for create a record too, but something went wrong when to make multiple requests to the server at the same time, the server returns an error message *Duplicate entry 'WAREHOUSE_23060012' for key 'id'*.
 
-Pada lapisan model untuk memasukkan data kedatabase adalah sebagai berikut :
+The model layer for inserting a new record into the database is as follows :
 
 **Warehouse_model.php**
 ```php
@@ -306,8 +306,8 @@ class My_report_warehouse_model
     {
         $result  = $this->database->select_from($this->table)->fetchAll(PDO::FETCH_ASSOC);
         
-        if($this->database->is_error !== null) {
-            $this->is_success = $this->database->is_error;
+        if($this->database->error !== null) {
+            $this->is_success = $this->database->error;
         }
         else {
             return $result;
@@ -321,9 +321,9 @@ class My_report_warehouse_model
         // write to database
         $this->write_warehouse($nextId, $warehouse_name, $warehouse_group, $warehouse_supervisors);
 
-        if($this->database->is_error !== null) {
+        if($this->database->error !== null) {
 
-            $this->is_success = $this->database->is_error;
+            $this->is_success = $this->database->error;
 
         } else {
 
@@ -338,8 +338,8 @@ class My_report_warehouse_model
 
         $result = $this->database->select_where($this->table, 'id', $id)->fetchAll(PDO::FETCH_ASSOC);
         
-        if($this->database->is_error !== null) {
-            $this->is_success = $this->database->is_error;
+        if($this->database->error !== null) {
+            $this->is_success = $this->database->error;
             return array();
         } else {
             return $result;
@@ -352,8 +352,8 @@ class My_report_warehouse_model
 
         $result = $this->database->update($this->table, $data, $where, $id);
 
-        if($this->database->is_error !== null) {
-            $this->is_success = $this->database->is_error;
+        if($this->database->error !== null) {
+            $this->is_success = $this->database->error;
         } else {
             return $result;
         }
@@ -371,8 +371,8 @@ class My_report_warehouse_model
 
         $this->database->insert($this->table, $data);
 
-        if($this->database->is_error !== null) {
-            $this->is_success = $this->database->is_error;
+        if($this->database->error !== null) {
+            $this->is_success = $this->database->error;
         } else {
             $this->summary->updateLastId($id);
             return $id;
@@ -424,7 +424,7 @@ class MyReportWarehousesTest extends PHPUnit_Framework_TestCase
 }
 ```
 
-Ketika kita 1 proses menjalankan unit testing, maka hanya ada 1 request yang diterima oleh server untuk membuat record baru, aplikasi akan berjalan seperti berikut :
+When we run 1 unit testing process, only 1 request is received by the server to create a new record, while create new record, the application runs as below:
 
 | Process | Result Request 1 |
 | --- | ----------- |
@@ -433,9 +433,9 @@ Ketika kita 1 proses menjalankan unit testing, maka hanya ada 1 request yang dit
 | Write record to database(success\error) | Show message(succecss) |
 | Update last id | Last id = WAREHOUSE_23060013 |
 
-Berapa kalipun kita menjalankan unit testing, maka tidak akan ada pesan error karena hanya ada 1 permintaan yang diterima server.
+No matter how many times we run the unit test, we will not see any error message, because the server only receive 1 request.
 
-Saya tidak pernah tahu bagaimana melakukan stress test pada rest server, tetapi saya ingin sekali melakukanya pada aplikasi saya, saya pun mencoba menjalankan 4 proses unit testing secara bersama sama, dan tentu saja terjadi error, berikut alur proses ketika ada server menerima 4 request dalam waktu yang sama :
+I never figured out how to do a stress test on a rest server, but I'd love to do it, I try to run 4 unit test process simultaneously, and of course we got an error message, the flow process while server receive 4 requests simultaneously as below:
 
 | Process | Result Request 1 | Result Request 2 | Result Request 3 | Result Request 4 |
 | --- | ----------- | ----------- | ----------- | ----------- |
