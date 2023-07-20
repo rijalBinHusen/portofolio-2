@@ -196,7 +196,7 @@ And then the application running normally, and I can sleep *peacefully*.
 
 Because javascript is a single thread and non-blocking programing language and the user of application only me, so I can manage the process of the application goes alternately, and then a few months later I try to build the BackEnd of the application, and of course we will face another problem :).
 
-The backend that we will build uses the php language, because we already have the tested code in javacript language, so we just need to translate it to php languange:
+The backend that we will build uses the php language and mysql as database, because we already have the tested code in javacript language, so we just need to translate it to php languange:
 
 **generator_id.php**
 ```php
@@ -444,11 +444,11 @@ I never figured out how to do a stress test on a rest server, but I'd love to do
 | Write record to database(success\error) | Show message(succecss) | Show message(Error Duplicate key) | Show message(Error Duplicate key) | Show message(Error Duplicate key) |
 | Update last id | Last id = WAREHOUSE_23060013 | Process not executed | Process not executed | Process not executed |
 
-Seperti yang terlihat diatas, kegagalan server terjadi dikarenakan database mendeteksi duplikasi pada primary key, tidak javascript, php menjankan proses secara bersamaan sehingga generatorId memberikan hasil yang sama.
+As you can see above, server failure caused duplicate key while write data on primary key column, unlike FrontEnd application before, we have complete control over the process being so we can waiting the write data process until finished and then continue the next write process, otherwise the php server running processes concurrently.
 
-Setelah saya mencari solusi untuk masalah diatas, saya menemukan bahwa kita bisa menanamkan trigger untuk tujuan tertentu pada database mysql, untuk kasus ini, kita akan menjalakan trigger sebelum aplikasi memasukkan data ke table warehouse.
+I explored to find a solution to the above problem, I foundn that we can embed a trigger function in mysql database for a specific purpose, in this case, we'll run the trigger before the application inserts data into the table.
 
-Pertama, kita perlu membuat table baru dengan auto increment sebagai prefix untuk custom increment id table warehouse:
+First, we need to create a new table with an **auto increment** column as prefix:
 
 ```sql
 CREATE TABLE warehouse_prefix
@@ -457,7 +457,7 @@ CREATE TABLE warehouse_prefix
 );
 ```
 
-Setelah table diatas dibuat, kita perlu membuat trigger baru agar sebelum mysql memasukkan data baru ke table warehouse, mysql akan terlebih dahulu memasukkan data ke table warehouse_prefix, kemudian data yang telah dimasukkan tadi akan digunakan sebagai custom increment pada table warehouse:
+Second, we need to create a new trigger function so before mysql inserts new data into warehouse table, mysql will enter new data into warehouse_prefix table in advance, and then use the *last inserted id* as prefix increment:
 
 ```sql
 DELIMITER $$
