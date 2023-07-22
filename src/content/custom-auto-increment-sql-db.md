@@ -479,11 +479,11 @@ END$$
 DELIMITER ;
 
 ```
-Dari kode diatas, kita membuat trigger baru dengan nama *tg_warehouse_insert* yang akan dijalankan *sebelum insert record baru* pada table *warehouse* , hal yang akan dijalankan *setiap menambahkan record baru* adalah menambahkan record baru pada table warehouse_prefix, jika *LAST_INSERT_ID* pada table warehouse adalah 1, maka pada id pada table warehouse akan dimasukkan yaitu "WRH0001".
+From the code above, we create a new trigger with a name *tg_warehouse_insert* which will be executed *before insert new record* on table *warehouse* , thing todo *every add new reocrd* is to add new record on table *warehouse_prefix*, if *LAST_INSERT_ID* on table *warehouse_prefix* is 1, so the id to be entered on table *warehouse* is **"WRH0001"**.
 
-Akan tetapi, terdapat masalah selanjutnya yaitu ketika record sudah mencapai 1001, maka id yang akan dimasukkan di table warehouse adalah WRH0001, yang mana akan menyebabkan **#1062 - Duplicate entry 'WRH0001' for key 'PRIMARY'**.
+However, we have the next problem, when the records have reached 1000, then the next id to be entered into table warehouse is **WRH0001**, which will be cause error **#1062 - Duplicate entry 'WRH0001' for key 'PRIMARY'**.
 
-untuk mengatasi hal tersebut, kita perlu menambahkan prefix baru, misalkan **tahun** dan atau **bulan**, sehingga custom primary key kita  menjadi **WRH23070001** dimana **23** adalah tahun dan **07** adalah bulan, kita perlu memodifikasi perintah trigger kita menjadi:
+To sovle the issue, we need to embed a new prefix in to the id, *e.g*  **YEAR** and or **MONTH** instead of we only embed table name (WHR) and the uniquee id (0001), so the custom primary key would be **WRH23070001**, **WRH** the table name, **23** year created, **07** month created, and **0001** the uniquee number, we need to modify the trigger tobe:
 
 ```sql
 DELIMITER $$
