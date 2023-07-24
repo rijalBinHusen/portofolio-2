@@ -9,14 +9,14 @@ const permalink = Astro.site + '/rate-card';
 
 <Layout title={title} description={description} permalink={permalink}>
     <section >
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-            <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Designed for business teams like yours</h2>
-                <p class="mb-5 font-light text-gray-500 sm:text-xl text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+        <div class="rate-card-main">
+            <div class="rate-card-header">
+                <h2>Designed for business teams like yours</h2>
+                <p>Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
             </div>
             <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
                 <!-- Pricing Card -->
-                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 text-white">
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-pink-100 rounded-lg border border-gray-100 shadow xl:p-8">
                     <h3 class="mb-4 text-2xl font-semibold">Starter</h3>
                     <p>Best option for personal use & for your next project.</p>
                     <div class="flex justify-center items-baseline my-8">
@@ -51,10 +51,10 @@ const permalink = Astro.site + '/rate-card';
                             <span>Free updates: <span class="font-semibold">6 months</span></span>
                         </li>
                     </ul>
-                    <a href="#" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white  dark:focus:ring-primary-900">Get started</a>
+                    <a href="#" class="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Get started</a>
                 </div>
                 <!-- Pricing Card -->
-                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 text-white">
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-pink-100 rounded-lg border border-gray-100 shadow xl:p-8">
                     <h3 class="mb-4 text-2xl font-semibold">Company</h3>
                     <p >Relevant for multiple users, extended & premium support.</p>
                     <div class="flex justify-center items-baseline my-8">
@@ -89,10 +89,10 @@ const permalink = Astro.site + '/rate-card';
                             <span>Free updates: <span class="font-semibold">24 months</span></span>
                         </li>
                     </ul>
-                    <a href="#" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white  dark:focus:ring-primary-900">Get started</a>
+                    <a href="#" class="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started</a>
                 </div>
                 <!-- Pricing Card -->
-                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 text-white">
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-pink-100 rounded-lg border border-gray-100 shadow xl:p-8">
                     <h3 class="mb-4 text-2xl font-semibold">Enterprise</h3>
                     <p>Best for large scale uses and extended redistribution rights.</p>
                     <div class="flex justify-center items-baseline my-8">
@@ -127,7 +127,7 @@ const permalink = Astro.site + '/rate-card';
                             <span>Free updates: <span class="font-semibold">36 months</span></span>
                         </li>
                     </ul>
-                    <a href="#" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white  dark:focus:ring-primary-900">Get started</a>
+                    <a href="#" class="bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Get started</a>
                 </div>
             </div>
         </div>
@@ -136,7 +136,12 @@ const permalink = Astro.site + '/rate-card';
 
 <style>
     section {
-        background-color: rgb(243 244 246);
+        /* background-color: rgb(243 244 246); */
+        margin-top: 2rem;
+        border-radius: .5rem;
+        border-top: dashed .23rem pink;
+        border-bottom: dashed .23rem pink;
+        padding-bottom: 1.5rem;
     }
 
     section p {
@@ -145,9 +150,49 @@ const permalink = Astro.site + '/rate-card';
 
     }
 
+    .rate-card-main {
+        padding-top: 8px;
+        padding-right: 4px;
+        padding-left: 4px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1440px;
+    }
+
+    .rate-card-header {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 960px;
+        text-align: center;
+        margin-bottom: 16px;
+        padding-right: .32rem;
+        padding-left: .32rem;
+    }
+
+    .rate-card-header h2 {
+        margin-bottom: 16px;
+        font-size: 24px;
+        letter-spacing: -0.16px;
+        font-weight: 800;
+        color: #2a2a2a;
+    }
+
     @media (min-width: 768px) {
+        section {
+            margin-top: 8rem;
+        }
         section p {
             font-size: 16px;
+        }
+
+        .rate-card-main {
+            padding-top: 16px;
+            padding-right: 6px;
+            padding-left: 6px;
+        }
+
+        .rate-card-header {
+            margin-bottom: 24px;
         }
     }
 </style>
