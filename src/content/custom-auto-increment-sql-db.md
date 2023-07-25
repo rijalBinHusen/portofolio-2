@@ -79,7 +79,7 @@ The details of the results above are as follows:
   - 06 = week
   - 0001 = uniquee increment
 
-I used the code above without any unit testing, I thought everything will be okey, but when the application running around a few month, and the *getWeekNumber* function yields the number 9, the application is broken, because the generateId function goes like the following:
+I used the code above without any unit testing, I thought everything will be okey, but when the application running around a few month, and the *getWeekNumber* function yields the number 9, then the application is broken, because the generateId function goes like the following:
   - *generateId(SU_23080901)* => SU_2390000
   - *generateId(SU_2390000)* => SU2390000
   - *generateId(SU2390000)* => S2390000
@@ -89,7 +89,7 @@ I used the code above without any unit testing, I thought everything will be oke
 
 All items made on that day given id 2390000 and of course the new record will be overwrite the old record that has the same id, so that as if the application only create 1 item although the application create items so much.
 
-After being checked, the error was caused on line of code *weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*, yes you are right, I should have used *< 10* on that, I fixed that code and create unit testing by running *generateId(SU_23060000)* with a custom time in full 12 month, here is the code i have fixed:
+After being checked, the error was caused on line of code *weekNow = weekNow < 9 ? "0" + weekNow : weekNow;*, yes you are right, I should have used *< 10* on that, I fixed that code and create unit testing by running *generateId(SU_23060000)* with a custom time in full 12 month, here is the code I have fixed:
 
 **generateId.js**
 
@@ -194,9 +194,9 @@ describe("Next id must be oke", () => {
 
 And then the application running normally, and I can sleep *peacefully*.
 
-Because javascript is a single thread and non-blocking programing language and the user of application only me, so I can manage the process of the application goes alternately, and then a few months later I try to build the BackEnd of the application, and of course we will face another problem :).
+Because javascript is a single thread and non-blocking programing language and the user of application only me, so I can manage the process of the application goes alternately, and then a few months later I try to build the BackEnd for the application, and of course we will face another problem :).
 
-The backend that we will build uses the php language and mysql as database, because we already have the tested code in javacript language, so we just need to translate it to php languange:
+The BackEnd that we will build uses the php language and mysql as database, because we already have the tested code in javacript language, so we just need to translate it to php languange:
 
 **generator_id.php**
 ```php
@@ -235,9 +235,8 @@ function generateIdWithCustomDate($lastId, $yourDate)
 **generator_id_Test.php** *The unit testing code*
 ```php
 use PHPUnit\Framework\TestCase;
-// Class to TEST.
+// Function to TEST.
 require_once( __DIR__. '/../utils/generator_id.php');
-// require_once "Wordcount.php";
 
 // Class to run Testing.
 class SimpleTest extends PHPUnit_Framework_TestCase
@@ -483,7 +482,7 @@ From the code above, we create a new trigger with a name *tg_warehouse_insert* w
 
 However, we have the next problem, when the records have reached 1000, then the next id to be entered into table warehouse is **WRH0001**, which will be cause error **#1062 - Duplicate entry 'WRH0001' for key 'PRIMARY'**.
 
-To sovle the issue, we need to embed a new prefix in to the id, *e.g*  **YEAR** and or **MONTH** instead of we only embed table name (WHR) and the uniquee id (0001), so the custom primary key would be **WRH23070001**, **WRH** the table name, **23** year created, **07** month created, and **0001** the uniquee number, we need to modify the trigger tobe:
+To sovle the issue, we need to embed a new prefix in to the id, *e.g*  **YEAR** and or **MONTH** instead of we only embed table name (WHR) and the uniquee id (0001), so the custom primary key would be **WRH23070001**, **WRH** the table name, **23** year created, **07** month created, and **0001** the uniquee number, we need to modify the trigger to be:
 
 ```sql
 DELIMITER $$
@@ -506,7 +505,7 @@ DELIMITER ;
 
 ```
 
-Agar tidak terjadi error duplicate key, maka kita perlu mengosongkan table warehouse_prefix setiap bulanya dengan membuat trigger baru untuk reset prefix warehouse every month:
+To avoid error duplicate key and or to make the increment id reset to 1 every month, we need to create new trigger function to reset the auto increment to 1 by emptying the table warehouse_prefix as below:
 
 ```sql
 DELIMITER $$
@@ -523,7 +522,7 @@ DELIMITER ;
 
 ```
 
-Akan lebih baik jika kita mengosongkan table menggunakan kode kita, karena trigger untuk mengosongkan table warehouse_prefix diatas akan dilakukan setiap tanggal 1 setiap bulan, jika kita tidak melakukan insert table pada tanggal 1, maka custom increment id akan dilanjutkan tanpa mengosongkan warehouse prefix.
+It would be better if we emptying table warehouse_prefix manually in our code, because the trigger function above will execute every 1st day of every month, if we don't add new data on the first date, then the auto increment id will continue without emptying warehouse_prefix.
 
 Here are some of the pros and cons of using a custom primary key with a prefix in MySQL instead of auto increment or UUID:
 
@@ -598,5 +597,7 @@ DELIMITER ;
 ### link
 
 https://www.mysqltutorial.org/create-the-first-trigger-in-mysql.aspx
+
 https://www.w3schools.com/sql/func_mysql_week.asp
+
 https://stackoverflow.com/questions/17893988/how-to-make-mysql-table-primary-key-auto-increment-with-some-prefix
