@@ -1,8 +1,8 @@
 ---
-title:  "Auto increment sql database with custom value"
-description: "Implement custome auto increment primary key 23230001 instead of 1, 2, 3, 4 ...."
+title:  "Auto increment MySQL column with custom value"
+description: "Primary key based on custom prefix"
 date: 2023-06-06
-img: '/kindness.jpg'
+img: '/custom-auto-increment.png'
 tags: [sql, database, trigger]
 ---
 In this blog post, we will discuss how to implement auto increment with custom value in MySQL. Auto increment is a feature of MySQL that allows you to automatically generate unique values for your database rows. This can be useful for keeping track of records in your database, as you don't have to worry about manually assigning values.
@@ -21,7 +21,7 @@ Initially I did custom incement key to FrontEnd application ...., yes I build of
 
 I use library [localforage](https://github.com/localForage/localForage) to connect to indexeddb and manipulate data in it, all of manipulation data in indexeddb only using one file as the backbone, and for every adding new data will be given custom increment id which must be unique, the code that generates custom increment id is below :
 
-```Javascript
+```JS
 export function generateId(lastId) {
     // get only identity e.g SU_22050000 become only SUP
     let id = lastId.slice(0, -8);
@@ -93,7 +93,7 @@ After being checked, the error was caused on line of code *weekNow = weekNow < 9
 
 **generateId.js**
 
-```Javascript
+```JS
 
 function getWeekNumber(yourDate) {
     // get today
@@ -148,7 +148,7 @@ export function generateIdCutomDate(yourDate, yourLastId) {
 ```
 
 **generateId.spec.js** *The unit testing code*
-```Javascript
+```JS
 import { generateIdCutomDate } from "../utils/generatorId";
 
 import { describe, it, expect } from 'vitest'
@@ -425,23 +425,26 @@ class MyReportWarehousesTest extends PHPUnit_Framework_TestCase
 
 When we run 1 unit testing process, only 1 request is received by the server to create a new record, while create new record, the application runs as below:
 
-| Process | Result Request 1 |
-| --- | ----------- |
-| Get last id from db |  WAREHOUSE_23060012 |
-| Get next id |  WAREHOUSE_23060013 |
-| Write record to database(success\error) | Show message(succecss) |
-| Update last id | Last id = WAREHOUSE_23060013 |
-
+```
+| Process                                 | Result Request 1             |
+| --------------------------------------- | ---------------------------- |
+| Get last id from db                     | WAREHOUSE_23060012           |
+| Get next id                             | WAREHOUSE_23060013           |
+| Write record to database(success\error) | Show message(succecss)       |
+| Update last id                          | Last id = WAREHOUSE_23060013 |
+```
 No matter how many times we run the unit test, we will not see any error message, because the server only receive 1 request.
 
 I never figured out how to do a stress test on a rest server, but I'd love to do it, I try to run 4 unit test process simultaneously, and of course we got an error message, the flow process while server receive 4 requests simultaneously as below:
 
-| Process | Result Request 1 | Result Request 2 | Result Request 3 | Result Request 4 |
-| --- | ----------- | ----------- | ----------- | ----------- |
-| Get last id from db |  WAREHOUSE_23060012 |  WAREHOUSE_23060012 |  WAREHOUSE_23060012 |  WAREHOUSE_23060012 |
-| Get next id |  WAREHOUSE_23060013 |  WAREHOUSE_23060013 |  WAREHOUSE_23060013 |  WAREHOUSE_23060013 |
-| Write record to database(success\error) | Show message(succecss) | Show message(Error Duplicate key) | Show message(Error Duplicate key) | Show message(Error Duplicate key) |
-| Update last id | Last id = WAREHOUSE_23060013 | Process not executed | Process not executed | Process not executed |
+```md
+| Process                             | Result Request 1             | Result Request 2                  | Result Request 3                  | Result Request 4                  |
+| ----------------------------------- | ---------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
+| Get last id from db                 | WAREHOUSE_23060012           | WAREHOUSE_23060012                | WAREHOUSE_23060012                | WAREHOUSE_23060012                |
+| Get next id                         | WAREHOUSE_23060013           | WAREHOUSE_23060013                | WAREHOUSE_23060013                | WAREHOUSE_23060013                |
+| Write database(success\error)       | Show message(succecss)       | Show message(Error Duplicate key) | Show message(Error Duplicate key) | Show message(Error Duplicate key) |
+| Update last id                      | Last id = WAREHOUSE_23060013 | Process not executed              | Process not executed              | Process not executed              |
+```
 
 As you can see above, server failure caused duplicate key while write data on primary key column, unlike FrontEnd application before, we have complete control over the process being so we can waiting the write data process until finished and then continue the next write process, otherwise the php server running processes concurrently.
 
