@@ -2,7 +2,7 @@
 title:  "Melakukan stok barang lebih cepat"
 description: "Aplikasi untuk memudahkan menghitung stok barang"
 date: 2023-11-24
-img: '/public/stock.ibinhusen.my.id.png'
+img: '/stock.ibinhusen.my.id.png'
 tags: [Application, web, solidjs]
 ---
 
@@ -18,7 +18,7 @@ Pengguna dapat menambahkan nama produk atau barang dengan cara sebagai berikut:
 - Kemudian tekan tombol **tambahkan**
 - Berikut ditunjukkan oleh gambar
 
-![Menambahkan produk baru](/public/stock-opname-1.gif)
+![Menambahkan produk baru](/stock-opname-1.gif)
 
 Nama item yang telah ditambahkan dapat diedit oleh pengguna.
 
@@ -38,7 +38,7 @@ Pada contoh kali ini kita akan memberikan nama folder sesuai dengan tanggal saat
 - Kemudian tekan tombol **tambahkan**
 - Berikut ditunjukkan oleh gambar
 
-![Buat folder](/public/stock-opname-2.gif)
+![Buat folder](/stock-opname-2.gif)
 
 
 ### 2. Melakukan proses stok opname
@@ -46,7 +46,7 @@ Folder yang telah kita buat tadi dapat kita isi dengan perhitungan stok barang.
 
 klik nama folder yang telah dibuat tadi, kemudian lakukan perhitungan pada fisik barang, kita asumsikan penataan barang seperti gambar berikut:
 
-![penataan barang 001](/public/stock-opname-3.png)
+![penataan barang 001](/stock-opname-3.png)
 
 Seperti yang terlihat diatas, bahwa tumpukan barang terdiri atas 3 (kesamping), 2 (Keatas), 2(kebelakang).
 
@@ -59,7 +59,7 @@ masukkan data yang telah kita dapatkan ke dalam aplikasi dengan cara:
 - Tekan tombol **Tambahkan**
 - berikut ditunjukkan oleh gambar
 
-![Masukkan data 001](/public/stock-opname-4.gif)
+![Masukkan data 001](/stock-opname-4.gif)
 
 Lakukan perhitungan semua barang, kemudian masukkan data ke aplikasi dengan cara seperti diatas.
 
@@ -67,7 +67,7 @@ Lakukan perhitungan semua barang, kemudian masukkan data ke aplikasi dengan cara
 
 Untuk melihat total jumlah barang berdasarkan nama produk, pengguna dapat meninjau pada menu **Hasil stock** seperti gambar berikut :
 
-![hasil stock opname](/public/stock-opname-5.gif)
+![hasil stock opname](/stock-opname-5.gif)
 
 ## Penutup
 Melakukan stok opname adalah hal yang penting, aktivitas ini memiliki banyak manfaat seperti:
