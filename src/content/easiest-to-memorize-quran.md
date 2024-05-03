@@ -5,7 +5,7 @@ author: Rijal bin Husen
 github: rijalBinHusen
 twitter:
 telegram: rijalbinhusen
-cover: /image/belajar-docker-dalam-15-menit/header.png
+cover: /belajar-docker-dalam-15-menit/header.png
 date: 2024-03-23
 categories:
     - tutorial
@@ -71,85 +71,81 @@ Memorizing the Quran is not merely an act of committing sacred texts to memory, 
     Moreover, understanding the context or story behind a verse can aid in retention, as sometimes the narrative is more memorable than the verse itself. Hence, learning the meanings of Quranic verses facilitates better memorization.
 
 
+### Difficulty in Memorizing the Quran
+Some common challenges encountered while memorizing the Quran include:
 
-### Kesulitan dalam menghafal alquran
-Beberapa kesulitan yang sering dihadapi ketika menghafal alquran yaitu:
-1. Sulit meluangkan waktu
+1. Difficulty in Allocating Time
 
-    Setiap orang memiliki waktu 24 jam, dari total waktu tersebut rata rata orang menggunakan 8 jam untuk bekerja atau mencari nafkah, Kurang lebih 8 jam untuk tidur dan 8 jam untuk hal lain lain.
+   Despite having 24 hours in a day, the average person typically spends 8 hours working, 8 hours sleeping, leaving around 8 hours for other activities. Although this allows for approximately 4 hours for Quran memorization, only a few manage to utilize this time effectively.
 
-    Dari uraian diatas, kita memiliki 8 jam untuk melakukan hal lain, sekurang kurangnya masih ada 4 jam untuk aktivitas menghafal alquran, namun hanya sedikit orang yang bisa memanfaatkan waktu yang sempit tersebut.
-    
-2. Tidak disiplin
-   
-    Dengan aktivitas harian yang berubah ubah setiap harinya, dan lingkungan yang terkadang tidak mendukung, seseorang akan kesulitan untuk disiplin melakukan hafalan, dan mengulang kembali ayat yang telah dihafalkan.
-3. Lupa ayat yang sedang dihafalkan
-4. Lupa ayat yang perlu di murojaah
+2. Lack of Discipline
 
-### Aplikasi hafalan alquran
-Kami membangun aplikasi dalam rangka mencegah beberapa kesulitan diatas.
+   With daily routines that vary and sometimes unsupportive environments, individuals struggle to maintain discipline in memorizing and revising verses.
 
-Pada kesempatan kali ini kami membagikan cara yang paling mudah untuk menghafalkan alquran dengan bantuan aplikasi.
+3. Forgetting Memorized Verses
+4. Forgetting Verses Requiring Revision (Murojaah)
 
-#### 1. Menyimak rekaman
-Temukan rekaman atau video alquran, dan dengarkan secara terus menerus, dengan begitu, minimal kita mengetahui cara membaca yang benar.
+### Quran Memorization Application
+To address these challenges, we have developed an application aimed at facilitating Quran memorization. Here, we present the simplest method to memorize the Quran using our application.
 
-#### 2. Membuat folder baru
-Kunjungi aplikasi kami pada [memverses.ibinhusen.my.id](https://memverses.ibinhusen.my.id/), kemudian buat folder bacaan alquran baru :
+#### 1. Listen to Recitations
+Begin by listening to Quranic recitations or videos regularly to familiarize yourself with correct pronunciation.
 
-1. Klik tombol **+** dibawah, 
-2. Namakan folder *Hafalan* 
-3. klik tombol **Buat folder**
-  
-![Buat folder baru](/image/cara-paling-mudah-menghafal-alquran/1-create-folder.jpg)
+#### 2. Create a New Folder
+Visit our application at [memverses.ibinhusen.my.id](https://memverses.ibinhusen.my.id/) and create a new folder for Quranic readings:
 
-#### 3. Tambahkan ayat untuk dihafalkan
-Kemudian masuk ke folder dengan cara klik nama folder, dan tambahkan ayat yang ingin dihafalkan.
+   1. Click the **+** button below.
+   2. Name the folder *Memorization*.
+   3. Click the **Create folder** button.
 
-1.  Klik tombol **+** dibawah.
-2.  Masukkan surat.
-3.  Masukkan nomor ayat mulai.
-4.  Masukkan nomor ayat selesai.
-5.  Klik tombol **Tambahkan**.
+   ![Create a new folder](/memverses/1-create-folder.png)
 
-![Tambahkan ayat](/image/cara-paling-mudah-menghafal-alquran/2-add-chapter.jpg)
+#### 3. Add Verses for Memorization
+Navigate to the created folder, click on it, and add the verses you intend to memorize:
 
-#### 4. Mengatur metode hafalan
-Kamu perlu mengatur beberapa target sebelum menghafalkan alquran, 
-1. Tekan tombol pengaturan pada bagian kanan atas.
-2. Tentukan berapa banyak ayat yang ingin Kamu hafalkan pada bagian *Tampilkan ayat sebanyak* (dianjurkan sebanyak 1 ayat).
-3. Tentukan berapa banyak bacaan alquran per hari pada bagian *Target membaca perhari* (dianjurkan sebanyak 70 kali).
-4. Klik tombol **Terapkan**
-   
-![Mengatur metode](/image/cara-paling-mudah-menghafal-alquran/3-setting.jpg)
+   1. Click the **+** button below.
+   2. Enter the chapter.
+   3. Enter the starting verse number.
+   4. Enter the ending verse number.
+   5. Click the **Add** button.
 
-Kurang lebih akan tampil seperti gambar berikut
-   
-![Tampilan memverses](/image/cara-paling-mudah-menghafal-alquran/4-view-memverses.jpeg)
+   ![Add verse](/memverses/2-add-chapter.jpg)
 
-Setelah itu kamu hanya perlu membaca ayat yang ditampilkan lalu klik tombol **Baca**, jika dilakukan dengan di siplin, kamu akan menghafal 1 ayat tersebut sebelum bacaan yang ke 70 kali.
+#### 4. Set Memorization Targets
+Before starting, configure your memorization targets:
 
-Jika kamu merasa telah menghafal dengan baik, tampilkan ayat sebanyak 2, dan lanjutkan menghafal ayat ke 2 sambil membaca ayat yang ke 1, lakukan seperti itu seterusnya.
+   1. Press the settings button at the top right.
+   2. Specify the number of verses to memorize under *Show as many verses* (1 verse is recommended).
+   3. Set the daily Quran reading target under *Target reading per day* (recommended: 70 times).
+   4. Click the **Apply** button.
 
-#### 5. Murojaah hafalan
-Kita perlu membuat folder baru dengan nama *Murojaah* agar terpisah dengan ayat yang kita hafalkan.
+   ![Setting method](/memverses/3-setting.jpg)
 
-1. Pergi ke halaman utama
-2. Klik tombol **+** dibawah, 
-3. Namakan folder *Hafalan* 
-4. klik tombol **Buat folder**
+The interface will resemble the image below:
 
-![Buat folder murojaah](/image/cara-paling-mudah-menghafal-alquran/5-buat-folder-murojaah.jpg)
+   ![View memverses](/memverses/4-view-memverses.jpg)
 
-kemudian kita masuk ke folder *Hafalan* sebelumnya, pada ayat yang sudah dihafal klik tombol Pindahkan ke lalu klik folder *Murojaah*.
+Now, simply read the displayed verse and click the **Read** button. Consistent practice will lead to memorizing one verse before reading it for the 70th time.
 
-![Pindah ke folder murojaah](/image/cara-paling-mudah-menghafal-alquran/6-pindah-ke-folder-murojaah.jpg)
+Once confident, proceed to the next verse while revising the previous one. Repeat this process sequentially.
 
-Cara paling mudah untuk murjoaah alquran adalah dengan cara membacanya setiap sholat, baik wajib ataupun sunnah, kamu tidak perlu mengingat ayat apa yang akan kamu baca ketika sholat, karena sudah di kondisikan oleh aplikasi ini, setiap selesai mengerjakan sholat, kamu hanya perlu menekan tombol **Baca** pada ayat ayat yang telah kamu baca.
+#### 5. Memorize with Revision (Murojaah)
+To incorporate revision, create a separate folder named *Murojaah*:
 
-Langkah langkah diatas adalah berdasarkan pengalaman pribadi, bisa jadi kamu memiliki cara yang lebih sesuai dengan kemampuan menghafal kamu dan lebih baik dari cara diatas.
+   1. Return to the main page.
+   2. Click the **+** button below.
+   3. Name the folder *Murojaah*.
+   4. Click the **Create folder** button.
 
-Kami juga ingin berbagi beberapa rekaman alquran yang cukup mudah untuk di ikuti dan dihafalkan, kami telah memeriksa beberapa ayat pada pada rekaman tersebut dan sudah sesuai dengan aturan-aturan nya, berikut daftar rekaman alquran beserta dengan tautan nya :
+   ![Create a murojaah folder](/memverses/5-create-murojaah-folder.png)
+
+Then, within the *Memorization* folder, move the memorized verses to the *Murojaah* folder using the "Move to" function.
+
+   ![Move to murojaah folder](/memverses/6-move-to-murojaah-folder.jpg)
+
+By integrating Quran recitation into daily prayers, this application eliminates the need to recall verses during prayer, as it automatically prompts the recited verses for each prayer.
+
+These steps are based on personal experience, and you may find a method better suited to your memorization capabilities. Additionally, we provide a list of Quranic recitations for further assistance.
 
 1. [Surah 12 - Yusuf - by Ismail Annuri](https://www.youtube.com/watch?v=ULmeWalLUy8)
 2. [Surah 14 - Ibrahim - by Ismail Annuri](https://www.youtube.com/watch?v=PQ32-2G70Q0)
@@ -158,7 +154,7 @@ Kami juga ingin berbagi beberapa rekaman alquran yang cukup mudah untuk di ikuti
 5. [Surah 19 - Maryam (ayat 41 - 98) - by Muayyid al Mazen](https://www.youtube.com/watch?v=DerApQ5Hrzg)
 6. [Surah 20 - Tha ha - by Ismail Annuri](https://www.youtube.com/watch?v=mlVgtBajMTE)
 7. [Surah 23 - Al Mu'minun - by Ismail Annuri](https://www.youtube.com/watch?v=sCjXyCE6WDA)
-8. [Surah 58 - Al Mujadilah - by Fahad Aziz Niazi](https://www.youtube.com/watch?v=nFETqyjy7hE) *Catatan pada ayat ke 9
+8. [Surah 58 - Al Mujadilah - by Fahad Aziz Niazi](https://www.youtube.com/watch?v=nFETqyjy7hE) *Note on verse 9
 
-Terimakasih telah membaca tulisan saya, semoga dapat menambah wawasan, sampai jumpa di tulisan saya selanjutnya.
 
+Thank you for considering our approach to Quran memorization. We hope it enriches your understanding. Looking forward to sharing more insights in our next article.
