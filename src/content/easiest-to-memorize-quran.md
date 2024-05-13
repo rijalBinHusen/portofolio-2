@@ -95,10 +95,10 @@ Begin by listening to Quranic recitations or videos regularly to familiarize you
 Visit our application at [memverses.ibinhusen.my.id](https://memverses.ibinhusen.my.id/) and create a new folder for Quranic readings:
 
    1. Click the **+** button below.
-   2. Name the folder *Memorization*.
+   2. Name the folder *Memorize*.
    3. Click the **Create folder** button.
 
-   ![Create a new folder](/memverses/1-create-folder.png)
+   ![Create a new folder](/memverses/1-create-folder.jpg)
 
 #### 3. Add Verses for Memorization
 Navigate to the created folder, click on it, and add the verses you intend to memorize:
@@ -123,7 +123,7 @@ Before starting, configure your memorization targets:
 
 The interface will resemble the image below:
 
-   ![View memverses](/memverses/4-view-memverses.jpg)
+   ![View memverses](/memverses/4-view-memverses.jpeg)
 
 Now, simply read the displayed verse and click the **Read** button. Consistent practice will lead to memorizing one verse before reading it for the 70th time.
 
@@ -137,7 +137,7 @@ To incorporate revision, create a separate folder named *Murojaah*:
    3. Name the folder *Murojaah*.
    4. Click the **Create folder** button.
 
-   ![Create a murojaah folder](/memverses/5-create-murojaah-folder.png)
+   ![Create a murojaah folder](/memverses/5-create-murojaah-folder.jpg)
 
 Then, within the *Memorization* folder, move the memorized verses to the *Murojaah* folder using the "Move to" function.
 
