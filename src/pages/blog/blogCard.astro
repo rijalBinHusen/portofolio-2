@@ -18,7 +18,10 @@ const { title, description, href, image } = Astro.props;
                 src={image}
                 alt="blog"
                 class="mx-auto rounded-lg border border-gray-300"
-                style="width: 23rem;"
+                style="width: 23rem; 
+                max-height: 200px;
+                object-fit: cover;
+                object-position: 25% 0 25% 0;"
             />
             <div class="px-6 py-2 w-full rounded-t-lg">
                 <p class="text-xl font-extrabold mb-2">
