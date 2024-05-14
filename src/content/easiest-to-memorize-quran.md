@@ -1,6 +1,6 @@
 ---
-title: Cara paling mudah menghafal alquran
-description: Memanfaatkan waktu sempit untuk menghafal alquran
+title: The easiest way to memorize Quran
+description: Make the most of your limited time to memorize the Quran.
 date: 2024-03-23
 img: /memverses/4-view-memverses.jpeg
 tags: [ tutorial, alquran, hafalan ]
